@@ -1,0 +1,195 @@
+.whisper-block {
+    width: 98%;
+    height: 150px;
+    min-height: 70px;
+    max-height: 300px;
+
+    padding: 15px 0 0 0;
+
+}
+
+.whisper-content {
+    position: relative;
+    float: left;
+    width: 95%;
+    margin: 10px 0;
+}
+
+.whisper-title {
+    text-align: center;
+    font-weight: bolder;
+    position: relative;
+    float: left;
+
+    width: 23%;
+}
+
+.whisper-text {
+    font-size: 0.95em;
+    position: relative;
+    float: left;
+    padding: 1em;
+    width: 75%;
+    height: 100%;
+    border-radius: 10px;
+    overflow-x: hidden;
+    background-color: rgba(0,0,0,1);
+}
+
+.whisper-text > pre {
+    font-size: 1em;
+    height: 100%;
+    overflow-wrap: break-word;
+}
+.whisper-record-button {
+    position: relative;
+    float: left;
+    width: 45px;
+    margin: 5px 3px;
+}
+.whisper-record-time {
+    text-align: center;
+    font-size: 0.8em;
+    color: orange;
+    line-height: 3em;
+    position: relative;
+    float: left;
+    width: 60px;
+}
+
+.whisper-visualise {
+    position: relative;
+    float: left;
+    left: 0px;
+    width: 100px;
+    height: 30px;
+    border: solid 1px rgba(100,100,100,1);
+
+    margin: 5px;
+}
+
+
+
+/**
+* Whisper record box
+*/
+.whisper-rec-box {
+    width: 100%;
+}
+
+.whisper-rec-list {
+    width: 100%;
+    height: 70px;
+    border-bottom: solid 1px white;
+}
+
+.whisper-rec-list-cell {
+    width: 100%;
+    height: 40px;
+}
+.whisper-rec-list-content {
+    text-align: center;
+    line-height: 1.8em;
+    position: relative;
+    float: left;
+    margin: 0 3px;
+}
+.whisper-rec-list-name {
+    font-weight: bolder;
+    font-size: 1.2em;
+    width: 30%;
+    cursor: pointer;
+}
+.whisper-rec-list-time {
+    color: orange;
+    width: 10%;
+    padding-top: 35px;
+}
+.whisper-rec-list-button {
+    width: 55%;
+}
+
+.whisper-rec-control > div {
+    margin: 2px;
+}
+
+.whisper-rec-result-box {
+    font-size: 0.7em;
+    line-height: 1.5em;
+    position: relative;
+    float: left;
+    width: 40px;
+    height: 25px;
+    border-radius: 3px;
+    margin: 0px 5px;
+}
+
+.whisper-rec-green-box {
+    background-color: rgba(0, 255, 0, 0.5);
+}
+
+.whisper-rec-gray-box {
+    background-color: rgba(100, 100, 100, 0.5);
+}
+
+
+/**
+* Whisper show text
+*/
+.whisper-show-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.whisper-show-text-content {
+    position: relative;
+    float: left;
+
+    width: 90%;
+    height: 300px;
+    margin: 10px 5%;
+    padding: 20px 0;
+    background-color: rgba(50,50,50,0.7);
+
+}
+.whisper-show-text-button {
+    position: absolute;
+    top: 2%;
+    right: 1%;
+}
+
+.whisper-option {
+
+}
+
+.whisper-option-cell {
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 30px;
+    margin: 5px 0;
+}
+
+.whisper-option-cell > div {
+    text-indent: 1em;
+    position: relative;
+    float: left;
+    height: 100%;
+}
+
+.whisper-option-title {
+    font-size: 0.8em;
+    text-align: left;
+    width: 39%;
+    font-weight: bolder;
+}
+
+.whisper-option-content {
+    text-align: left;
+    width: 60%;
+}
+
+

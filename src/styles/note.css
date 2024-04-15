@@ -1,0 +1,34 @@
+
+.note-tag-box {
+    width: 100%;
+    height: 50px;
+}
+
+.note-tag-list {
+    position: relative;
+    float: left;
+
+    text-align: center;
+    width: 80px;
+    height: 30px;
+
+    margin: 5px;
+
+    border-radius: 30px;
+    border: solid 1px white;
+    background-color: rgba(150,150,150,1);
+}
+
+.note-tag-title {
+    text-align: center;
+    font-size: 0.8em;
+    color: white;
+
+    width: 80%;
+}
+
+.note-tag-delete {
+    cursor: pointer;
+    float: right;
+    margin: 0 4px 0 0;
+}

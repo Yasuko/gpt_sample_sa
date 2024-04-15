@@ -1,0 +1,14 @@
+
+
+.large_link
+{
+    font-size: 3em;
+    color: gray;
+    position: relative;
+    float: left;
+    width: 200px;
+    height: 200px;
+    margin: 2%;
+    border-radius: 20px;
+    border: solid 1px gray;
+}

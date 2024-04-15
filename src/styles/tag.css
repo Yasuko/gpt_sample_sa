@@ -1,0 +1,56 @@
+
+.tag-box {
+    position: absolute;
+    top: 80%;
+    left: 10px;
+    width: 380px;
+    height: 80px;
+    margin: 20px 0;
+    box-shadow: 1px 1px 3px rgba(200,200,200,1);
+    border-radius: 5px;
+}
+
+.tag-box > div {
+    color: rgba(200,200,200,1);
+    position: relative;
+    float: left;
+}
+
+.tag-input-box {
+    width: 250px;
+    margin: 0 10px;
+}
+
+.tag-add-button-box {
+    width: 80px;
+    padding: 20px 0px 5px 5px;
+}
+
+
+.tag-list {
+    border-radius: 5px;
+    margin: 5px 0;
+    padding: 0;
+}
+
+.tag-list-title {
+    line-height: 2.5em;
+    text-indent: 1em;
+    position: relative;
+    float: left;
+    color: rgba(20,20,20,1);
+    width: 300px;
+    height: 45px;
+
+    cursor: pointer;
+}
+
+.tag-list-num {
+    line-height: 3em;
+    font-size: 0.85em;
+    font-weight: bolder;
+    text-align: center;
+    width: 50px;
+}
+
+

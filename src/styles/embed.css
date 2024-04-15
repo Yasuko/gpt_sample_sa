@@ -1,0 +1,76 @@
+.embed-screen {
+    min-width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 10%;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+.embed-screen-content {
+    position: relative;
+    width: 80vw;
+    height: 40vh;
+    margin: 0;
+    padding: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: rgba(0,0,0,1.0);
+    position: relative;
+}
+
+.embed-doc-list {
+    margin: 10px 0;
+    padding: 5px;
+
+    border: solid 1px rgba(100,100,100,1);
+    border-radius: 10px;
+}
+
+.embed-doc-list-doc {
+    width: 100%;
+    height: 150px;
+    margin: 5px 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    box-shadow: 2px 2px 3px rgba(100,100,100,1);
+}
+.embed-doc-list-embed {
+    width: 100%;
+    height: 80px;
+    margin: 5px 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    box-shadow: 2px 2px 3px rgba(100,100,100,1);
+}
+.embed2-doc-list-embed{
+    width: 100%;
+    margin: 5px 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    box-shadow: 2px 2px 3px rgba(100,100,100,1);
+}
+.embed-metadata-table {
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+.embed-metadata-table > tbody > tr {
+    height: 30px;
+    margin: 0;
+    padding: 0;
+}
+.embed-metadata-table > tbody > tr > td {
+    margin: 0;
+    padding: 0;
+}
+.embed-metadata-table > tbody > tr > td > input {
+    margin: 0;
+    padding: 0;
+}
