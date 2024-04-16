@@ -1,22 +1,21 @@
-import { Buffer } from 'buffer';
-import { AudioService } from '../../_lib/audio/audio.service';
-import { AudioBufferService } from '../../_lib/audio/audio.buffer.service';
+import { AudioService } from '../../_lib/audio/audio.service'
+import { AudioBufferService } from '../../_lib/audio/audio.buffer.service'
 import { MediaService } from '../../_lib/mediaDevice/media.service'
 
 
 export class AudioVisualHelper
 {
-    private static instance: AudioVisualHelper;
+    private static instance: AudioVisualHelper
 
-    private callBack1:  Function = () => {};
-    private callBack2:  Function = () => {};
+    private callBack1:  Function = () => {}
+    private callBack2:  Function = () => {}
 
     public static call(): AudioVisualHelper
     {
         if (!AudioVisualHelper.instance) {
-            AudioVisualHelper.instance = new AudioVisualHelper();
+            AudioVisualHelper.instance = new AudioVisualHelper()
         }
-        return AudioVisualHelper.instance;
+        return AudioVisualHelper.instance
     }
 
     /**
@@ -38,33 +37,33 @@ export class AudioVisualHelper
         // 使用可能なデバイスリスト作成
         await MediaService.call()
             .callDeviceListService()
-            .SearchDeviceList();
+            .SearchDeviceList()
     
         // オーディオデバイス一覧取得
         const devices = MediaService.call()
                             .callDeviceListService()
-                            .getAudioInputDevices();
+                            .getAudioInputDevices()
 
         // 生成するストリームの設定（ビデオ：無効、オーディオ：有効）
         MediaService.call()
             .callStreamModeService()
             .offVideo()
-            .onAudio();
+            .onAudio()
 
         // ストリーム設定を使用し、デバイスからストリームデータを取得
         await MediaService.call().getLocalStream(
             MediaService.call().callStreamModeService().getStreamMode()
-        );
+        )
 
         // オーディオサービスにローカルストリームを渡す
         AudioService.call().setup(
             MediaService.call().getStream(),    // ローカルストリーム
             'whisper'                         // ストリーム管理用の識別子
-        );
+        )
 
         // AudioタグとAudioContextを繋ぐ
         AudioService.call()
-                .audioConnect('whisper', true);
+                .audioConnect('whisper', true)
 
     }
 
@@ -76,20 +75,20 @@ export class AudioVisualHelper
     {
         AudioService.call().startRecorder(
                         'whisper', this.callBack2, 5000, 'single'
-                    );
-        AudioService.call().showAnalyser('sin', 'whisper');
+                    )
+        AudioService.call().showAnalyser('sin', 'whisper')
     }
 
     public async stop()
     {
-        AudioService.call().stopRecord();
-        AudioService.call().delStream('whisper');
-        MediaService.call().closeStream();
+        AudioService.call().stopRecord()
+        AudioService.call().delStream('whisper')
+        MediaService.call().closeStream()
     }
 
     public getWav()
     {
-        return AudioService.call().getRecord();
+        return AudioService.call().getRecord()
     }
 
     public async getPlayTime(file: any): Promise<number> {
@@ -100,7 +99,7 @@ export class AudioVisualHelper
     
             audio.addEventListener('loadedmetadata', (e) => {
                 resolve(audio.duration)
-            });
+            })
         })
     }
     /**
@@ -121,19 +120,19 @@ export class AudioVisualHelper
                         _tag,
                         (url === '') ? 'http://localhost:3000/enter.wav' : url
                     )
-        return;
+        return
     }
 
     public async convBase64ToBlob(base64: string): Promise<Blob>
     {
         const byteString = atob(base64.split(',')[1]);
-        const mimeString = base64.split(',')[0].split(':')[1].split(';')[0];
-        const arrayBuffer = new ArrayBuffer(byteString.length);
-        const uintArray = new Uint8Array(arrayBuffer);
+        const mimeString = base64.split(',')[0].split(':')[1].split(';')[0]
+        const arrayBuffer = new ArrayBuffer(byteString.length)
+        const uintArray = new Uint8Array(arrayBuffer)
         for (let i = 0; i < byteString.length; i++) {
-            uintArray[i] = byteString.charCodeAt(i);
+            uintArray[i] = byteString.charCodeAt(i)
         }
-        return new Blob([arrayBuffer], { type: mimeString });
+        return new Blob([arrayBuffer], { type: mimeString })
     }
 
     /**
