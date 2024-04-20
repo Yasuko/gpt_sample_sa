@@ -18,9 +18,19 @@ const slice = createSlice({
                 image: action.image
             })
         },
+        setImageBase64: (state: any, action: any) => {
+            return Object.assign({}, state, {
+                image_base64: action.image_base64
+            })
+        },
         setMask: (state: any, action: any) => {
             return Object.assign({}, state, {
                 mask: action.mask
+            })
+        },
+        setMaskBase64: (state: any, action: any) => {
+            return Object.assign({}, state, {
+                mask_base64: action.mask_base64
             })
         },
         setModel: (state: any, action: any) => {

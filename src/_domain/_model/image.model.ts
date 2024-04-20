@@ -35,9 +35,9 @@ export class ImageModel {
         job: 'generate' | 'edit' | 'change',
         options: any
     ): Promise<ImageReturn> {
-        ImageService.call()
-            .setJob(job)
-            .setOptions(options)
+        await ImageService.call()
+                .setJob(job)
+                .setOptions(options)
         
         ImageService.call().ini()
         await ImageService.call().do()

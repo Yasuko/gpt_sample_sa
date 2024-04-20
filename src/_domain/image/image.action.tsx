@@ -6,6 +6,9 @@ import { loadingShow, loadingHide } from '../animation/animation'
 // import model
 import { ImageModel } from '../_model/image.model'
 
+// import helper 
+import { setupPaint } from './helper/paint.helper'
+
 // reducer
 import {
     ImageOptionPropsInterface
@@ -33,6 +36,7 @@ export const RootImageAction = [
     takeEvery('ImageAction/sendPrompt', sendPrompt),
     takeEvery('ImageAction/deleteImage', deleteImage),
     takeEvery('ImageAction/DragEnd', dragEnd),
+    takeEvery('ImageAction/setupMaskPaint', setupMaskPaint),
 ]
 
 /**
@@ -48,12 +52,9 @@ function* sendPrompt(val: any): any {
     if (val.job === 'edit') options = yield select(imageEditOption)
     if (val.job === 'change') options = yield select(imageChangeOption)
 
-    console.log(options)
-
     const token = yield select(Token)
     const r = yield ImageModel.call(token.token).generate(val.job, options)
 
-    console.log(r)
     yield put({
         type    : 'ImageList/addImages',
         images  : {
@@ -81,22 +82,30 @@ function* deleteImage(val: any): any {
 }
 
 function* dragEnd(val: any): any {
-    console.log(val)
     yield FileHelper.call().dragEnd(val.event)
     const f = FileHelper.call().getDataFile()
     console.log(f)
 
     if (val.job === 'edit') {
-        if (val.target === 'base') 
+        if (val.target === 'base') {
             yield put({
                 type    : 'ImageEditOption/setImage',
                 image   : f.image
             })
-        else 
+            yield put({
+                type    : 'ImageEditOption/setImageBase64',
+                image_base64: f.image
+            })
+        } else { 
             yield put({
                 type    : 'ImageEditOption/setMask',
                 mask    : f.image
             })
+            yield put({
+                type    : 'ImageEditOption/setMaskBase64',
+                mask_base64: f.image
+            })
+        }
         return
     }
     if (val.job === 'change') {
@@ -106,4 +115,8 @@ function* dragEnd(val: any): any {
         })
         return
     }
+}
+
+function* setupMaskPaint() {
+    yield setupPaint('mask-paint-target')
 }
