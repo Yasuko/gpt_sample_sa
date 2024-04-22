@@ -11,7 +11,8 @@ import { toMatchImage } from './helper/paint.helper'
 
 // reducer
 import {
-    ImageEditOptionPropsInterface
+    ImageEditOptionPropsInterface,
+    ImageEditOptionInterface
 } from './reducers/ImageEditOption'
 import {
     TokenFormPropsInterface
@@ -90,7 +91,7 @@ function* dragEnd(val: any): any {
 }
 
 function* setupMaskPaint() {
-    const image = yield select(imageEditOption)
+    const image: ImageEditOptionInterface = yield select(imageEditOption)
     yield setupPaint('mask-paint-target', image.image_base64)
 }
 
