@@ -6,23 +6,26 @@ import { loadingShow, loadingHide } from '../animation/animation'
 // import model
 import { ImageModel } from '../_model/image.model'
 
+// import helper 
+
 // reducer
 import {
-    ImageOptionPropsInterface
-} from './reducers/ImageOption'
+    ImageChangeOptionPropsInterface
+} from './reducers/ImageChangeOption'
 import {
     TokenFormPropsInterface
 } from '../token/reducers/TokenForm'
 
 // import helper
+import { FileHelper } from './helper/file.helper'
 
 const Token = (state: TokenFormPropsInterface) => state.TokenForm
-const imageOption = (state: ImageOptionPropsInterface) => state.ImageOption
+const imageChangeOption = (state: ImageChangeOptionPropsInterface) => state.ImageChangeOption
 
 // Root Saga登録配列
-export const RootImageAction = [
-    takeEvery('ImageAction/sendPrompt', sendPrompt),
-    takeEvery('ImageAction/deleteImage', deleteImage),
+export const RootImageChangeAction = [
+    takeEvery('ImageChangeAction/sendPrompt', sendPrompt),
+    takeEvery('ImageChangeAction/DragEnd', dragEnd),
 ]
 
 /**
@@ -33,12 +36,11 @@ export const RootImageAction = [
 function* sendPrompt(val: any): any {
 
     yield loadingShow('Now 画像生成中や念。Now')
-    let options: any = {}
-    options = yield select(imageOption)
 
+    const options = yield select(imageChangeOption)
     const token = yield select(Token)
-    const r = yield ImageModel.call(token.token).generate('generate', options)
-console.log(r)
+    const r = yield ImageModel.call(token.token).generate('change', options)
+
     yield put({
         type    : 'ImageList/addImages',
         images  : {
@@ -53,14 +55,19 @@ console.log(r)
     yield loadingHide();
 }
 
-/**
- * Imageを削除
- * @param val
- * @returns any
- */
-function* deleteImage(val: any): any {
+function* dragEnd(val: any): any {
+    yield FileHelper.call().dragEnd(val.event)
+    const f = FileHelper.call().getDataFile()
+    console.log(f)
+
     yield put({
-        type    : 'ImageForm/deleteImages',
-        key     : val.key
-    });
+        type        : 'ImageChangeOption/setImage',
+        image   : f.image
+    })
+
+    yield put({
+        type        : 'ImageChangeOption/setImageBase64',
+        image_base64   : f.image
+    })
+    return
 }

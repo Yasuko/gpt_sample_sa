@@ -35,7 +35,6 @@ export const Option = (): JSX.Element => {
                 onClick={() => {
                     dispatch({
                         type: 'ImageAction/sendPrompt',
-                        job : 'generate'
                     })
                 }}>
                 Send

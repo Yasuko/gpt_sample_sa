@@ -176,7 +176,7 @@ const onDragEnd = (e: any, dispatch: any, target: 'base' | 'mask'): void => {
     _e.preventDefault()
     
     dispatch({
-        type    : 'ImageAction/DragEnd',
+        type    : 'ImageEditAction/DragEnd',
         event   : _e,
         job     : 'edit',
         target  : target

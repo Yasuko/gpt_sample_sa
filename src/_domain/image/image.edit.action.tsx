@@ -19,6 +19,8 @@ import {
 
 // import helper
 import { FileHelper } from './helper/file.helper'
+import { setupPaint } from './helper/paint.helper'
+
 
 const Token = (state: TokenFormPropsInterface) => state.TokenForm
 const imageEditOption = (state: ImageEditOptionPropsInterface) => state.ImageEditOption
@@ -27,6 +29,7 @@ const imageEditOption = (state: ImageEditOptionPropsInterface) => state.ImageEdi
 export const RootImageEditAction = [
     takeEvery('ImageEditAction/sendPrompt', sendPrompt),
     takeEvery('ImageEditAction/DragEnd', dragEnd),
+    takeEvery('ImageEditAction/setupMaskPaint', setupMaskPaint),
     takeEvery('ImageEditAction/saveMakeMask', saveMakeMask),
 ]
 
@@ -59,20 +62,7 @@ function* sendPrompt(val: any): any {
     yield loadingHide();
 }
 
-/**
- * Imageを削除
- * @param val
- * @returns any
- */
-function* deleteImage(val: any): any {
-    yield put({
-        type    : 'ImageForm/deleteImages',
-        key     : val.key
-    });
-}
-
 function* dragEnd(val: any): any {
-    console.log(val)
     yield FileHelper.call().dragEnd(val.event)
     const f = FileHelper.call().getDataFile()
     console.log(f)
@@ -97,6 +87,11 @@ function* dragEnd(val: any): any {
         })
     }
     return
+}
+
+function* setupMaskPaint() {
+    const image = yield select(imageEditOption)
+    yield setupPaint('mask-paint-target', image.image_base64)
 }
 
 function* saveMakeMask(val: any): any {

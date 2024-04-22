@@ -17,11 +17,11 @@ export const MaskEditor = (): JSX.Element => {
 
     useEffect(() => {
         dispatch({
-            type: 'ImageAction/setupMaskPaint',
+            type: 'ImageEditAction/setupMaskPaint',
         })
-        const c = document.getElementById('mask-paint-target') as HTMLCanvasElement
-        c.width = 500
-        c.height = 500
+        //const c = document.getElementById('mask-paint-target') as HTMLCanvasElement
+        //c.width = 1024
+        //c.height = 1024
     },[])
 
     return (

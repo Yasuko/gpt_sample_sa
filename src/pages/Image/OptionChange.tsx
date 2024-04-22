@@ -27,14 +27,17 @@ export const OptionChange = (): JSX.Element => {
                             onDragOver={(e) => onDragStart(e)}
                             onDrop={(e) => onDragEnd(e, dispatch)}
                         >
-                            BaseImage
+                            ChangeImage
                         </div>
                     </div>
                     <div className="col my-box">
-                        <img
-                            // src={io.image}
-                            alt='MaskImage'
-                            className='img-fluid'/>
+                        {(io.image_base64 === '')
+                            ? ''
+                            : <img
+                                src={io.image_base64}
+                                alt='MaskImage'
+                                className='img-fluid'/>
+                        }
                     </div>
                 </div>
             </div>
@@ -42,8 +45,7 @@ export const OptionChange = (): JSX.Element => {
                 className='btn btn-info'
                 onClick={() => {
                     dispatch({
-                        type: 'ImageAction/sendPrompt',
-                        job : 'change'
+                        type: 'ImageChangeAction/sendPrompt',
                     })
                 }}>
                 Send
@@ -134,7 +136,7 @@ const onDragEnd = (e: any, dispatch: any): void => {
     _e.preventDefault()
     
     dispatch({
-        type    : 'ImageAction/DragEnd',
+        type    : 'ImageChangeAction/DragEnd',
         event   : _e,
         job     : 'change'
     })

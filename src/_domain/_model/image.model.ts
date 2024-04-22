@@ -38,7 +38,7 @@ export class ImageModel {
         await ImageService.call()
                 .setJob(job)
                 .setOptions(options)
-        
+        console.log('ImageModel.generate', job, options)
         ImageService.call().ini()
         await ImageService.call().do()
         return ImageService.call().getResult()
