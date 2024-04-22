@@ -18,6 +18,16 @@ const slice = createSlice({
                 image: action.image
             })
         },
+        setImageBase64: (state: any, action: any) => {
+            return Object.assign({}, state, {
+                image_base64: action.image_base64
+            })
+        },
+        setPrompt: (state: any, action: any) => {
+            return Object.assign({}, state, {
+                prompt: action.prompt
+            })
+        },
         setModel: (state: any, action: any) => {
             return Object.assign({}, state, {
                 prompt: action.prompt

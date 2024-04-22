@@ -9,6 +9,7 @@ import './styles/tag.css'
 import './styles/search.css'
 import './styles/whisper.css'
 import './styles/embed.css'
+import './styles/image.css'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>

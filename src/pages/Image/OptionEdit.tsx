@@ -1,12 +1,15 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 // import reducer
 import {
     ImageEditOptionPropsInterface,
     ImageEditOptionInterface,
     initialState
-} from '../../_domain/image/reducers/ImageEditOption';
+} from '../../_domain/image/reducers/ImageEditOption'
+
+// import Component
+import Screen from './Screen'
 
 export const Option = (): JSX.Element => {
     const dispatch = useDispatch();    
@@ -31,10 +34,11 @@ export const Option = (): JSX.Element => {
                         </div>
                     </div>
                     <div className="col my-box">
-                        <img
-                            // src={io.image}
-                            alt='BaseImage'
-                            className='img-fluid'/>
+                        {(io.image_base64 === '')
+                            ? ''
+                            : showImage(io.image_base64, dispatch)
+                        }
+
                     </div>
                 </div>
             </div>
@@ -51,10 +55,14 @@ export const Option = (): JSX.Element => {
                         </div>
                     </div>
                     <div className="col my-box">
-                        <img
-                            // src={io.mask}
-                            alt='MaskImage'
-                            className='img-fluid'/>
+                        {(io.mask_base64 === '')
+                            ? ''
+                            : <img
+                                src={io.mask_base64}
+                                alt='MaskImage'
+                                className='img-fluid'/>
+                        }
+                        
                     </div>
                 </div>
             </div>
@@ -74,8 +82,7 @@ export const Option = (): JSX.Element => {
                 className='btn btn-info'
                 onClick={() => {
                     dispatch({
-                        type: 'ImageAction/sendPrompt',
-                        job : 'edit'
+                        type: 'ImageEditAction/sendPrompt',
                     })
                 }}>
                 Send
@@ -89,7 +96,7 @@ export const Option = (): JSX.Element => {
                     value={io.model}
                     onChange={(e) => {
                         dispatch({
-                            type    : 'ImageOption/setModel',
+                            type    : 'ImageEditOption/setModel',
                             model   : e.target.value
                         })
                     }}>
@@ -106,7 +113,7 @@ export const Option = (): JSX.Element => {
                     value={io.size}
                     onChange={(e) => {
                         dispatch({
-                            type    : 'ImageOption/setSize',
+                            type    : 'ImageEditOption/setSize',
                             size    : e.target.value
                         })
                     }}>
@@ -127,7 +134,7 @@ export const Option = (): JSX.Element => {
                     value={io.response_format}
                     onChange={(e) => {
                         dispatch({
-                            type    : 'ImageOption/setResponseFormat',
+                            type    : 'ImageEditOption/setResponseFormat',
                             responseFormat    : e.target.value
                         })
                     }}>
@@ -148,12 +155,13 @@ export const Option = (): JSX.Element => {
                         value={io.n}
                         onChange={(e) => {
                             dispatch({
-                                type    : 'ImageOption/setN',
+                                type    : 'ImageEditOption/setN',
                                 n       : e.target.value
                             })
                         }} />
                 </div>
             </div>
+            <Screen />
         </div>
     )
 }
@@ -168,7 +176,7 @@ const onDragEnd = (e: any, dispatch: any, target: 'base' | 'mask'): void => {
     _e.preventDefault()
     
     dispatch({
-        type    : 'ImageAction/DragEnd',
+        type    : 'ImageEditAction/DragEnd',
         event   : _e,
         job     : 'edit',
         target  : target
@@ -176,5 +184,28 @@ const onDragEnd = (e: any, dispatch: any, target: 'base' | 'mask'): void => {
     _e.stopPropagation()
 }
 
+const showImage = (
+    image: string,
+    dispatch: any
+): JSX.Element[] => {
+    return [
+        (<img
+            key={0}
+            src={image}
+            alt='MaskImage'
+            className='img-fluid'/>) ,
+        (<button
+            key={1}
+            className='btn btn-secondary btn-sm'
+            onClick={() => {
+                dispatch({
+                    type: 'ImageScreen/setSubScreen',
+                    subscreen : 'mask'
+                })
+            }}>
+            make mask
+        </button>)
+    ]
+}
 
 export default Option;
