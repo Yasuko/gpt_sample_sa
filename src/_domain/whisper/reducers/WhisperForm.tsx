@@ -84,7 +84,7 @@ const slice = createSlice({
 
             return Object.assign({}, state, {
                 recorder: re
-            });
+            })
         },
         setFormation: (state: any, action: any) => {
             const re = duplicator(state.recorder)
@@ -92,7 +92,7 @@ const slice = createSlice({
 
             return Object.assign({}, state, {
                 recorder: re
-            });
+            })
         },
         setSummary: (state: any, action: any) => {
             const re = duplicator(state.recorder)
@@ -100,41 +100,41 @@ const slice = createSlice({
 
             return Object.assign({}, state, {
                 recorder: re
-            });
+            })
         },
         setRecorder: (state: any, action: any) => {
             return Object.assign({}, state, {
                 recorder: action.recorder
-            });
+            })
         },
         addRecorder: (state: any, action: any) => {
             console.log(action)
             const re = duplicator(state.recorder)
             return Object.assign({}, state, {
                 recorder: addArray(re, action.recorder, initialState.recorder)
-            });
+            })
         },
         updateOption: (state: any, action: any) => {
             const re = duplicator(state.options)
             re[action.key] = action.option
             return Object.assign({}, state.options, {
                 options: re
-            });
+            })
         },
-        setRecAudio: (state: any, action: any) => {
+        setAudioFlag: (state: any, action: any) => {
             return Object.assign({}, state, {
                 recAudio: action.recAudio
-            });
+            })
         },
-        setRecVideo: (state: any, action: any) => {
+        setVideoFlag: (state: any, action: any) => {
             return Object.assign({}, state, {
                 recVideo: action.recVideo
-            });
+            })
         },
         reset: (state: any, action: any) => {
             return initialState;
         }
     }
-});
+})
 
-export default slice.reducer;
+export default slice.reducer

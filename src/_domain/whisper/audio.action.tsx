@@ -1,19 +1,19 @@
-import { put, select, takeEvery } from 'redux-saga/effects';
+import { put, select, takeEvery } from 'redux-saga/effects'
 
 // import helper
-import { AudioVisualHelper } from './helper/AudioVisual.helper';
+import { AudioVisualHelper } from './helper/AudioVisual.helper'
 
 import { loadingShow, loadingHide } from '../animation/animation'
 
 // import reducer
 import {
     WhisperFormPropsInterface,
-} from './reducers/WhisperForm';
+} from './reducers/WhisperForm'
 
-import { duplicator, updateArray } from '../_helper/object.helper';
-import { EncodeHelper } from './helper/encode.helper';
+import { duplicator, updateArray } from '../_helper/object.helper'
+import { EncodeHelper } from './helper/encode.helper'
 
-const WhisperForm = (state: WhisperFormPropsInterface) => state.WhisperForm;
+const WhisperForm = (state: WhisperFormPropsInterface) => state.WhisperForm
 
 // Root Saga登録配列
 export const RootAudioAction = [
@@ -36,9 +36,12 @@ export const RootAudioAction = [
  */
 export function* recorder(): any
 {
-    console.log('Get`s');
-    yield AudioVisualHelper.call().setup();
-    yield AudioVisualHelper.call().start();
+    yield AudioVisualHelper.call().setup()
+    yield AudioVisualHelper.call().start()
+    yield put({
+        type: 'WhisperForm/setAudioFlag',
+        recAudio: true
+    })
 }
 
 /**
@@ -47,6 +50,7 @@ export function* recorder(): any
 export function* doneRecorder(): any {
     yield AudioVisualHelper.call().stop()
     const wav = AudioVisualHelper.call().getWav()
+    console.log(wav)
     yield put({
         type        : 'WhisperForm/addRecorder',
         recorder    : {
@@ -58,8 +62,12 @@ export function* doneRecorder(): any {
             summary     : '',
             extension   : 'wav'
         }
-    });
+    })
 
+    yield put({
+        type: 'WhisperForm/setAudioFlag',
+        recAudio: false
+    })
 }
 
 /**
@@ -68,8 +76,8 @@ export function* doneRecorder(): any {
  */
 export function* delRecorder(val: any): any
 {
-    const recs = yield select(WhisperForm);
-    const _rec = duplicator(recs.recorder);
+    const recs = yield select(WhisperForm)
+    const _rec = duplicator(recs.recorder)
     delete _rec[val.key];
     yield put({
         type        : 'WhisperForm/setRecorder',
@@ -84,7 +92,7 @@ export function* delRecorder(val: any): any
  */
 export function* download(val: any): any
 {
-    EncodeHelper.call().download(val.file.rec, val.file.extension, val.file.name);
+    EncodeHelper.call().download(val.file.rec, val.file.extension, val.file.name)
 }
 
 /**
@@ -97,11 +105,11 @@ export function* encode(val: any): any
     // ローディング表示
     yield loadingShow('Now 変換してるねん Now')
     // 録音ファイル取得
-    const recorders = yield select(WhisperForm);
+    const recorders = yield select(WhisperForm)
     // エンコード
     yield EncodeHelper.call().setup(val.file.rec, val.file.name)
-    yield EncodeHelper.call().toMp3()
-    const result = yield EncodeHelper.call().getResult();
+    yield EncodeHelper.call().toMp3(val.extension)
+    const result = yield EncodeHelper.call().getResult()
     // 録音ファイル一覧の内容を更新
     const _reducers =
         updateArray(
@@ -152,7 +160,7 @@ export function* split(val: any): any
  */
 export function* Sound(): any
 {
-    yield AudioVisualHelper.call().setupSound();
-    yield AudioVisualHelper.call().playSound();
+    yield AudioVisualHelper.call().setupSound()
+    yield AudioVisualHelper.call().playSound()
 }
 

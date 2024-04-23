@@ -1,8 +1,8 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react'
+import { useDispatch } from 'react-redux'
 
 // import reducer
-import { RecordType } from '../../_domain/whisper/reducers/WhisperForm';
+import { RecordType } from '../../_domain/whisper/reducers/WhisperForm'
 
 export type ShowTextProps = {
     state?      : any,
@@ -10,7 +10,7 @@ export type ShowTextProps = {
 }
 
 export const ShowRecorder = (state: ShowTextProps): JSX.Element => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     if (state.recorder === undefined) {
         return <div></div>
     }
@@ -81,7 +81,8 @@ export const ShowRecorder = (state: ShowTextProps): JSX.Element => {
                             dispatch({
                                 type    : 'AudioAction/encode',
                                 file    : val,
-                                key     : key
+                                key     : key,
+                                extension: val.extension
                             })
                         }}
                         >MP3</div>
@@ -107,27 +108,28 @@ export const ShowRecorder = (state: ShowTextProps): JSX.Element => {
                 </div>
             </div>
         </div>
-        );
+        )
     })
     return (
         <div className='whisper-rec-box'>
             { list }
             <video id='player'></video>
+            <div id="ffmpeg-log"></div>
         </div>
-    );
+    )
 
-};
+}
 
 const grayBox = (text: string, toggle: boolean = false) => {
-    const color = toggle ? 'green' : 'gray';
+    const color = toggle ? 'green' : 'gray'
 
     return (
         <div className={'whisper-rec-' + color +'-box whisper-rec-result-box'}>{text}</div>
-    );
+    )
 }
 
 const txtCheck = ( text: string | undefined ): boolean => {
-    return (text === undefined || text === '') ? true : false;
+    return (text === undefined || text === '') ? true : false
 }
 
-export default ShowRecorder;
+export default ShowRecorder
