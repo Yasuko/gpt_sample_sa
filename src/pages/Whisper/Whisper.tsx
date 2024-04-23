@@ -50,7 +50,7 @@ export const Whisper = (): JSX.Element => {
                         <button
                             id="File1b"
                             className='btn btn-sm btn-primary whisper-record-button'
-                            disabled={wf.recVideo ? true : false}
+                            disabled={flagCheck(wf.recAudio, wf.recVideo, 'audio', 'play')}
                             onClick={() => {
                                 dispatch({
                                     type    : 'AudioAction/recorder'
@@ -62,7 +62,7 @@ export const Whisper = (): JSX.Element => {
                         <button
                             id="File1b"
                             className='btn btn-sm btn-secondary whisper-record-button'
-                            disabled={wf.recVideo ? true : false}
+                            disabled={flagCheck(wf.recAudio, wf.recVideo, 'audio', 'stop')}
                             onClick={() => {
                                 dispatch({
                                     type    : 'AudioAction/doneRecorder'
@@ -87,7 +87,7 @@ export const Whisper = (): JSX.Element => {
                             <button
                                 id="File1b"
                                 className='btn btn-sm btn-primary whisper-record-button'
-                                disabled={wf.recAudio ? true : false}
+                                disabled={flagCheck(wf.recAudio, wf.recVideo, 'video', 'play')}
                                 onClick={() => {
                                     dispatch({
                                         type    : 'VideoAction/camera'
@@ -99,7 +99,7 @@ export const Whisper = (): JSX.Element => {
                             <button
                                 id="File1b"
                                 className='btn btn-sm btn-secondary whisper-record-button'
-                                disabled={wf.recAudio ? true : false}
+                                disabled={flagCheck(wf.recAudio, wf.recVideo, 'video', 'stop')}
                                 onClick={() => {
                                     dispatch({
                                         type    : 'VideoAction/doneCamera'
@@ -146,6 +146,24 @@ const onDragEnd = (e: any, dispatch: any): void => {
         event   : _e,
     });
     _e.stopPropagation()
+}
+
+const flagCheck = (
+    audio: boolean,
+    video: boolean,
+    target: 'audio' | 'video',
+    button: 'play' | 'stop'
+): boolean => {
+    if (target === 'audio') {
+        if (!audio && !video) return button === 'play' ? false : true
+        if (audio && !video) return button === 'play' ? true : false
+        if (!audio && video) return button === 'play' ? true : true
+    } else {
+        if (!audio && !video) return button === 'play' ? false : true
+        if (audio && !video) return button === 'play' ? true : true
+        if (!audio && video) return button === 'play' ? true : false
+    }
+    return false
 }
 
 export default Whisper

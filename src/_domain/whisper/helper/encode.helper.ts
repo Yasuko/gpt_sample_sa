@@ -10,9 +10,10 @@ export class EncodeHelper {
         return EncodeHelper.instance
     }
 
-    public async setup(file: File, name: string): Promise<EncodeHelper> {
+    public async setup(file: string, name: string): Promise<EncodeHelper> {
         EncoderService.call().setup(
-                await this.fileToBase64(file),
+                //await this.toBase64(file),
+                file,
                 name
             )
         return this
@@ -36,10 +37,13 @@ export class EncodeHelper {
 
     /**
      * mp3に変換する
-     * @returns {Promise<EncodeHelper>} - returns the result of the encoder
+     * @param extension string
+     * @returns Promise<EncodeHelper>
+     * returns the result of the encoder
      */
-    public async toMp3(): Promise<EncodeHelper> {
-        await EncoderService.call().wavToMp3()
+    public async toMp3(extension: string = 'wav'): Promise<EncodeHelper> {
+        // await EncoderService.call().wavToMp3()
+        await EncoderService.call().toMp3(extension)
         return this
     }
 
@@ -50,9 +54,9 @@ export class EncodeHelper {
     }
 
     /**
-     * wavに変換する
-     * @param {string} file - base64 string
-     * @returns {Promise<EncodeHelper>} - returns the result of the encoder
+     * FileをBase64に変換する
+     * @param file file
+     * @returns Promise<EncodeHelper>
      */
     public async toBase64(file: File): Promise<string> {
         const str = await EncoderService.call().fileToBase64(file)
