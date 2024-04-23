@@ -83,21 +83,21 @@ export class AudioVisualHelper
         // AudioService.call().startMeydaAnalyse('test_audio',callback2);
         AudioService.call().startRecorder(
                         'whisper', this.callBack2, 5000, 'single'
-                    );
-        AudioService.call().showAnalyser('sin', 'whisper');
+                    )
+        AudioService.call().showAnalyser('sin', 'whisper')
         // AudioService.call().startDecibelChecker('whisper2', this.callBack1);
     }
 
     public async stop()
     {
-        AudioService.call().stopRecord();
-        AudioService.call().delStream('whisper');
-        MediaService.call().closeStream();
+        AudioService.call().stopRecord()
+        AudioService.call().delStream('whisper')
+        MediaService.call().closeStream()
     }
 
     public getWav()
     {
-        return AudioService.call().getRecord();
+        return AudioService.call().getRecord('File')
     }
 
     public async getPlayTime(file: string | File): Promise<number> {

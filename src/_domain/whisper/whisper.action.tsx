@@ -8,7 +8,6 @@ import { WhisperModel } from '../_model/whisper.model'
 
 // import helper
 import { FileHelper } from './helper/file.helper'
-import { AudioVisualHelper } from './helper/AudioVisual.helper'
 import { duplicator } from '../_helper/object.helper'
 
 // import reducer

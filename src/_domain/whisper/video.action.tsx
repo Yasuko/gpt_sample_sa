@@ -46,7 +46,7 @@ export function* hook(val: any): any {
  */
 export function* camera(val: any): any {
     yield put({
-        type        : 'WhisperForm/setRecVideo',
+        type        : 'WhisperForm/setVideoFlag',
         recVideo    : true,
     })
 
@@ -54,6 +54,7 @@ export function* camera(val: any): any {
                 .setTask('VideoAction/setMove')
                 .setup()
     yield VideoHelper.call().start()
+
 }
 
 /**
@@ -63,11 +64,9 @@ export function* camera(val: any): any {
 export function* doneCamera(val: any): any {
     yield VideoHelper.call().stop()
     const cams = yield VideoHelper.call().getMoves()
-    console.log(cams)
-
 
     yield put({
-        type        : 'WhisperForm/setRecVideo',
+        type        : 'WhisperForm/setVideoFlag',
         recVideo    : false,
     })
 }
