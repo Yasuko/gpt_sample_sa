@@ -1,3 +1,4 @@
+import { ChatContent } from '../../../_lib/gpt/_helper/chat.helper'
 import {
     ChatOptions
 } from '../../../_lib/gpt/type.service'
@@ -10,7 +11,7 @@ import {
  */
 export type Chat = {
     role    : 'user' | 'system' | 'assistant',
-    content : string,
+    content : ChatContent,
 }
 
 /**
@@ -24,8 +25,9 @@ export type Chat = {
  */
 export type ChatFormType = {
     options     : ChatOptions
-    newChat     : string
-    chatBlock   : [Chat]
+    newChat     : string        // 新規チャットメッセージ
+    images      : string[]      // 画像のURL
+    chatBlock   : [Chat]        // Chat全体を保持する
     saveBlock   : {
         [key: string]: [Chat]
     }
@@ -42,7 +44,7 @@ export type ChatFormType = {
  */
 export const initialChatForm: ChatFormType = {
     options     : {
-        model       : 'gpt-3.5-turbo',
+        model       : 'gpt-4o',
         messages    : [{
             role    : 'user',
             content : 'これから質問をするので、5才児にも伝わる内容で回答を考えて'
@@ -56,14 +58,21 @@ export const initialChatForm: ChatFormType = {
         frequency_penalty: 0,
     },
     newChat     : '',
+    images      : [],
     chatBlock   : [{
         role    : 'user',
-        content : ''
+        content : {
+            type: 'text',
+            text: ''
+        }
     }],
     saveBlock   : {
         '': [{
             role    : 'user',
-            content : ''
+            content : {
+                type: 'text',
+                text: ''
+            }
         }]
     },
     chatStack   : ''

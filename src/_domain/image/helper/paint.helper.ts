@@ -17,7 +17,7 @@ export const setupPaint = async (
         .setFillColor('rgba(0,0,0,1.0)')
         .setEraseMode(true)
         .setScale(scale)
-        .setBaseImage(image, {x:0, y:0}, {width:size.width, height:size.height})
+        .setBaseImage(image)
 
     PaintService.call().setMouseEvent()
 /*
