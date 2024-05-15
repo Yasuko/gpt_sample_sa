@@ -13,6 +13,7 @@ import {
 
 // import component
 import Option from './Option'
+import { ChatContent } from '../../_lib/gpt/_helper/chat.helper'
 
 export const Chat = (): JSX.Element => {
     const dispatch = useDispatch();
@@ -46,7 +47,10 @@ export const Chat = (): JSX.Element => {
                                 type     : 'ChatForm/setNewChat',
                                 newChat  : e.target.value
                             });
-                        }} />
+                        }}
+                        onDragOver={(e) => onDragStart(e, dispatch)}
+                        onDrop={(e) => onDragEnd(e, dispatch)}
+                        />
                     <div
                         className='btn btn-info margin'
                         onClick={() => {
@@ -91,9 +95,7 @@ const ChatList = (cf: ChatFormInterface) => {
                     <div className='chat-user'>
                         { val.role === 'user' ? 'User' : 'System' }
                     </div>
-                    <div className='chat-text'>
-                        <pre>{val.content}</pre>
-                    </div>
+                    { ContentList(val.content) }
                 </div>
             </div>
         )
@@ -105,6 +107,35 @@ const ChatList = (cf: ChatFormInterface) => {
     )
 }
 
+const ContentList = (ct: ChatContent): JSX.Element => {
+    const c = (ct.type === 'text') 
+                ? <pre>{ct.text}</pre>
+                : <img src={ct.image_url?.url} width={200} />
+    return (
+        <div className='chat-text'>
+            {c}
+        </div>
+    )
+}
+const onDragStart = (e: any, dispatch: any): void => {
+    const _e = e as Event;
+    _e.preventDefault();
+    dispatch({
+        type    : 'ChatAction/dragStart',
+        event   : _e,
+    })
+}
+
+const onDragEnd = (e: any, dispatch: any): void => {
+    const _e = e as Event;
+    _e.preventDefault();
+    
+    dispatch({
+        type    : 'ChatAction/dragEnd',
+        event   : _e,
+    });
+    _e.stopPropagation();
+}
+
+
 export default Chat
-
-
