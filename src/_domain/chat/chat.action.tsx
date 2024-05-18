@@ -100,7 +100,7 @@ function* exportChat(val: any): any {
 }
 
 
-function* dragStart(val: any): any {}
+function* dragStart(): any {}
 
 function* dragEnd(val: any): any {
     yield FileHelper.call().dragEnd(val.event)

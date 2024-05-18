@@ -58,9 +58,9 @@ function* sendPrompt(val: any): any {
             mask    : (options.mask) ? 'data:image/png;base64,' + options.mask : '',
             job     : val.key,
         }
-    });
+    })
 
-    yield loadingHide();
+    yield loadingHide()
 }
 
 function* dragEnd(val: any): any {

@@ -21,7 +21,7 @@ export const ImageIndex = () => {
             <LoadingAnimation />
             <ToasterAnimation />
         </Provider>
-    );
-};
+    )
+}
 
-export default ImageIndex;
+export default ImageIndex

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Dispatch } from '@reduxjs/toolkit'
 
 // import reducer
 import {
@@ -39,7 +40,7 @@ export const Speech = (): JSX.Element => {
                         id="text1"
                         placeholder="Input Sample"
                         defaultValue={cf.message}
-                        onChange={(e) => {
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                             dispatch({
                                 type     : 'SpeechForm/setMessage',
                                 message  : e.target.value
@@ -82,7 +83,8 @@ const clear = () => {
 }
 
 const Result = (
-    cf: SpeechFormInterface, dispatch: any
+    cf: SpeechFormInterface,
+    dispatch: Dispatch
 ): JSX.Element => {
     if (cf.results === '') return (<div className='chat-list'>none</div>)
 
@@ -115,5 +117,3 @@ const Result = (
 }
 
 export default Speech
-
-

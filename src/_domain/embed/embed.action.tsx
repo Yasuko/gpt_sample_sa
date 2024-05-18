@@ -58,7 +58,7 @@ export function* send(val: any): any {
     yield loadingHide()
 }
 
-function* textChange(val: any): any {
+function* textChange() {
     const ef: EmbedFormInterface = yield select(embedForm)
 /*
     const re = yield convertToText(ef.file, ef.type)
@@ -74,7 +74,7 @@ function* textChange(val: any): any {
     */
 }
 
-function* dragStart(val: any): any {}
+function* dragStart(): any {}
 
 function* dragEnd(val: any): any {
     yield FileHelper.call().dragEnd(val.event)

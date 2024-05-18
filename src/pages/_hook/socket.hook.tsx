@@ -22,10 +22,10 @@ export const SocketHook = (state: WebSocket) => {
                     data    : data.data,
                 });
             }
-        });
-    }, []);
+        })
+    }, [])
 
-    return {message: ''};
-};
+    return {message: ''}
+}
 
 export default SocketHook

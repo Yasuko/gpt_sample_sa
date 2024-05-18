@@ -10,6 +10,7 @@ import {
 
 // import component
 import Option from './Option'
+import { Dispatch } from '@reduxjs/toolkit'
 
 export const Vision = (): JSX.Element => {
     const dispatch = useDispatch()
@@ -23,7 +24,7 @@ export const Vision = (): JSX.Element => {
 
     const cf = useSelector((state: VisionFormPropsInterface): VisionFormInterface => {
         return state.VisionForm === undefined ? initialState : state.VisionForm
-    });
+    })
     return (
         <div className='container row'>
             <h4>Vision</h4>
@@ -39,7 +40,7 @@ export const Vision = (): JSX.Element => {
                         id="text1"
                         placeholder="Input Sample"
                         defaultValue={cf.message}
-                        onChange={(e) => {
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                             dispatch({
                                 type     : 'VisionForm/setMessage',
                                 message  : e.target.value
@@ -49,8 +50,8 @@ export const Vision = (): JSX.Element => {
                         <div
                             id="File1b"
                             className="drag-area center"
-                            onDragOver={(e) => onDragStart(e, dispatch)}
-                            onDrop={(e) => onDragEnd(e, dispatch)}
+                            onDragOver={(e: React.DragEvent) => onDragStart(e, dispatch)}
+                            onDrop={(e: React.DragEvent) => onDragEnd(e, dispatch)}
                         >
                             Drag Area
                         </div>
@@ -122,24 +123,28 @@ const Result = (cf: VisionFormInterface) => {
     )
 }
 
-const onDragStart = (e: any, dispatch: any): void => {
-    const _e = e as Event;
-    _e.preventDefault();
+const onDragStart = (
+    e: React.DragEvent,
+    dispatch: Dispatch
+): void => {
+    e.preventDefault()
     dispatch({
         type    : 'VisionAction/dragStart',
-        event   : _e,
+        event   : e,
     })
 }
 
-const onDragEnd = (e: any, dispatch: any): void => {
-    const _e = e as Event;
-    _e.preventDefault();
+const onDragEnd = (
+    e: React.DragEvent,
+    dispatch: Dispatch
+): void => {
+    e.preventDefault()
     
     dispatch({
         type    : 'VisionAction/dragEnd',
-        event   : _e,
-    });
-    _e.stopPropagation();
+        event   : e,
+    })
+    e.stopPropagation()
 }
 
 export default Vision

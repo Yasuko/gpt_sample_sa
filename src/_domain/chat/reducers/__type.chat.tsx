@@ -76,4 +76,4 @@ export const initialChatForm: ChatFormType = {
         }]
     },
     chatStack   : ''
-};
+}

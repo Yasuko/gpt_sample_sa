@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
 // import helper
 import {
     VideoHelper
-} from '../../_domain/whisper/helper/video.helper';
+} from '../../_domain/whisper/helper/video.helper'
 
 interface VideoInterface
 {
@@ -12,7 +12,7 @@ interface VideoInterface
 }
 
 const VideoHook = ((s: VideoInterface): any => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     useEffect(() => {
         VideoHelper.call()
             .setCallback(
@@ -29,12 +29,12 @@ const VideoHook = ((s: VideoInterface): any => {
                             move        : await VideoHelper.call()
                                             .convBlobToBase64(data.move),
                         }
-                    });
+                    })
                 }
-            );
-    }, []);
+            )
+    }, [])
 
-    return { message: false };
+    return { message: false }
 })
 
-export default VideoHook;
+export default VideoHook

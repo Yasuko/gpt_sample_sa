@@ -29,9 +29,7 @@ export const Screen = (): JSX.Element => {
 }
 
 const checkScreen = (ss: ImageScreenInterface): JSX.Element => {
-    if (ss.subscreen === 'mask') {
-        return <MaskEditor />
-    }
+    if (ss.subscreen === 'mask') return <MaskEditor />
 
     return <div></div>
 }

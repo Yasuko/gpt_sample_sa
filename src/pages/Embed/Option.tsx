@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 // import reducer
@@ -12,7 +12,7 @@ import {
 import Embed_Selector from '../_component/embed_selector'
 
 export const Option = (): JSX.Element => {
-    const dispatch = useDispatch();    
+    const dispatch = useDispatch()
     // コンテンツ表示Reducer呼び出し
     const ef = useSelector((state: EmbedFormPropsInterface): EmbedFormInterface => {
         return state.EmbedForm === undefined ? initialState : state.EmbedForm
@@ -33,7 +33,7 @@ export const Option = (): JSX.Element => {
                 <div className='whisper-option-content'>
                     <select
                         value={ef.options.encoding_format}
-                        onChange={(e) => {
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                             dispatch({
                                 type    : 'EmbedForm/setOptions',
                                 key     : 'encoding_format',
@@ -48,6 +48,8 @@ export const Option = (): JSX.Element => {
 
         </div>
     )
-};
+}
+
+
 
 export default Option;

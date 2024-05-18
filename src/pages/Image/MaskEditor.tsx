@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 // import reducer
 import {
     ImageEditOptionPropsInterface,
     ImageEditOptionInterface,
     initialState
-} from '../../_domain/image/reducers/ImageEditOption';
+} from '../../_domain/image/reducers/ImageEditOption'
 
 export const MaskEditor = (): JSX.Element => {
-    const dispatch = useDispatch();    
+    const dispatch = useDispatch()
     // コンテンツ表示Reducer呼び出し
     const io = useSelector((state: ImageEditOptionPropsInterface): ImageEditOptionInterface => {
         return state.ImageEditOption === undefined ? initialState : state.ImageEditOption

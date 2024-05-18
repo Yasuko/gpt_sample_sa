@@ -1,14 +1,14 @@
-import { put, select, takeEvery } from 'redux-saga/effects';
+import { put, select, takeEvery } from 'redux-saga/effects'
 
 // import helper
-import { SocketHelper } from '../socket/helper/socket.helper';
+import { SocketHelper } from '../socket/helper/socket.helper'
 
 import { loadingShow, loadingHide } from '../animation/animation'
 // reducer
 import {
     CompFormInterface, CompFormPropsInterface,
     initialState
-} from './reducers/CompForm';
+} from './reducers/CompForm'
 
 const compForm = (state: CompFormPropsInterface) => state.CompForm;
 
@@ -17,16 +17,16 @@ export const RootCompAction = [
     takeEvery('CompAction/sendPrompt', sendPrompt),
     takeEvery('CompAction/setPrompt', setPrompt),
     takeEvery('CompAction/exportComp', exportComp),
-];
+]
 
 /**
  * Chatを送信する
  * @param val 
  */
 export function* sendPrompt(val: any): any {
-    yield loadingShow('Now 呼び出してるねん Now');
+    yield loadingShow('Now 呼び出してるねん Now')
 
-    const cf: CompFormInterface = yield select(compForm);
+    const cf: CompFormInterface = yield select(compForm)
     console.log(cf)
 
     // JobStackにChatを登録
@@ -81,7 +81,7 @@ export function* exportComp(val: any): any {
  * @param val 
  */
 export function* setPrompt(val: any): any {
-    const cf: CompFormInterface = yield select(compForm);
+    const cf: CompFormInterface = yield select(compForm)
     console.log(val)
     
     // messagesに格納された全てのメッセージをChatBlockに追加
@@ -100,6 +100,6 @@ export function* setPrompt(val: any): any {
         prompt      : ''
     })
 
-    yield loadingHide();
+    yield loadingHide()
 }
 

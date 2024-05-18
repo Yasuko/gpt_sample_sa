@@ -11,9 +11,10 @@ import {
 // import component
 import Option from './Option'
 import DocList from './DocList'
+import { Dispatch } from '@reduxjs/toolkit'
 
 export const Embed = (): JSX.Element => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch({
@@ -24,7 +25,7 @@ export const Embed = (): JSX.Element => {
 
     const ef = useSelector((state: EmbedFormPropsInterface): EmbedFormInterface => {
         return state.EmbedForm === undefined ? initialState : state.EmbedForm
-    });
+    })
     return (
         <div className='container row'>
             <h4>Embed</h4>
@@ -95,24 +96,28 @@ const getBaseText = () => {
     return t.value
 }
 
-const onDragStart = (e: any, dispatch: any): void => {
-    const _e = e as Event;
-    _e.preventDefault();
+const onDragStart = (
+    e: React.DragEvent | DragEvent,
+    dispatch: Dispatch
+): void => {
+    e.preventDefault()
     dispatch({
         type    : 'EmbedAction/dragStart',
-        event   : _e,
+        event   : e,
     })
 }
 
-const onDragEnd = (e: any, dispatch: any): void => {
-    const _e = e as Event;
-    _e.preventDefault();
+const onDragEnd = (
+    e: React.DragEvent | DragEvent,
+    dispatch: Dispatch
+): void => {
+    e.preventDefault()
     
     dispatch({
         type    : 'EmbedAction/dragEnd',
-        event   : _e,
-    });
-    _e.stopPropagation();
+        event   : e,
+    })
+    e.stopPropagation()
 }
 
 export default Embed

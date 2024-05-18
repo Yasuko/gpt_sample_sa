@@ -17,7 +17,7 @@ export const Embed_Selector = (state: EmbedSelectorState): JSX.Element => {
                 <div className='whisper-option-content'>
                     <select
                     value={state.model}
-                    onChange={(e) => {
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                         dispatch({
                             type    : state.next,
                             key     : 'model',

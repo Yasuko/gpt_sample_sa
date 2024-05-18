@@ -11,7 +11,7 @@ import {
 // import component
 
 export const DocList = (): JSX.Element => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const ed = useSelector((state: EmbedDictionaryPropsInterface): EmbedDictionaryInterface => {
         return state.EmbedDictionary === undefined ? initialState : state.EmbedDictionary
     })

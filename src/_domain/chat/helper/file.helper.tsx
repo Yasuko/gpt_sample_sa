@@ -25,8 +25,10 @@ export class FileHelper {
         return this
     }
 
-    public async dragEnd(e: any): Promise<FileHelper> {
-        await DragService.call().onDrop(e);
+    public async dragEnd(
+        e: React.DragEvent | DragEvent
+    ): Promise<FileHelper> {
+        await DragService.call().onDrop(e)
         this.file = DragService.call().getImage()
         return this
     }

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 import { duplicator, addArray } from '../../_helper/object.helper'
 import { CompFormType, initialCompForm } from './__type.comp'
 
@@ -16,12 +16,12 @@ const slice = createSlice({
         setPrompt: (state: any, action: any) => {
             return Object.assign({}, state, {
                 prompt: action.prompt
-            });
+            })
         },
         setResult: (state: any, action: any) => {
             return Object.assign({}, state, {
                 result: action.result
-            });
+            })
         },
         setOptions: (state: any, action: any) => {
             const op = duplicator(state.options)
@@ -30,7 +30,7 @@ const slice = createSlice({
             op[action.key] = action.option
             return Object.assign({}, state, {
                 options: op
-            });
+            })
         },
         addSave: (state: any, action: any) => {
             const sa = duplicator(state.save)
@@ -40,12 +40,12 @@ const slice = createSlice({
 
             return Object.assign({}, state, {
                 save: _save
-            });
+            })
         },
-        reset: (state: any, action: any) => {
-            return initialState;
+        reset: () => {
+            return initialState
         }
     }
-});
+})
 
-export default slice.reducer;
+export default slice.reducer

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux'
 
 type GPTSelectorState = {
     model: string;
@@ -7,7 +7,7 @@ type GPTSelectorState = {
 }
 
 export const GPT_Selector = (state: GPTSelectorState): JSX.Element => {
-    const dispatch = useDispatch();    
+    const dispatch = useDispatch()
 
     return (
             <div className='whisper-option-cell'>
@@ -17,7 +17,7 @@ export const GPT_Selector = (state: GPTSelectorState): JSX.Element => {
                 <div className='whisper-option-content'>
                     <select
                     value={state.model}
-                    onChange={(e) => {
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                         dispatch({
                             type    : state.next,
                             key     : 'model',

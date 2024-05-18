@@ -21,7 +21,7 @@ export const ChatIndex = () => {
             <LoadingAnimation />
             <ToasterAnimation />
         </Provider>
-    );
-};
+    )
+}
 
-export default ChatIndex;
+export default ChatIndex

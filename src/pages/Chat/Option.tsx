@@ -1,22 +1,22 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 // import reducer
 import {
     ChatFormPropsInterface,
     ChatFormInterface,
     initialState
-} from '../../_domain/chat/reducers/ChatForm';
+} from '../../_domain/chat/reducers/ChatForm'
 
 // import component
-import GPT_Selector from '../_component/gpt_selector';
+import GPT_Selector from '../_component/gpt_selector'
 
 export const Option = (): JSX.Element => {
-    const dispatch = useDispatch();    
+    const dispatch = useDispatch()
     // コンテンツ表示Reducer呼び出し
     const cf = useSelector((state: ChatFormPropsInterface): ChatFormInterface => {
-        return state.ChatForm === undefined ? initialState : state.ChatForm;
-    });
+        return state.ChatForm === undefined ? initialState : state.ChatForm
+    })
 
     return (
         <div className='whisper-option'>
@@ -208,6 +208,6 @@ export const Option = (): JSX.Element => {
 
         </div>
     )
-};
+}
 
-export default Option;
+export default Option

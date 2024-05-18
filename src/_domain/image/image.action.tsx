@@ -48,9 +48,9 @@ console.log(r)
             mask    : (options.mask) ? 'data:image/png;base64,' + options.mask : '',
             job     : val.key,
         }
-    });
+    })
 
-    yield loadingHide();
+    yield loadingHide()
 }
 
 /**
@@ -62,5 +62,5 @@ function* deleteImage(val: any): any {
     yield put({
         type    : 'ImageForm/deleteImages',
         key     : val.key
-    });
+    })
 }

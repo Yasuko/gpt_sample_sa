@@ -1,12 +1,12 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 
 // import reducer
 import {
     ImageOptionPropsInterface,
     ImageOptionInterface,
     initialState
-} from '../../_domain/image/reducers/ImageOption';
+} from '../../_domain/image/reducers/ImageOption'
 
 export const Option = (): JSX.Element => {
     const dispatch = useDispatch();    
@@ -121,7 +121,7 @@ export const Option = (): JSX.Element => {
                 <div className='whisper-option-content'>
                     <select
                     value={io.model}
-                    onChange={(e) => {
+                    onChange={(e :React.ChangeEvent<HTMLSelectElement>) => {
                         dispatch({
                             type    : 'ImageOption/setQuality',
                             quality : e.target.value
@@ -142,7 +142,7 @@ export const Option = (): JSX.Element => {
                         min={1}
                         max={4}
                         value={io.n}
-                        onChange={(e) => {
+                        onChange={(e :React.ChangeEvent<HTMLInputElement>) => {
                             dispatch({
                                 type    : 'ImageOption/setN',
                                 n       : e.target.value

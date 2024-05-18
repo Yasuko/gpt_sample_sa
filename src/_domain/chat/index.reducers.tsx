@@ -1,5 +1,5 @@
-import ChatForm from "./reducers/ChatForm";
+import ChatForm from "./reducers/ChatForm"
 
 export const ChatReducer = {
     ChatForm
-};
+}

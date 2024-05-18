@@ -7,6 +7,7 @@ import {
     ImageChangeOptionInterface,
     initialState
 } from '../../_domain/image/reducers/ImageChangeOption'
+import { Dispatch } from '@reduxjs/toolkit';
 
 export const OptionChange = (): JSX.Element => {
     const dispatch = useDispatch();    
@@ -24,8 +25,8 @@ export const OptionChange = (): JSX.Element => {
                         <div
                             id="File1b"
                             className="drag-area-sm center"
-                            onDragOver={(e) => onDragStart(e)}
-                            onDrop={(e) => onDragEnd(e, dispatch)}
+                            onDragOver={(e: React.DragEvent) => onDragStart(e)}
+                            onDrop={(e: React.DragEvent) => onDragEnd(e, dispatch)}
                         >
                             ChangeImage
                         </div>
@@ -57,7 +58,7 @@ export const OptionChange = (): JSX.Element => {
                 <div className='whisper-option-content'>
                     <select
                     value={io.model}
-                    onChange={(e) => {
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                         dispatch({
                             type    : 'ImageOption/setModel',
                             model   : e.target.value
@@ -74,7 +75,7 @@ export const OptionChange = (): JSX.Element => {
                 <div className='whisper-option-content'>
                     <select
                     value={io.size}
-                    onChange={(e) => {
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                         dispatch({
                             type    : 'ImageOption/setSize',
                             size    : e.target.value
@@ -93,7 +94,7 @@ export const OptionChange = (): JSX.Element => {
                 <div className='whisper-option-content'>
                     <select
                     value={io.response_format}
-                    onChange={(e) => {
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                         dispatch({
                             type    : 'ImageOption/setResponseFormat',
                             responseFormat    : e.target.value
@@ -114,7 +115,7 @@ export const OptionChange = (): JSX.Element => {
                         min={1}
                         max={4}
                         value={io.n}
-                        onChange={(e) => {
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                             dispatch({
                                 type    : 'ImageOption/setN',
                                 n       : e.target.value
@@ -126,22 +127,24 @@ export const OptionChange = (): JSX.Element => {
     )
 }
 
-const onDragStart = (e: any): void => {
-    const _e = e as Event
-    _e.preventDefault()
+const onDragStart = (
+    e: React.DragEvent
+): void => {
+    e.preventDefault()
 }
 
-const onDragEnd = (e: any, dispatch: any): void => {
-    const _e = e as Event
-    _e.preventDefault()
+const onDragEnd = (
+    e: React.DragEvent,
+    dispatch: Dispatch
+): void => {
+    e.preventDefault()
     
     dispatch({
         type    : 'ImageChangeAction/DragEnd',
-        event   : _e,
+        event   : e,
         job     : 'change'
     })
-    _e.stopPropagation()
+    e.stopPropagation()
 }
-
 
 export default OptionChange

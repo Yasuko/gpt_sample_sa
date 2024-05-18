@@ -50,7 +50,7 @@ export const Option = (): JSX.Element => {
                         max={3000}
                         step={1}
                         defaultValue={cf.max_tokens}
-                        onChange={(e) => {
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                             dispatch({
                                 type        : 'VisionForm/setMaxTokens',
                                 max_tokens  : Number(e.target.value)

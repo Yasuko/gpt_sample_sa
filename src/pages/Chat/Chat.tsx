@@ -14,6 +14,7 @@ import {
 // import component
 import Option from './Option'
 import { ChatContent } from '../../_lib/gpt/_helper/chat.helper'
+import { Dispatch } from '@reduxjs/toolkit'
 
 export const Chat = (): JSX.Element => {
     const dispatch = useDispatch();
@@ -117,24 +118,28 @@ const ContentList = (ct: ChatContent): JSX.Element => {
         </div>
     )
 }
-const onDragStart = (e: any, dispatch: any): void => {
-    const _e = e as Event;
-    _e.preventDefault();
+const onDragStart = (
+    e: React.DragEvent | DragEvent,
+    dispatch: Dispatch
+): void => {
+    e.preventDefault();
     dispatch({
         type    : 'ChatAction/dragStart',
-        event   : _e,
+        event   : e,
     })
 }
 
-const onDragEnd = (e: any, dispatch: any): void => {
-    const _e = e as Event;
-    _e.preventDefault();
+const onDragEnd = (
+    e: React.DragEvent | DragEvent,
+    dispatch: Dispatch
+): void => {
+    e.preventDefault()
     
     dispatch({
         type    : 'ChatAction/dragEnd',
-        event   : _e,
-    });
-    _e.stopPropagation();
+        event   : e,
+    })
+    e.stopPropagation()
 }
 
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 // import reducer
 import {
@@ -53,6 +53,4 @@ const ImageList = (ifm: ImageListInterface) => {
     )
 }
 
-
 export default ListImage
-

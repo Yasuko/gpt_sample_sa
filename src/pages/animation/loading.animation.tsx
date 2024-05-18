@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect, useSelector } from 'react-redux';
-import { Transition } from 'react-transition-group';
-// import 'bootstrap/dist/css/bootstrap.css';
-import './loading.css';
+import React from 'react'
+import { connect, useSelector } from 'react-redux'
+import { Transition } from 'react-transition-group'
+// import 'bootstrap/dist/css/bootstrap.css'
+import './loading.css'
 
 import {
     loadingAnimationPropsInterface,

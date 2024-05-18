@@ -10,6 +10,7 @@ import {
 
 // import Component
 import Screen from './Screen'
+import { Dispatch } from '@reduxjs/toolkit'
 
 export const Option = (): JSX.Element => {
     const dispatch = useDispatch();    
@@ -27,8 +28,8 @@ export const Option = (): JSX.Element => {
                         <div
                             id="File1b"
                             className="drag-area-sm center"
-                            onDragOver={(e) => onDragStart(e)}
-                            onDrop={(e) => onDragEnd(e, dispatch, 'base')}
+                            onDragOver={(e: React.DragEvent) => onDragStart(e)}
+                            onDrop={(e: React.DragEvent) => onDragEnd(e, dispatch, 'base')}
                         >
                             BaseImage
                         </div>
@@ -72,7 +73,7 @@ export const Option = (): JSX.Element => {
                 id="text1"
                 placeholder="Input Sample"
                 defaultValue={io.prompt}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                     dispatch({
                         type     : 'ImageEditOption/setPrompt',
                         prompt   : e.target.value
@@ -94,7 +95,7 @@ export const Option = (): JSX.Element => {
                 <div className='whisper-option-content'>
                     <select
                     value={io.model}
-                    onChange={(e) => {
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                         dispatch({
                             type    : 'ImageEditOption/setModel',
                             model   : e.target.value
@@ -111,7 +112,7 @@ export const Option = (): JSX.Element => {
                 <div className='whisper-option-content'>
                     <select
                     value={io.size}
-                    onChange={(e) => {
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                         dispatch({
                             type    : 'ImageEditOption/setSize',
                             size    : e.target.value
@@ -132,7 +133,7 @@ export const Option = (): JSX.Element => {
                 <div className='whisper-option-content'>
                     <select
                     value={io.response_format}
-                    onChange={(e) => {
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                         dispatch({
                             type    : 'ImageEditOption/setResponseFormat',
                             responseFormat    : e.target.value
@@ -153,7 +154,7 @@ export const Option = (): JSX.Element => {
                         min={1}
                         max={4}
                         value={io.n}
-                        onChange={(e) => {
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                             dispatch({
                                 type    : 'ImageEditOption/setN',
                                 n       : e.target.value
@@ -166,27 +167,31 @@ export const Option = (): JSX.Element => {
     )
 }
 
-const onDragStart = (e: any): void => {
-    const _e = e as Event
-    _e.preventDefault()
+const onDragStart = (
+    e: React.DragEvent
+): void => {
+    e.preventDefault()
 }
 
-const onDragEnd = (e: any, dispatch: any, target: 'base' | 'mask'): void => {
-    const _e = e as Event
-    _e.preventDefault()
+const onDragEnd = (
+    e: React.DragEvent,
+    dispatch: Dispatch,
+    target: 'base' | 'mask'
+): void => {
+    e.preventDefault()
     
     dispatch({
         type    : 'ImageEditAction/DragEnd',
-        event   : _e,
+        event   : e,
         job     : 'edit',
         target  : target
     })
-    _e.stopPropagation()
+    e.stopPropagation()
 }
 
 const showImage = (
     image: string,
-    dispatch: any
+    dispatch: Dispatch
 ): JSX.Element[] => {
     return [
         (<img
@@ -208,4 +213,4 @@ const showImage = (
     ]
 }
 
-export default Option;
+export default Option

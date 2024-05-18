@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 export type TokenFormPropsInterface = {
     TokenForm?: TokenFormInterface
@@ -32,7 +32,7 @@ const slice = createSlice({
                 return: action.return
             });
         },
-        reset: (state: any, action: any) => {
+        reset: () => {
             return initialState;
         }
     }

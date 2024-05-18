@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 
 // import reducer
 import {
@@ -85,6 +85,6 @@ export const Option = (): JSX.Element => {
             </div>
         </div>
     )
-};
+}
 
-export default Option;
+export default Option

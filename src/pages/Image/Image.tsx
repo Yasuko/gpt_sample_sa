@@ -71,7 +71,7 @@ export const Image = (): JSX.Element => {
     )
 }
 
-const OptionChanger = (is: any): JSX.Element => {
+const OptionChanger = (is: ImageScreenInterface): JSX.Element => {
     if (is.base) return <Option />
     if (is.edit) return <OptionEdit />
     if (is.change)return <OptionChange />
