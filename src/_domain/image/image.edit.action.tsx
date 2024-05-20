@@ -90,7 +90,7 @@ function* dragEnd(val: any): any {
     return
 }
 
-function* setupMaskPaint() {
+function* setupMaskPaint(): any {
     const image: ImageEditOptionInterface = yield select(imageEditOption)
     yield setupPaint('mask-paint-target', image.image_base64)
 }

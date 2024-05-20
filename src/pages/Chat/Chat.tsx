@@ -13,7 +13,7 @@ import {
 
 // import component
 import Option from './Option'
-import { ChatContent } from '../../_lib/gpt/_helper/chat.helper'
+import { ChatContentType } from '../../_lib/gpt/_helper/chat.helper'
 import { Dispatch } from '@reduxjs/toolkit'
 
 export const Chat = (): JSX.Element => {
@@ -108,7 +108,7 @@ const ChatList = (cf: ChatFormInterface) => {
     )
 }
 
-const ContentList = (ct: ChatContent): JSX.Element => {
+const ContentList = (ct: ChatContentType): JSX.Element => {
     const c = (ct.type === 'text') 
                 ? <pre>{ct.text}</pre>
                 : <img src={ct.image_url?.url} width={200} />

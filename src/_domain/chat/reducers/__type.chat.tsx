@@ -1,4 +1,4 @@
-import { ChatContent } from '../../../_lib/gpt/_helper/chat.helper'
+import { ChatContentType } from '../../../_lib/gpt/_helper/chat.helper'
 import {
     ChatOptions
 } from '../../../_lib/gpt/type.service'
@@ -11,7 +11,7 @@ import {
  */
 export type Chat = {
     role    : 'user' | 'system' | 'assistant',
-    content : ChatContent,
+    content : ChatContentType,
 }
 
 /**

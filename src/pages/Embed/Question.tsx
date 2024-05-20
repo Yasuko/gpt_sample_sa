@@ -11,7 +11,7 @@ import {
 // import component
 
 export const Question = (): JSX.Element => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     const ef = useSelector((state: EmbedFormPropsInterface): EmbedFormInterface => {
         return state.EmbedForm === undefined ? initialState : state.EmbedForm

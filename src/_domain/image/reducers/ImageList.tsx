@@ -36,6 +36,6 @@ const slice = createSlice({
             return initialState;
         }
     }
-});
+})
 
-export default slice.reducer;
+export default slice.reducer

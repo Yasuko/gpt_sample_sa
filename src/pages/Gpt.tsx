@@ -1,5 +1,5 @@
-import React from 'react';
-import { Provider } from 'react-redux';
+import React from 'react'
+import { Provider } from 'react-redux'
 
 // import rootReducer from './reducers'
 import { createStore } from '../_store/configureStore'

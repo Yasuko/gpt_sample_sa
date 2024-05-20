@@ -1,4 +1,4 @@
-import { ChatContent } from '../../../_lib/gpt/_helper/chat.helper';
+import { ChatContentType } from '../../../_lib/gpt/_helper/chat.helper'
 import { ChatService } from '../../../_lib/gpt/chat.service'
 
 export class ChatHelper {
@@ -18,7 +18,7 @@ export class ChatHelper {
         return this;
     }
 
-    public setup(message: ChatContent[], history: any) {
+    public setup(message: ChatContentType[], history: any) {
         ChatService.call()
                 .setAPIKey(this.API_KEY)
         if (history === undefined)
@@ -33,7 +33,7 @@ export class ChatHelper {
     public buildSendContents(
         message: string,
         images: string[]
-    ): ChatContent[] {
+    ): ChatContentType[] {
         return [
             ChatService.call().convertContent(message),
             ...images.map((image: string) => {
