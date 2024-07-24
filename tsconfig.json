@@ -51,6 +51,8 @@
     "src/_lib/indentification",
     "src/_lib/Math",
     "src/_lib/obj",
+    "src/_lib/jwt",
+    "src/_lib/vite.config.ts",
     "functions/**/*",
   ]
 }

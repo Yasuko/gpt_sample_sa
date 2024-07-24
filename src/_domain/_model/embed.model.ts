@@ -1,5 +1,5 @@
 import { EmbedService } from '../../_lib/gpt/embed.service'
-import { EmbedReturnType } from '../../_lib/gpt/embed.type'
+import { EmbedReturnType } from '../../_lib/gpt/_helper/embed.helper'
 
 export class EmbedModel {
     private static instance: EmbedModel

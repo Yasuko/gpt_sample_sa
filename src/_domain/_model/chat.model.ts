@@ -1,4 +1,4 @@
-import { ChatContent, ChatReturn } from '../../_lib/gpt/_helper/chat.helper'
+import { ChatContents, ChatReturn } from '../../_lib/gpt/_helper/__type.gpt'
 import { ChatService } from '../../_lib/gpt/chat.service'
 import { Chat } from '../chat/reducers/__type.chat'
 
@@ -17,7 +17,7 @@ export class ChatModel {
     }
 
     public async callDocumetSummary(
-        content: ChatContent[],
+        content: ChatContents[],
         history: [Chat] | undefined,
         options: any
     ): Promise<ChatReturn> {
