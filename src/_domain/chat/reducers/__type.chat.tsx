@@ -47,13 +47,13 @@ export const initialChatForm: ChatFormType = {
         model       : 'gpt-4o',
         messages    : [{
             role    : 'user',
-            content : 'これから質問をするので、5才児にも伝わる内容で回答を考えて'
+            content : ''
         }],
         temperature : 1,
         top_p       : 1,
         n           : 1,
         stream      : false,
-        max_tokens  : 1000,
+        max_tokens  : 12800,
         presence_penalty: 0,
         frequency_penalty: 0,
     },

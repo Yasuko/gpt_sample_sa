@@ -129,7 +129,7 @@ export const Option = (): JSX.Element => {
                     <input
                         type='range'
                         min={1}
-                        max={3000}
+                        max={12800}
                         step={1}
                         defaultValue={cf.options.max_tokens}
                         onChange={(e) => {
