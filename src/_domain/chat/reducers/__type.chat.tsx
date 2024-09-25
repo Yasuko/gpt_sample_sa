@@ -53,7 +53,7 @@ export const initialChatForm: ChatFormType = {
         top_p       : 1,
         n           : 1,
         stream      : false,
-        max_tokens  : 12800,
+        max_tokens  : 4000,
         presence_penalty: 0,
         frequency_penalty: 0,
     },
