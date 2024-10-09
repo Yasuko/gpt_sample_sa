@@ -19,6 +19,7 @@
     "@reduxjs/toolkit": "^1.9.3",
     "@types/react-transition-group": "^4.4.5",
     "@types/uuid": "^9.0.1",
+    "audio-decode": "^2.2.2",
     "bootstrap": "^5.2.3",
     "buffer": "^6.0.3",
     "jszip": "^3.10.1",
