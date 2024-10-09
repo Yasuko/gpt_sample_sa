@@ -5,13 +5,13 @@ const store = createStore()
 
 // import Component
 import Header from '../Header'
-import Chat from './Chat'
+import Chat from './Stream'
 
 // import animation
 import LoadingAnimation from '../animation/loading.animation'
 import ToasterAnimation from '../animation/toaster.animation'
 
-export const ChatIndex = () => {
+export const StreamIndex = () => {
     return (
         <Provider store={store}>
             <Header />
@@ -24,4 +24,4 @@ export const ChatIndex = () => {
     )
 }
 
-export default ChatIndex
+export default StreamIndex
