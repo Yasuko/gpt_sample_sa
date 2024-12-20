@@ -9,54 +9,22 @@ import {
  * @param content : string
  * 
  */
-export type Chat = {
+export type Stream = {
     role    : 'user' | 'system' | 'assistant',
     content : ChatContentType,
 }
 
-/**
- * ChatReducerの型
- * @param options   : ChatOptions
- * @param newChat   : string
- * @param chatBlock : [Chat]
- * @param saveBlock : { [key: string]: [Chat] }
- * @param chatStack : string
- * 
- */
-export type ChatFormType = {
-    options     : ChatOptions
+export type StreamFormType = {
     newChat     : string        // 新規チャットメッセージ
     images      : string[]      // 画像のURL
-    chatBlock   : [Chat]        // Chat全体を保持する
+    chatBlock   : [Stream]        // Chat全体を保持する
     saveBlock   : {
-        [key: string]: [Chat]
+        [key: string]: [Stream]
     }
     chatStack   : string
 }
 
-/**
- * ChatFormの初期値
- * @param options   : ChatOptions
- * @param newChat   : string
- * @param chatBlock : [Chat]
- * @param saveBlock : { [key: string]: [Chat] }
- * @param chatStack : string
- */
-export const initialChatForm: ChatFormType = {
-    options     : {
-        model       : 'gpt-4o',
-        messages    : [{
-            role    : 'user',
-            content : ''
-        }],
-        temperature : 1,
-        top_p       : 1,
-        n           : 1,
-        stream      : false,
-        max_tokens  : 4000,
-        presence_penalty: 0,
-        frequency_penalty: 0,
-    },
+export const initialStreamForm: StreamFormType = {
     newChat     : '',
     images      : [],
     chatBlock   : [{

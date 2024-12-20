@@ -6,31 +6,32 @@ import { isObjectEqual } from '../_helper/object_check'
 
 // import reducer
 import {
-    ChatFormPropsInterface,
-    ChatFormInterface,
+    StreamFormPropsInterface,
+    StreamFormInterface,
     initialState
-} from '../../_domain/chat/reducers/ChatForm'
+} from '../../_domain/stream/reducers/StreamForm'
 
 // import component
 import Option from './Option'
 import { ChatContentType } from '../../_lib/gpt/_helper/chat.helper'
 import { Dispatch } from '@reduxjs/toolkit'
 
-export const Chat = (): JSX.Element => {
+export const Stream = (): JSX.Element => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch({
             type: 'TokenAction/checkToken',
-            return: 'Chat'
+            return: 'Stream'
         })
+
     })
-    const cf = useSelector((state: ChatFormPropsInterface): ChatFormInterface => {
-        return state.ChatForm === undefined ? initialState : state.ChatForm
+    const cf = useSelector((state: StreamFormPropsInterface): StreamFormInterface => {
+        return state.StreamForm === undefined ? initialState : state.StreamForm
     })
     return (
         <div className='container row'>
-            <h4>Chat</h4>
+            <h4>Stream</h4>
             <br></br><br></br>
             <div className="col-4">
 
@@ -49,14 +50,12 @@ export const Chat = (): JSX.Element => {
                                 newChat  : e.target.value
                             });
                         }}
-                        onDragOver={(e) => onDragStart(e, dispatch)}
-                        onDrop={(e) => onDragEnd(e, dispatch)}
                         />
                     <div
                         className='btn btn-info margin'
                         onClick={() => {
                             dispatch({
-                                type: 'ChatAction/sendChat'
+                                type: 'StreamAction/sendChat'
                             })
                             clear()
                         }}>
@@ -71,9 +70,22 @@ export const Chat = (): JSX.Element => {
                             clear()
                         }}>
                         Clear
+                    </div>                    <div
+                        className='btn btn-info margin'
+                        onClick={() => {
+                            dispatch({
+                                type: 'StreamAction/setCallback',
+                                callback: (data: ChatContentType) => {
+                                    dispatch({
+                                        type: 'StreamAction/returnResponse',
+                                        response: data
+                                    })
+                                }
+                            })
+                        }}>
+                        Connet
                     </div>
                 </div>
-                <Option />
             </div>
             <div className='col-8'>
                 { ChatList(cf) }
@@ -87,7 +99,7 @@ const clear = () => {
     t.value = ''
 }
 
-const ChatList = (cf: ChatFormInterface) => {
+const ChatList = (cf: StreamFormInterface) => {
     if (isObjectEqual(cf.chatBlock, initialState.chatBlock)) return (<div className='chat-list'>none</div>)
     const list = cf.chatBlock.map((val, key) => {
         return (
@@ -118,29 +130,6 @@ const ContentList = (ct: ChatContentType): JSX.Element => {
         </div>
     )
 }
-const onDragStart = (
-    e: React.DragEvent | DragEvent,
-    dispatch: Dispatch
-): void => {
-    e.preventDefault();
-    dispatch({
-        type    : 'ChatAction/dragStart',
-        event   : e,
-    })
-}
-
-const onDragEnd = (
-    e: React.DragEvent | DragEvent,
-    dispatch: Dispatch
-): void => {
-    e.preventDefault()
-    
-    dispatch({
-        type    : 'ChatAction/dragEnd',
-        event   : e,
-    })
-    e.stopPropagation()
-}
 
 
-export default Chat
+export default Stream

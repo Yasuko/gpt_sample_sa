@@ -1,21 +1,23 @@
-import { Dispatch, createSlice } from '@reduxjs/toolkit';
+import { Dispatch, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { duplicator, addArray } from '../../_helper/object.helper'
-import { ChatFormType, initialChatForm } from './__type.stream'
+import { StreamFormType, initialStreamForm } from './__type.stream'
 
-export interface ChatFormPropsInterface {
-    ChatForm?: ChatFormType
+export interface StreamFormPropsInterface {
+    StreamForm?: StreamFormType
     dispatch?: Dispatch
 }
-export type ChatFormInterface = ChatFormType
-export const initialState: ChatFormType = initialChatForm
+export type StreamFormInterface = StreamFormType
+export const initialState: StreamFormType = initialStreamForm
 
 const slice = createSlice({
-    name: 'ChatForm',
+    name: 'StreamForm',
     initialState,
     reducers: {
-        setNewChat: (state: any, action: any) => {
+        setNewChat: (
+            state,
+            action: PayloadAction<string>) => {
             return Object.assign({}, state, {
-                newChat: action.newChat
+                newChat: action.payload
             })
         },
         addImage: (state: any, action: any) => {
@@ -44,13 +46,6 @@ const slice = createSlice({
                 options: op
             })
         },
-        /*
-        addChatStack: (state: any, action: any) => {
-            const cs = duplicator(state.chatStack)
-            return Object.assign({}, state, {
-                chatStack: addArray(cs, action.chatStack, initialState.chatStack)
-            });
-        },*/
         addChatBlock: (state: any, action: any) => {
             const cb = duplicator(state.chatBlock)
             const chBlock = (cb[0].role === 'null')
