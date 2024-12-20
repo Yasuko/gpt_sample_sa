@@ -22,7 +22,7 @@ const Token = (state: TokenFormPropsInterface) => state.TokenForm
 const streamForm = (state: StreamFormPropsInterface) => state.StreamForm
 
 // Root Saga登録配列
-export const RootStreamAction = [
+export const RootRealtimeAction = [
     // 録音開始
     takeEvery('AudioAction/recorder', recorder),
     // 録音終了
