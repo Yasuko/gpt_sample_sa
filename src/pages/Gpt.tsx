@@ -12,7 +12,7 @@ import EmbedIndex from './Embed/index'
 import ImageIndex from './Image/index'
 import VisionIndex from './Vision'
 import InputToken from './token/InputToken'
-import StreamIndex from './Stream/index'
+import RealtimeIndex from './Realtime/index'
 
 interface FaceInterface {
     page: string
@@ -38,7 +38,7 @@ const changer = (p: string): JSX.Element => {
     if (p === 'image') return <ImageIndex />
     if (p === 'vision') return <VisionIndex />
     if (p === 'token') return <InputToken />
-    if (p === 'stream') return <StreamIndex />
+    if (p === 'realtime') return <RealtimeIndex />
     return <ChatIndex />
 }
 

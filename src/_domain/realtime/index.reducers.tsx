@@ -1,5 +1,5 @@
-import StreamForm from "./reducers/StreamForm"
+import RealtimeForm from "./reducers/RealtimeForm"
 
-export const StreamReducer = {
-    StreamForm
+export const RealtimeReducer = {
+    RealtimeForm
 }

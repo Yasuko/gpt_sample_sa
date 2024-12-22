@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 const Header = (): JSX.Element => {
     return (
         <nav className="navbar navbar-dark bg-dark">
-            <Link to="/Stream" className="navbar-brand">
-                Stream
+            <Link to="/Realtime" className="navbar-brand">
+                Realtime
             </Link>
             <Link to="/Whisper" className="navbar-brand">
                 Whisper

@@ -8,7 +8,7 @@ import { VisionReducer } from '../_domain/vision/index.reducers'
 import { SpeechReducer } from '../_domain/speech/index.reducers'
 import { EmbedReducer } from '../_domain/embed/index.reducers'
 import { TokenReducer } from '../_domain/token/index.reducers'
-import { StreamReducer } from '../_domain/stream/index.reducers'
+import { RealtimeReducer } from '../_domain/realtime/index.reducers'
 
 import ShowContent from '../_domain/_all/reducers/ShowContent'
 import FileForm from '../_domain/_all/reducers/FileForm'
@@ -25,7 +25,7 @@ export const reducer = {
     ...SpeechReducer,
     ...EmbedReducer,
     ...TokenReducer,
-    ...StreamReducer,
+    ...RealtimeReducer,
     ShowContent,
     FileForm,
     JobStack,

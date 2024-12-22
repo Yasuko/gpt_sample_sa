@@ -11,7 +11,7 @@ import { RootVisionAction } from '../_domain/vision/vision.action'
 import { RootSpeechAction } from '../_domain/speech/speech.action'
 import { RootEmbedAction } from '../_domain/embed/embed.action'
 import { RootTokenAction } from '../_domain/token/token.action'
-import { RootStreamAction } from '../_domain/stream/stream.action'
+import { RootRealtimeAction } from '../_domain/realtime/realtime.action'
 // Load AnimationAction
 import { AnimationTask } from '../pages/animation/index.task'
 
@@ -30,7 +30,7 @@ export default function* rootSaga() {
         ...RootSpeechAction,
         ...RootEmbedAction,
         ...RootTokenAction,
-        ...RootStreamAction,
+        ...RootRealtimeAction,
         ...AnimationTask
     ]);
 }

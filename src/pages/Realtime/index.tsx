@@ -5,18 +5,18 @@ const store = createStore()
 
 // import Component
 import Header from '../Header'
-import Chat from './Stream'
+import Realtime from './Realtime'
 
 // import animation
 import LoadingAnimation from '../animation/loading.animation'
 import ToasterAnimation from '../animation/toaster.animation'
 
-export const StreamIndex = () => {
+export const RealtimeIndex = () => {
     return (
         <Provider store={store}>
             <Header />
             <div className="container">
-                <Chat />
+                <Realtime />
             </div>
             <LoadingAnimation />
             <ToasterAnimation />
@@ -24,4 +24,4 @@ export const StreamIndex = () => {
     )
 }
 
-export default StreamIndex
+export default RealtimeIndex

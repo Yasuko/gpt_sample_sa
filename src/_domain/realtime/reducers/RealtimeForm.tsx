@@ -1,16 +1,16 @@
 import { Dispatch, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { duplicator, addArray } from '../../_helper/object.helper'
-import { StreamFormType, initialStreamForm } from './__type.stream'
+import { RealtimeFormType, initialRealtimeForm } from './__type.realtime'
 
-export interface StreamFormPropsInterface {
-    StreamForm?: StreamFormType
+export interface RealtimeFormPropsInterface {
+    RealtimeForm?: RealtimeFormType
     dispatch?: Dispatch
 }
-export type StreamFormInterface = StreamFormType
-export const initialState: StreamFormType = initialStreamForm
+export type RealtimeFormInterface = RealtimeFormType
+export const initialState: RealtimeFormType = initialRealtimeForm
 
 const slice = createSlice({
-    name: 'StreamForm',
+    name: 'RealtimeForm',
     initialState,
     reducers: {
         setNewChat: (

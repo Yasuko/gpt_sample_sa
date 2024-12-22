@@ -6,28 +6,27 @@ import { isObjectEqual } from '../_helper/object_check'
 
 // import reducer
 import {
-    StreamFormPropsInterface,
-    StreamFormInterface,
+    RealtimeFormPropsInterface,
+    RealtimeFormInterface,
     initialState
-} from '../../_domain/stream/reducers/StreamForm'
+} from '../../_domain/realtime/reducers/RealtimeForm'
 
 // import component
 import Option from './Option'
 import { ChatContentType } from '../../_lib/gpt/_helper/chat.helper'
-import { Dispatch } from '@reduxjs/toolkit'
 
-export const Stream = (): JSX.Element => {
+export const Realtime = (): JSX.Element => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch({
-            type: 'TokenAction/checkToken',
+            type: 'RealtimeAction/checkToken',
             return: 'Stream'
         })
 
     })
-    const cf = useSelector((state: StreamFormPropsInterface): StreamFormInterface => {
-        return state.StreamForm === undefined ? initialState : state.StreamForm
+    const cf = useSelector((state: RealtimeFormPropsInterface): RealtimeFormInterface => {
+        return state.RealtimeForm === undefined ? initialState : state.RealtimeForm
     })
     return (
         <div className='container row'>
@@ -55,7 +54,7 @@ export const Stream = (): JSX.Element => {
                         className='btn btn-info margin'
                         onClick={() => {
                             dispatch({
-                                type: 'StreamAction/sendChat'
+                                type: 'RealtimeAction/connection'
                             })
                             clear()
                         }}>
@@ -89,6 +88,10 @@ export const Stream = (): JSX.Element => {
             </div>
             <div className='col-8'>
                 { ChatList(cf) }
+                <div
+                    id="realtime-message">
+
+                </div>
             </div>
         </div>
     )
@@ -99,7 +102,7 @@ const clear = () => {
     t.value = ''
 }
 
-const ChatList = (cf: StreamFormInterface) => {
+const ChatList = (cf: RealtimeFormInterface) => {
     if (isObjectEqual(cf.chatBlock, initialState.chatBlock)) return (<div className='chat-list'>none</div>)
     const list = cf.chatBlock.map((val, key) => {
         return (
@@ -132,4 +135,4 @@ const ContentList = (ct: ChatContentType): JSX.Element => {
 }
 
 
-export default Stream
+export default Realtime

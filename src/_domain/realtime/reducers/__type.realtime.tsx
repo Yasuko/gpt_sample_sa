@@ -1,7 +1,5 @@
 import { ChatContentType } from '../../../_lib/gpt/_helper/chat.helper'
-import {
-    ChatOptions
-} from '../../../_lib/gpt/type.service'
+
 
 /**
  * チャットの型
@@ -14,7 +12,7 @@ export type Stream = {
     content : ChatContentType,
 }
 
-export type StreamFormType = {
+export type RealtimeFormType = {
     newChat     : string        // 新規チャットメッセージ
     images      : string[]      // 画像のURL
     chatBlock   : [Stream]        // Chat全体を保持する
@@ -24,7 +22,7 @@ export type StreamFormType = {
     chatStack   : string
 }
 
-export const initialStreamForm: StreamFormType = {
+export const initialRealtimeForm: RealtimeFormType = {
     newChat     : '',
     images      : [],
     chatBlock   : [{
