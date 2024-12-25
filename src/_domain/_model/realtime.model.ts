@@ -2,7 +2,7 @@ import {
     setRealTimeOptions,
     init, close,
     send,
-} from '../../_lib/gpt/_helper/realtime.helper'
+} from '../../_lib/gpt/_realtime_helper/realtime.helper'
 
 
 export const conn = async (
@@ -15,6 +15,15 @@ export const conn = async (
         close()
     }
 }
+
+export const disconnect = async () => {
+    try {
+        await close()
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 
 export const sendData = async (data: any) => {
     try {

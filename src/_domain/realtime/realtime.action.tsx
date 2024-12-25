@@ -4,6 +4,7 @@ import { PayloadAction } from '@reduxjs/toolkit'
 // import model
 import {
     conn,
+    disconnect,
     sendData
 } from '../_model/realtime.model'
 import {
@@ -29,7 +30,9 @@ import {
 export const RootRealtimeAction = [
     // 録音開始
 
-    takeEvery('RealtimeAction/connection', connection)
+    takeEvery('RealtimeAction/connection', connection),
+    takeEvery('RealtimeAction/close', close),
+    takeEvery('RealtimeAction/push', push)
 ]
 
 
@@ -39,6 +42,24 @@ function* connection(val: PayloadAction<any>): any {
     try {
         const key: string = yield StrageModel.call().getAPI()
         yield conn(key)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+function* close(val: PayloadAction<any>): any {
+    console.log(val)
+    try {
+        yield disconnect()
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+function* push(val: PayloadAction<any>): any {
+    console.log(val)
+    try {
+        yield sendData(val.payload)
     } catch (error) {
         console.error(error)
     }

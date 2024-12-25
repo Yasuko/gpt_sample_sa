@@ -18,13 +18,6 @@ import { ChatContentType } from '../../_lib/gpt/_helper/chat.helper'
 export const Realtime = (): JSX.Element => {
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch({
-            type: 'RealtimeAction/checkToken',
-            return: 'Stream'
-        })
-
-    })
     const cf = useSelector((state: RealtimeFormPropsInterface): RealtimeFormInterface => {
         return state.RealtimeForm === undefined ? initialState : state.RealtimeForm
     })
@@ -45,8 +38,8 @@ export const Realtime = (): JSX.Element => {
                         defaultValue={cf.newChat}
                         onChange={(e) => {
                             dispatch({
-                                type     : 'ChatForm/setNewChat',
-                                newChat  : e.target.value
+                                type     : 'RealtimeForm/setNewChat',
+                                payload  : e.target.value
                             });
                         }}
                         />
@@ -64,19 +57,21 @@ export const Realtime = (): JSX.Element => {
                         className='btn btn-secondary margin'
                         onClick={() => {
                             dispatch({
-                                type: 'ChatForm/reset'
+                                type: 'RealtimeForm/setNewChat',
+                                payload: ''
                             })
                             clear()
                         }}>
                         Clear
-                    </div>                    <div
+                    </div>
+                    <div
                         className='btn btn-info margin'
                         onClick={() => {
                             dispatch({
                                 type: 'StreamAction/setCallback',
                                 callback: (data: ChatContentType) => {
                                     dispatch({
-                                        type: 'StreamAction/returnResponse',
+                                        type: 'RealtimeAction/connection',
                                         response: data
                                     })
                                 }
@@ -84,10 +79,26 @@ export const Realtime = (): JSX.Element => {
                         }}>
                         Connet
                     </div>
+                    <div
+                        className='btn btn-info margin'
+                        onClick={() => {
+                            dispatch({
+                                type: 'StreamAction/setCallback',
+                                callback: (data: ChatContentType) => {
+                                    dispatch({
+                                        type: 'RealtimeAction/close',
+                                        response: data
+                                    })
+                                }
+                            })
+                        }}>
+                        close
+                    </div>
                 </div>
+                <Option />
             </div>
             <div className='col-8'>
-                { ChatList(cf) }
+
                 <div
                     id="realtime-message">
 
@@ -101,38 +112,5 @@ const clear = () => {
     const t = document.getElementById('text1') as HTMLTextAreaElement
     t.value = ''
 }
-
-const ChatList = (cf: RealtimeFormInterface) => {
-    if (isObjectEqual(cf.chatBlock, initialState.chatBlock)) return (<div className='chat-list'>none</div>)
-    const list = cf.chatBlock.map((val, key) => {
-        return (
-            <div key={key} className="chat-block">
-                <div className='chat-content'>
-                    <div className='chat-user'>
-                        { val.role === 'user' ? 'User' : 'System' }
-                    </div>
-                    { ContentList(val.content) }
-                </div>
-            </div>
-        )
-    })
-    return (
-        <div className='chat-list'>
-            {list}
-        </div>
-    )
-}
-
-const ContentList = (ct: ChatContentType): JSX.Element => {
-    const c = (ct.type === 'text') 
-                ? <pre>{ct.text}</pre>
-                : <img src={ct.image_url?.url} width={200} />
-    return (
-        <div className='chat-text'>
-            {c}
-        </div>
-    )
-}
-
 
 export default Realtime
