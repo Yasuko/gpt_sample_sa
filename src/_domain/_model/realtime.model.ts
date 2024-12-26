@@ -1,15 +1,26 @@
 import {
-    setRealTimeOptions,
-    init, close,
-    send,
-} from '../../_lib/gpt/_realtime_helper/realtime.helper'
+    conn, close,
+    enableConversationListener,
+    enableInputAudioListener,
+    enableResponseListener,
+    sessionUpdate,
+    addItem,
+} from '../../_lib/gpt/realtime.service'
+import {
+    OptionsType
+} from '../../_lib/gpt/_realtime_helper/definitions'
+import { SessionUpdateEventType } from '../../_lib/gpt/_realtime_helper/definitions_client'
+import { initialItem } from '../realtime/reducers/__type.realtime'
 
 
-export const conn = async (
+export const connect = async (
     key: string
 ) => {
     try {
-        await init(key)
+        await conn(key)
+        enableConversationListener()
+        enableInputAudioListener()
+        enableResponseListener()
     } catch (error) {
         console.error(error)
         close()
@@ -24,11 +35,15 @@ export const disconnect = async () => {
     }
 }
 
+export const updateSession = async (data: OptionsType) => {
+    await sessionUpdate(data)
+}
 
-export const sendData = async (data: any) => {
-    try {
-        await send(data)
-    } catch (error) {
-        console.error(error)
-    }
+export const pushText = async (text: string) => {
+    const textObj = initialItem
+    textObj.content = [{
+        type: 'input_text',
+        text: text
+    }]
+    await addItem(textObj)
 }

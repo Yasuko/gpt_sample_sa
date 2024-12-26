@@ -46,8 +46,10 @@ export const Realtime = (): JSX.Element => {
                     <div
                         className='btn btn-info margin'
                         onClick={() => {
+                            const t = document.getElementById('text1') as HTMLTextAreaElement
                             dispatch({
-                                type: 'RealtimeAction/connection'
+                                type: 'RealtimeAction/push',
+                                payload: t.value
                             })
                             clear()
                         }}>
@@ -68,13 +70,7 @@ export const Realtime = (): JSX.Element => {
                         className='btn btn-info margin'
                         onClick={() => {
                             dispatch({
-                                type: 'StreamAction/setCallback',
-                                callback: (data: ChatContentType) => {
-                                    dispatch({
-                                        type: 'RealtimeAction/connection',
-                                        response: data
-                                    })
-                                }
+                                type: 'RealtimeAction/connection',
                             })
                         }}>
                         Connet
@@ -82,15 +78,9 @@ export const Realtime = (): JSX.Element => {
                     <div
                         className='btn btn-info margin'
                         onClick={() => {
-                            dispatch({
-                                type: 'StreamAction/setCallback',
-                                callback: (data: ChatContentType) => {
-                                    dispatch({
-                                        type: 'RealtimeAction/close',
-                                        response: data
-                                    })
-                                }
-                            })
+                                dispatch({
+                                    type: 'RealtimeAction/close',
+                                })
                         }}>
                         close
                     </div>
