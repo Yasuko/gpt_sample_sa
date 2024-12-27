@@ -16,7 +16,7 @@ export type RealtimeFormType = {
         call_id     : string,
         name        : string,
         args        : string,
-        ouput       : string
+        output       : string
     }[]
 }
 

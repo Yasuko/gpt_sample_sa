@@ -24,8 +24,9 @@ import {
 
 // import helper
 import {
-    TokenFormPropsInterface
-} from '../token/reducers/TokenForm'
+    initClient,
+    initServer
+} from './helper/audio_visual.helper'
 
 
 
@@ -42,8 +43,12 @@ function* connection(val: PayloadAction<any>): any {
     console.log('Connect Realtime Server')
     try {
         const key: string = yield StrageModel.call().getAPI()
-        console.log(key)
-        yield connect(key)
+        console.log('initial client audio')
+        const client_media = yield initClient()
+        console.log('initial server audio')
+        yield initServer()
+
+        yield connect(key, client_media)
         yield sleep(5)
         yield updateSession(initialRealtimeForm.SessionOptions)
     } catch (error) {

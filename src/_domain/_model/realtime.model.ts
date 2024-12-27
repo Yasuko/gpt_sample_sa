@@ -14,10 +14,11 @@ import { initialItem } from '../realtime/reducers/__type.realtime'
 
 
 export const connect = async (
-    key: string
+    key: string,
+    client_media: MediaStream
 ) => {
     try {
-        await conn(key)
+        await conn(key, {}, client_media, 'realtime_server')
         enableConversationListener()
         enableInputAudioListener()
         enableResponseListener()

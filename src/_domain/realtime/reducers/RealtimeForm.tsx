@@ -25,11 +25,14 @@ const slice = createSlice({
                 chatStack: action.chatStack
             })
         },
-        setOptions: (state: any, action: any) => {
-            const op = duplicator(state.options)
-            op[action.key] = action.option
+        setOptions: (
+            state: any,
+            action: PayloadAction<Partial<RealtimeFormInterface['SessionOptions']>>
+        ) => {
+            const op = duplicator(state.SessionOptions)
+            const _session = Object.assign({}, op, action.payload)
             return Object.assign({}, state, {
-                options: op
+                SessionOptions: _session
             })
         },
         reset: () => {

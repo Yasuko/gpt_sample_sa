@@ -84,47 +84,48 @@ export const Whisper = (): JSX.Element => {
                 </div>
                 <div className="form-group row">
                     <div className="col">
-                            <button
-                                id="File1b"
-                                className='btn btn-sm btn-primary whisper-record-button'
-                                disabled={flagCheck(wf.recAudio, wf.recVideo, 'video', 'play')}
-                                onClick={() => {
-                                    dispatch({
-                                        type    : 'VideoAction/camera'
-                                    })
-                                }}
-                            >
-                                Mov
-                            </button>
-                            <button
-                                id="File1b"
-                                className='btn btn-sm btn-secondary whisper-record-button'
-                                disabled={flagCheck(wf.recAudio, wf.recVideo, 'video', 'stop')}
-                                onClick={() => {
-                                    dispatch({
-                                        type    : 'VideoAction/doneCamera'
-                                    })
-                                }}
-                            >
-                                Stop
-                            </button>
-                            <div
-                                className='whisper-record-time'
-                                id='video-timer'>
-                                0
-                            </div>
-                            <video
-                                id="whisper-cam"
-                                style={{width: '50px'}}></video>
+                        <button
+                            id="File1b"
+                            className='btn btn-sm btn-primary whisper-record-button'
+                            disabled={flagCheck(wf.recAudio, wf.recVideo, 'video', 'play')}
+                            onClick={() => {
+                                dispatch({
+                                    type    : 'VideoAction/camera'
+                                })
+                            }}
+                        >
+                            Mov
+                        </button>
+                        <button
+                            id="File1b"
+                            className='btn btn-sm btn-secondary whisper-record-button'
+                            disabled={flagCheck(wf.recAudio, wf.recVideo, 'video', 'stop')}
+                            onClick={() => {
+                                dispatch({
+                                    type    : 'VideoAction/doneCamera'
+                                })
+                            }}
+                        >
+                            Stop
+                        </button>
+                        <div
+                            className='whisper-record-time'
+                            id='video-timer'>
+                            0
                         </div>
+                        <video
+                            id="whisper-cam"
+                            style={{width: '50px'}}>
+                        </video>
                     </div>
-                    <Option />
                 </div>
-            </div>
-            <div className='col-8'>
-                { ShowRecorder(wf) }
+                <Option />
             </div>
         </div>
+        <div className='col-8'>
+            { ShowRecorder(wf) }
+        </div>
+    </div>
     )
 }
 
