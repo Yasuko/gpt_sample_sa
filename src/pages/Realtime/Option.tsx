@@ -40,7 +40,7 @@ export const Option = (): JSX.Element => {
                         dark:focus:ring-neutral-600"
                     onChange={(e) => {
                         const v = [['text'], ['audio'], ['text', 'audio']]
-                        const value = e.target.value
+                        const value = Number(e.target.value)
                         dispatch({
                             type    : 'RealtimeForm/setOptions',
                             payload : {
