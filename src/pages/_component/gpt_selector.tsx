@@ -11,10 +11,10 @@ export const GPT_Selector = (state: GPTSelectorState): JSX.Element => {
 
     return (
         <>
-            <div className='m-2'>
+            <div className='leading-10 mt-1'>
                 model : 
             </div>
-            <div className='m-2'>
+            <div className=''>
                 <select
                 className='
                     py-3 px-4 pe-9 block w-full

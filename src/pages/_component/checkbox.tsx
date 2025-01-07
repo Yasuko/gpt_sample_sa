@@ -35,10 +35,9 @@ const boxList = (
                 className="
                 inline-flex items-center gap-x-2 py-1 px-2
                 text-sm font-medium text-gray-800
-                bg-neutral-800 border border-gray-100
+                bg-neutral-800 
                 -mt-px first:rounded-t-lg first:mt-0
-                last:rounded-b-lg
-                dark:bg-neutral-800 dark:border-gray-700 dark:text-white
+                dark:bg-neutral-800 dark:text-white
                 ">
                 <div className="relative flex items-start w-full">
                     <div className="flex items-center h-5">
@@ -47,9 +46,9 @@ const boxList = (
                         name="hs-list-group-item-checkbox-1"
                         type="checkbox"
                         className="
-                            border-gray-200 rounded disabled:opacity-50
-                            dark:bg-neutral-800 dark:border-neutral-700
-                            dark:checked:bg-blue-500 dark:checked:border-blue-500
+                            disabled:opacity-50
+                            dark:bg-neutral-800
+                            dark:checked:bg-blue-500
                             dark:focus:ring-offset-gray-800"
                         checked={undefined} 
                         onChange={

@@ -24,7 +24,13 @@ export const Realtime = (): JSX.Element => {
     return (
         <div className='grid grid-rows-3 grid-cols-3 gap4'>
             <div className="row-span-3">
-                <div className="container">
+                <div className="flex">
+                    <div className='mr-4'>
+                        <h1 className="
+                        text-4xl text-left
+                        text-gray-600
+                        ">Realtime</h1>
+                    </div>
                     <div
                         className='btn btn-info margin'
                         onClick={() => {
@@ -75,10 +81,10 @@ export const Realtime = (): JSX.Element => {
                 <label className="sr-only" htmlFor="text1">Text</label>
                 <textarea
                     cols={80}
-                    rows={8}
+                    rows={6}
                     className="
-                        w-full
-                        rounded m-4
+                        w-full rounded m-4 mb-1 p-4
+                        text-gray-500
                         "
                     id="text1"
                     placeholder="Input Sample"

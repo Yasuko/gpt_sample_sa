@@ -24,7 +24,7 @@ export const Option = (): JSX.Element => {
                 grid  grid-cols-2 gap4
                 w-full
             '>
-            <div className=''>
+            <div className='leading-10 mt-1'>
                 modalities [{cf.SessionOptions.modalities}]:
             </div>
             <div className=''>
@@ -53,7 +53,7 @@ export const Option = (): JSX.Element => {
                     <option value={2}>text & audio</option>
                 </select>
             </div>
-            <div>
+            <div className='leading-10 mt-1'>
                 model
             </div>
             <div>
@@ -79,13 +79,20 @@ export const Option = (): JSX.Element => {
                     <option value={'gpt-4o-mini-realtime-preview-2024-12-17'}>gpt-4o-mini-realtime-preview-2024-12-17</option>
                 </select>
             </div>
-            <div>
+            <div className='leading-10 mt-1'>
                 instructions
             </div>
             <div>
-                <textarea></textarea>
+                <textarea
+                    cols={30}
+                    rows={2}
+                    className="
+                        w-full rounded m-2 mb-1 p-4
+                        text-gray-500
+                    "
+                />
             </div>
-            <div>
+            <div className='leading-10 mt-1'>
                 voice
             </div>
             <div>
@@ -98,7 +105,8 @@ export const Option = (): JSX.Element => {
                         disabled:opacity-50 disabled:pointer-events-none
                         dark:bg-neutral-900 dark:border-neutral-700
                         dark:text-neutral-400 dark:placeholder-neutral-500
-                        dark:focus:ring-neutral-600"
+                        dark:focus:ring-neutral-600
+                        "
                     onChange={(e) => {
                         dispatch({
                             type    : 'RealtimeForm/setOptions',
@@ -117,7 +125,7 @@ export const Option = (): JSX.Element => {
                     <option value={'verse'}>verse</option>
                 </select>
             </div>
-            <div>
+            <div className='leading-10 mt-1'>
                 input_audio_format
             </div>
             <div>
@@ -144,11 +152,11 @@ export const Option = (): JSX.Element => {
                     <option value={'g711_alaw'}>g711_alaw</option>
                 </select>
             </div>
-            <div>
+            <div className='leading-10 mt-1'>
                 output_audio_format
             </div>
             <div>
-            <select
+                <select
                     className="
                         py-3 px-4 pe-9 block w-full
                         border-gray-200 rounded-lg
@@ -171,112 +179,155 @@ export const Option = (): JSX.Element => {
                     <option value={'g711_alaw'}>g711_alaw</option>
                 </select>
             </div>
-            <div>
-                turn_detection
+            <div
+                className='
+                font-bold
+                leading-10 mt-1 col-span-2 text-center
+                '
+            >
+                <h1>turn_detection</h1>
+            </div>
+            <div className='leading-10 mt-1'>
+                threshold {cf.SessionOptions.turn_detection.threshold}
             </div>
             <div>
-                <div className='grid grdi-cols-2 '>
-                    <div>threshold {cf.SessionOptions.turn_detection.threshold}</div>
-                    <div>
-                        <input
-                            type='range'
-                            defaultValue={cf.SessionOptions.turn_detection.threshold}
-                            min={0.1}
-                            max={1.0}
-                            step={0.1}
-                            onChange={(e) => {
-                                dispatch({
-                                    type    : 'RealtimeForm/setOptions',
-                                    payload  : {
-                                        turn_detection: {
-                                            threshold: Number(e.target.value),
-                                            prefix_padding_ms: cf.SessionOptions.turn_detection.prefix_padding_ms,
-                                            silence_duration_ms: cf.SessionOptions.turn_detection.silence_duration_ms,
-                                            create_response: cf.SessionOptions.turn_detection.create_response
-                                        }
-                                    }
-                                })
-                            }} />
-                    </div>
-                    <div> prefix_padding_ms {cf.SessionOptions.turn_detection.prefix_padding_ms } </div>
-                    <div>
-                        <input
-                            type='range'
-                            defaultValue={cf.SessionOptions.turn_detection.prefix_padding_ms}
-                            min={0}
-                            max={1000}
-                            step={10}
-                            onChange={(e) => {
-                                dispatch({
-                                    type    : 'RealtimeForm/setOptions',
-                                    payload : {
-                                        turn_detection: {
-                                            threshold: cf.SessionOptions.turn_detection.threshold,
-                                            prefix_padding_ms: Number(e.target.value),
-                                            silence_duration_ms: cf.SessionOptions.turn_detection.silence_duration_ms,
-                                            create_response: cf.SessionOptions.turn_detection.create_response
-                                        }
-                                    }
-                                })
-                            }} />
-                    </div>
-                    <div> silence_duration_ms {cf.SessionOptions.turn_detection.silence_duration_ms } </div>
-                    <div>
-                        <input
-                            type='range'
-                            defaultValue={cf.SessionOptions.turn_detection.silence_duration_ms}
-                            min={0}
-                            max={1000}
-                            step={10}
-                            onChange={(e) => {
-                                dispatch({
-                                    type    : 'RealtimeForm/setOptions',
-                                    payload : {
-                                        turn_detection: {
-                                            threshold: cf.SessionOptions.turn_detection.threshold,
-                                            prefix_padding_ms: cf.SessionOptions.turn_detection.prefix_padding_ms,
-                                            silence_duration_ms: Number(e.target.value),
-                                            create_response: cf.SessionOptions.turn_detection.create_response
-                                        }
-                                    }
-                                })
-                            }} />
-                        </div>
-                    <div> create_response {cf.SessionOptions.turn_detection.create_response} </div>
-                    <div>
-                        <input
-                            type='checkbox'
-                            defaultChecked={cf.SessionOptions.turn_detection.create_response}
-                            onChange={(e) => {
-                                dispatch({
-                                    type    : 'RealtimeForm/setOptions',
-                                    payload : {
-                                        turn_detection: {
-                                            threshold: cf.SessionOptions.turn_detection.threshold,
-                                            prefix_padding_ms: cf.SessionOptions.turn_detection.prefix_padding_ms,
-                                            silence_duration_ms: cf.SessionOptions.turn_detection.silence_duration_ms,
-                                            create_response: e.target.checked
-                                        }
-                                    }
-                                })
-                            }} />
-                    </div>
+                <input
+                    className='
+                        py-3 px-4 pe-9 block w-full
+                        text-sm
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                    '
+                    type='range'
+                    defaultValue={cf.SessionOptions.turn_detection.threshold}
+                    min={0.1}
+                    max={1.0}
+                    step={0.1}
+                    onChange={(e) => {
+                        dispatch({
+                            type    : 'RealtimeForm/setOptions',
+                            payload  : {
+                                turn_detection: {
+                                    threshold: Number(e.target.value),
+                                    prefix_padding_ms: cf.SessionOptions.turn_detection.prefix_padding_ms,
+                                    silence_duration_ms: cf.SessionOptions.turn_detection.silence_duration_ms,
+                                    create_response: cf.SessionOptions.turn_detection.create_response
+                                }
+                            }
+                        })
+                    }} />
+            </div>
+            <div className='leading-10 mt-1'>
+                prefix_padding_ms {cf.SessionOptions.turn_detection.prefix_padding_ms }
+            </div>
+            <div>
+                <input
+                    className='
+                        py-3 px-4 pe-9 block w-full
+                        text-sm
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                    '
+                    type='range'
+                    defaultValue={cf.SessionOptions.turn_detection.prefix_padding_ms}
+                    min={0}
+                    max={1000}
+                    step={10}
+                    onChange={(e) => {
+                        dispatch({
+                            type    : 'RealtimeForm/setOptions',
+                            payload : {
+                                turn_detection: {
+                                    threshold: cf.SessionOptions.turn_detection.threshold,
+                                    prefix_padding_ms: Number(e.target.value),
+                                    silence_duration_ms: cf.SessionOptions.turn_detection.silence_duration_ms,
+                                    create_response: cf.SessionOptions.turn_detection.create_response
+                                }
+                            }
+                        })
+                    }} />
+            </div>
+            <div className='leading-10 mt-1'>
+                silence_duration_ms {cf.SessionOptions.turn_detection.silence_duration_ms }
+            </div>
+            <div>
+                <input
+                    className='
+                        py-3 px-4 pe-9 block w-full
+                        text-sm
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                    '
+                    type='range'
+                    defaultValue={cf.SessionOptions.turn_detection.silence_duration_ms}
+                    min={0}
+                    max={1000}
+                    step={10}
+                    onChange={(e) => {
+                        dispatch({
+                            type    : 'RealtimeForm/setOptions',
+                            payload : {
+                                turn_detection: {
+                                    threshold: cf.SessionOptions.turn_detection.threshold,
+                                    prefix_padding_ms: cf.SessionOptions.turn_detection.prefix_padding_ms,
+                                    silence_duration_ms: Number(e.target.value),
+                                    create_response: cf.SessionOptions.turn_detection.create_response
+                                }
+                            }
+                        })
+                    }} />
                 </div>
+            <div className='leading-10 mt-1 mt-4'>
+                create_response {cf.SessionOptions.turn_detection.create_response}
             </div>
-            <div>
+            <div className='mt-3'>
+                <input
+                    className='
+                        w-full mt-4 py-3 px-4 pe-9 block
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600'
+                    type='checkbox'
+                    defaultChecked={cf.SessionOptions.turn_detection.create_response}
+                    onChange={(e) => {
+                        dispatch({
+                            type    : 'RealtimeForm/setOptions',
+                            payload : {
+                                turn_detection: {
+                                    threshold: cf.SessionOptions.turn_detection.threshold,
+                                    prefix_padding_ms: cf.SessionOptions.turn_detection.prefix_padding_ms,
+                                    silence_duration_ms: cf.SessionOptions.turn_detection.silence_duration_ms,
+                                    create_response: e.target.checked
+                                }
+                            }
+                        })
+                    }} />
+            </div>
+
+            <div className='leading-10 mt-1'>
                 tools
             </div>
             <div>
                 <CheckBox list={[{key: 'tools', value: 'tools'}]} next={'aaa'}/>
             </div>
-            <div>
+            <div className='leading-10 mt-1'>
                 tool_choice
             </div>
             <div>
                 <select
                     className="
                         py-3 px-4 pe-9 block w-full
-                        border-gray-200 rounded-lg
                         text-sm
                         focus:border-blue-500 focus:ring-blue-500
                         disabled:opacity-50 disabled:pointer-events-none
@@ -296,11 +347,19 @@ export const Option = (): JSX.Element => {
                     <option value={'required'}>required</option>
                 </select>
             </div>
-            <div>
+            <div className='leading-10 mt-1'>
                 temperature {cf.SessionOptions.temperature}
             </div>
             <div>
                 <input
+                    className='
+                        py-3 px-4 pe-9 block w-full
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                    '
                     type='range'
                     defaultValue={cf.SessionOptions.temperature}
                     min={0.6}
@@ -315,14 +374,20 @@ export const Option = (): JSX.Element => {
                         })
                     }} />
             </div>
-            <div className="text-center">
-                max_response_output_tokens
+            <div className='leading-10 mt-1'>
+                max_response_output_tokens [{cf.SessionOptions.max_response_output_tokens}]
             </div>
-            <div>
+            <div className='flex'>
                 <input
-                className='
-                    m-1 pb-1
-                '
+                    className='
+                        m-1 mr-4
+                        py-3 px-4 pe-9 block
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                    '
                     type='checkbox'
                     onChange={(e) => {
                         dispatch({
@@ -333,6 +398,15 @@ export const Option = (): JSX.Element => {
                         })
                     }} />
                 <input
+                    className='
+                        w-3/4
+                        ml-4 py-3 px-4 pe-9 block w-full
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                    '
                     type='range'
                     defaultValue={cf.SessionOptions.max_response_output_tokens}
                     min={1}

@@ -20,7 +20,7 @@ export const Screen = (): JSX.Element => {
     if (is.subscreen === '') return (<div></div>)
 
     return (
-        <div className='image-screen'>
+        <div className='absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50'>
             <div>
                 { checkScreen(is) }
             </div>

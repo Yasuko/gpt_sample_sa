@@ -24,11 +24,19 @@ export const Option = (): JSX.Element => {
                 model={cf.options.model}
                 next='ChatForm/setOptions'
             />
-            <div className='m-2'>
+            <div className='leading-10 mt-1'>
                 temperature [{cf.options.temperature}]:
             </div>
-            <div className='m-2'>
+            <div className=''>
                 <input
+                    className='
+                        py-3 px-4 pe-9 block w-full
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                    '
                     type='range'
                     defaultValue={cf.options.temperature}
                     min={0.0}
@@ -43,11 +51,19 @@ export const Option = (): JSX.Element => {
                 }} />
             </div>
 
-            <div className='m-2'>
+            <div className='leading-10 mt-1'>
                 top_p [{cf.options.top_p}]: 
             </div>
-            <div className='m-2'>
+            <div className=''>
                 <input
+                    className='
+                        py-3 px-4 pe-9 block w-full
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                    '
                     type='range'
                     defaultValue={cf.options.top_p}
                     min={0.0}
@@ -63,12 +79,23 @@ export const Option = (): JSX.Element => {
                 />
             </div>
 
-            <div className='m-2'>
-                n : 
+            <div className='leading-10 mt-1'>
+                n : [{cf.options.n}]
             </div>
-            <div className='m-2'>
+            <div className=''>
                 <input
-                    type='text'
+                    className='
+                    py-3 px-4 pe-9 block w-full
+                    focus:border-blue-500 focus:ring-blue-500
+                    disabled:opacity-50 disabled:pointer-events-none
+                    dark:bg-neutral-900 dark:border-neutral-700
+                    dark:text-neutral-400 dark:placeholder-neutral-500
+                    dark:focus:ring-neutral-600
+                    '
+                    type='range'
+                    min={1}
+                    max={4}
+                    step={1}
                     defaultValue={cf.options.n}
                     onChange={(e) => {
                         dispatch({
@@ -80,11 +107,19 @@ export const Option = (): JSX.Element => {
                 />
             </div>
 
-            <div className='m-2'>
-                stream : 
+            <div className='leading-10 mt-1'>
+                stream : [{(cf.options.stream) ? 'true' : 'false'}]
             </div>
-            <div className='m-2'>
+            <div className=''>
                 <input
+                    className='
+                        w-full mt-4 py-3 px-4 pe-9 block
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                        '
                     type='checkbox'
                     checked={cf.options.stream}
                     onChange={(e) => {
@@ -97,11 +132,20 @@ export const Option = (): JSX.Element => {
                 />
             </div>
 
-            <div className='m-2'>
+            <div className='leading-10 mt-1'>
                 stop : 
             </div>
-            <div className='m-2'>
+            <div className=''>
                 <input
+                    className='
+                        py-3 px-4 pe-9 block w-full
+                        border-gray-800 rounded-lg
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-gray-600 dark:border-gray-800
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                    '
                     type='text'
                     defaultValue={cf.options.stop}
                     onChange={(e) => {
@@ -114,11 +158,19 @@ export const Option = (): JSX.Element => {
                 />
             </div>
 
-            <div className='m-2'>
+            <div className='leading-10 mt-1'>
                 max_tokens [{cf.options.max_tokens}]: 
             </div>
-            <div className='m-2'>
+            <div className=''>
                 <input
+                    className='
+                        py-3 px-4 block w-full
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                    '
                     type='range'
                     min={1}
                     max={12800}
@@ -134,11 +186,19 @@ export const Option = (): JSX.Element => {
                 />
             </div>
 
-            <div className='m-2'>
+            <div className='leading-10 mt-1'>
                 presence_penalty [{cf.options.presence_penalty}]: 
             </div>
-            <div className='m-2'>
+            <div className=''>
                 <input
+                    className='
+                        py-3 px-4 block w-full
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                    '
                     type='range'
                     min={-2.0}
                     max={2.0}
@@ -154,11 +214,19 @@ export const Option = (): JSX.Element => {
                 />
             </div>
 
-            <div className='m-2'>
-                frequency_penalty [{cf.options.frequency_penalty}]: : 
+            <div className='leading-10 mt-1'>
+                frequency_penalty [{cf.options.frequency_penalty}]:
             </div>
-            <div className='m-2'>
+            <div className=''>
                 <input
+                    className='
+                        py-3 px-4 block w-full
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                    '
                     type='range'
                     min={-2.0}
                     max={2.0}
@@ -173,12 +241,19 @@ export const Option = (): JSX.Element => {
                     }}
                 />
             </div>
-
-            <div className='m-2'>
+            <div className='leading-10 mt-1'>
                 logit_bias [{cf.options.logit_bias}]: : 
             </div>
-            <div className='m-2'>
+            <div className=''>
                 <input
+                    className='
+                        py-3 px-4 block w-full
+                        focus:border-blue-500 focus:ring-blue-500
+                        disabled:opacity-50 disabled:pointer-events-none
+                        dark:bg-neutral-900 dark:border-neutral-700
+                        dark:text-neutral-400 dark:placeholder-neutral-500
+                        dark:focus:ring-neutral-600
+                    '
                     type='range'
                     min={-100}
                     max={100}
