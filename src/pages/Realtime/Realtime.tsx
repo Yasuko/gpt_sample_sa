@@ -22,7 +22,9 @@ export const Realtime = (): JSX.Element => {
         return state.RealtimeForm === undefined ? initialState : state.RealtimeForm
     })
     return (
-        <div className='grid grid-rows-3 grid-cols-3 gap4'>
+        <div className='
+            grid grid-rows-3 grid-cols-3 gap4
+        '>
             <div className="row-span-3">
                 <div className="flex">
                     <div className='mr-4'>
@@ -50,28 +52,31 @@ export const Realtime = (): JSX.Element => {
                         close
                     </div>
                 </div>
-                <audio id='realtime_server' autoPlay={true}></audio>
-                <label
-                    className="text-gray-500 text-sm"
-                    htmlFor="analyser_realtime_server">server audio</label>
-                <canvas
-                    id="analyser_realtime_server"
-                    className='border border-gray-500 rounded m-4 mt-1 mb-1'
-                    width={350}
-                    height={50}>
-                </canvas>
-                <audio id='realtime_client'></audio>
-                <label
-                    className="text-gray-500 text-sm"
-                    htmlFor="analyser_realtime_server">client audio</label>
-                <canvas
-                    id="analyser_realtime_client"
-                    className='border border-gray-500 rounded m-4 mt-1'
-                    width={350}
-                    height={50}>
-                </canvas>
+                <div className="flex">
+                    <audio id='realtime_server' autoPlay={true}></audio>
+                    <label
+                        className="text-gray-500 text-sm leading-10"
+                        htmlFor="analyser_realtime_server">server</label>
+                    <canvas
+                        id="analyser_realtime_server"
+                        className='bg-gray-800 rounded ml-4 mr-4 mt-1'
+                        width={170}
+                        height={30}>
+                    </canvas>
+                    <audio id='realtime_client'></audio>
+                    <label
+                        className="text-gray-500 text-sm leading-10"
+                        htmlFor="analyser_realtime_server">client</label>
+                    <canvas
+                        id="analyser_realtime_client"
+                        className='bg-gray-800 rounded ml-4 mt-1'
+                        width={170}
+                        height={30}>
+                    </canvas>
+                </div>
                 <Option />
             </div>
+
             <div className='col-span-2 row-span-2'>
                 <div
                     id="realtime-message">

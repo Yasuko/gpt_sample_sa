@@ -33,7 +33,7 @@ export const Speech = (): JSX.Element => {
                     <h1 className="
                         text-4xl text-left
                         text-gray-600
-                        ">Realtime</h1>
+                        ">Speech</h1>
                     <label className="sr-only" htmlFor="text1">Text</label>
                     <textarea
                         cols={80}

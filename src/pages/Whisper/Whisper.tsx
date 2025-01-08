@@ -169,8 +169,8 @@ export const Whisper = (): JSX.Element => {
             <Option />
         </div>
 
-        <div className='col-8'>
-            { ShowRecorder(wf) }
+        <div className='row-span-3 col-span-2'>
+            <ShowRecorder recorder={wf.recorder} />
         </div>
     </div>
     )

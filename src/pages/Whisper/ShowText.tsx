@@ -29,35 +29,77 @@ export const ShowText = (state: any): JSX.Element => {
     if (ws.showText === false) return <div></div>
 
     return (
-        <div className='whisper-show-text'>
-            <div className='whisper-show-text-content'>
-                <div className='whisper-title'>
-                    Text : 
-                    <br></br>
+        <div className='
+            absolute
+            top-0 left-0 w-svw h-svh
+            bg-gray-700 bg-opacity-50
+            '>
+            <div
+                className='
+                    grid grid-cols-5 gap4
+                    w-4/5 h-[25%]
+                    bg-gray-800
+                    p-3 m-auto mt-4
+                    rounded-lg
+                '>
+                <div className='col-span-1'>
+                    <p
+                        className='
+                            ml-16 mb-2 mt-2
+                            text-xl text-gray-500
+                    '>Text</p>
                     <div>
                         {
                             //st.textType 
                         }
                     </div>
-                    <br></br>
                     <button
-                        className='btn btn-sm btn-info'
+                        className='
+                            ml-12 mt-4 py-3 px-4 inline-flex items-center gap-x-2
+                            text-sm font-medium text-gray-200
+                            rounded-lg 
+                            bg-blue-800 
+                            hover:bg-blue-900 focus:outline-none focus:bg-blue-900
+                            disabled:opacity-50 disabled:pointer-events-none
+                        '
                         id='whisper-text-download'>
                         DL
                     </button>
                 </div>
-                <div className='whisper-text'>
-                    <pre id='whisper-showText-text'>
+                <div className='col-span-4'>
+                    <pre
+                        id='whisper-showText-text'
+                        className='
+                            w-full h-full
+                            bg-gray-900
+                            overflow-y-auto overflow-x-hidden
+                        '>
                         { st.text }
                     </pre>
                 </div>
             </div>
-            <div className='whisper-show-text-content'>
-                <div className='whisper-title'>
-                    Formation : 
-                    <br></br>
-                    <div
-                        className='btn btn-sm btn-secondary'
+            <div className='
+                    grid grid-cols-5 gap4
+                    w-4/5 h-[25%]
+                    bg-gray-800
+                    p-3 m-auto mt-4
+                    rounded-lg
+            '>
+                <div className='col-span-1'>
+                    <p
+                        className='
+                            ml-10 mb-2 mt-2
+                            text-xl text-gray-500
+                    '>Formation</p>
+                    <button
+                        className='
+                            ml-8 mt-4 py-3 px-4 inline-flex items-center gap-x-2
+                            text-sm font-medium text-gray-200
+                            rounded-lg 
+                            bg-blue-800 
+                            hover:bg-blue-900 focus:outline-none focus:bg-blue-900
+                            disabled:opacity-50 disabled:pointer-events-none
+                        '
                         onClick={() => {
                             dispatch({
                                 type    : 'WhisperAction/convertText',
@@ -65,19 +107,43 @@ export const ShowText = (state: any): JSX.Element => {
                                 job     : 'formation'
                             })
                         }}>
-                        DO
-                    </div>
+                        Generate
+                    </button>
                 </div>
-                <div className='whisper-text'>
-                    { st.formation }
+                <div className='col-span-4'>
+                    <pre
+                        id='whisper-showText-formation'
+                        className='
+                            w-full h-full
+                            bg-gray-900
+                            overflow-y-auto overflow-x-hidden
+                        '>
+                        { st.formation }
+                    </pre>
                 </div>
             </div>
-            <div className='whisper-show-text-content'>
-                <div className='whisper-title'>
-                    Summary : 
-                    <br></br>
-                    <div
-                        className='btn btn-sm btn-secondary'
+            <div className='
+                    grid grid-cols-5 gap4
+                    w-4/5 h-[25%]
+                    bg-gray-800
+                    p-3 m-auto mt-4
+                    rounded-lg
+            '>
+                <div className='col-span-1'>
+                    <p
+                        className='
+                            ml-10 mb-2 mt-2
+                            text-xl text-gray-500
+                    '>Summary</p>
+                    <button
+                        className='
+                            ml-8 mt-4 py-3 px-4 inline-flex items-center gap-x-2
+                            text-sm font-medium text-gray-200
+                            rounded-lg 
+                            bg-blue-800 
+                            hover:bg-blue-900 focus:outline-none focus:bg-blue-900
+                            disabled:opacity-50 disabled:pointer-events
+                        '
                         onClick={() => {
                             dispatch({
                                 type    : 'WhisperAction/convertText',
@@ -85,22 +151,37 @@ export const ShowText = (state: any): JSX.Element => {
                                 job     : 'summary'
                             })
                         }}>
-                        DO
-                    </div>
+                        Generate
+                    </button>
                 </div>
-                <div className='whisper-text'>
-                    <pre>{ st.summary }</pre>
+                <div className='col-span-4'>
+                    <pre
+                        className='
+                            w-full h-full
+                            bg-gray-900
+                            overflow-y-auto overflow-x-hidden
+                        '>
+                        { st.summary }
+                    </pre>
                 </div>
             </div>
-            <div
-                className='btn btn-xl btn-primary whisper-show-text-button'
+            <button
+                className='
+                    absolute top-[1%] right-[2%]
+                    ml-8 mt-4 py-3 px-4 inline-flex items-center gap-x-2
+                    text-sm font-medium text-gray-200
+                    rounded-lg 
+                    bg-blue-800 
+                    hover:bg-blue-900 focus:outline-none focus:bg-blue-900
+                    disabled:opacity-50 disabled:pointer-events-none
+                '
                 onClick={() => {
                 dispatch({
                     type    : 'WhisperScreen/toggleShowText',
                 })
             }}>
                 Close
-            </div>
+            </button>
         </div>
     )
 };
