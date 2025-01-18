@@ -1,4 +1,4 @@
-import { ChatContentType } from '../../../_lib/gpt/_helper/chat.helper'
+import { ChatMessagesType } from '../../../_lib/gpt/_helper/chat.helper'
 import {
     ChatOptions
 } from '../../../_lib/gpt/type.service'
@@ -9,10 +9,7 @@ import {
  * @param content : string
  * 
  */
-export type Chat = {
-    role    : 'user' | 'system' | 'assistant',
-    content : ChatContentType,
-}
+export type Chat = ChatMessagesType
 
 /**
  * ChatReducerの型
@@ -45,34 +42,27 @@ export type ChatFormType = {
 export const initialChatForm: ChatFormType = {
     options     : {
         model       : 'gpt-4o',
-        messages    : [{
-            role    : 'user',
-            content : ''
-        }],
+        messages    : [],
         temperature : 1,
         top_p       : 1,
         n           : 1,
         stream      : false,
-        max_tokens  : 4000,
+        max_completion_tokens: 4000,
         presence_penalty: 0,
         frequency_penalty: 0,
     },
     newChat     : '',
     images      : [],
     chatBlock   : [{
-        role    : 'user',
-        content : {
-            type: 'text',
-            text: ''
-        }
+        role    : 'developer',
+        content : '',
+        name: ''
     }],
     saveBlock   : {
         '': [{
-            role    : 'user',
-            content : {
-                type: 'text',
-                text: ''
-            }
+            role    : 'developer',
+            content : '',
+            name: ''
         }]
     },
     chatStack   : ''

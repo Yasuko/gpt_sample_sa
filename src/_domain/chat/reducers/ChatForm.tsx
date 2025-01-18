@@ -1,4 +1,4 @@
-import { Dispatch, createSlice } from '@reduxjs/toolkit';
+import { Dispatch, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { duplicator, addArray } from '../../_helper/object.helper'
 import { ChatFormType, initialChatForm } from './__type.chat'
 
@@ -37,9 +37,15 @@ const slice = createSlice({
                 chatStack: action.chatStack
             })
         },
-        setOptions: (state: any, action: any) => {
+        setOptions: (
+            state: any,
+            action: PayloadAction<{
+                        key: string,
+                        option: Partial<ChatFormInterface['options']>
+                    }>
+        ) => {
             const op = duplicator(state.options)
-            op[action.key] = action.option
+            op[action.payload.key] = action.payload.option
             return Object.assign({}, state, {
                 options: op
             })

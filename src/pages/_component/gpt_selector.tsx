@@ -12,7 +12,7 @@ export const GPT_Selector = (state: GPTSelectorState): JSX.Element => {
     return (
         <>
             <div className='leading-10 mt-1'>
-                model : 
+                model [ {state.model} ] :
             </div>
             <div className=''>
                 <select
@@ -29,8 +29,10 @@ export const GPT_Selector = (state: GPTSelectorState): JSX.Element => {
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                     dispatch({
                         type    : state.next,
-                        key     : 'model',
-                        option  : e.target.value
+                        payload: {
+                            key     : 'model',
+                            option  : e.target.value
+                        }
                     })
                 }}>
                     <option value='gpt-4o-mini'>gpt-4o mini</option>

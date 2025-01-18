@@ -13,7 +13,8 @@ import {
 
 // import component
 import Option from './Option'
-import { ChatContentType } from '../../_lib/gpt/_helper/chat.helper'
+import ChatList from './ChatList'
+import { ChatMessagesType } from '../../_lib/gpt/_helper/chat.helper'
 import { Dispatch } from '@reduxjs/toolkit'
 
 export const Chat = (): JSX.Element => {
@@ -46,7 +47,7 @@ export const Chat = (): JSX.Element => {
             col-span-2 row-span-2
             overflow-y-auto overflow-x-hidden
             '>
-                { ChatList(cf) }
+                { ChatList(cf.chatBlock) }
             </div>
             <div className="col-span-2">
                 <label className="sr-only" htmlFor="text1">Text</label>
@@ -116,83 +117,7 @@ const clear = () => {
     t.value = ''
 }
 
-const ChatList = (cf: ChatFormInterface) => {
 
-    if (isObjectEqual(cf.chatBlock, initialState.chatBlock))
-        return <div className='flex flex-row gap-4'>none</div>
-
-    const list = cf.chatBlock.map((val, key) => {
-        return (
-            <div key={key} className="
-            flex flex-row gap-4">
-                { val.role === 'user' ? UserContent(val.content) : SystemContent(val.content) }
-            </div>
-        )
-    })
-    return (
-        <div className=''>
-            {list}
-        </div>
-    )
-}
-
-const UserContent = (ct: ChatContentType): JSX.Element => {
-    return (
-        <div className="
-        max-w-2xl ms-auto flex justify-end gap-x-2
-        mt-4 sm:gap-x-4
-    ">
-        <div className="grow text-end space-y-3">
-            { ContentList(ct) }
-        </div>
-        <span className="
-            shrink-0 inline-flex items-center justify-center
-            size-[38px] rounded-full bg-gray-600">
-            <span className="
-                text-sm font-medium text-white leading-none">
-                User
-            </span>
-        </span>
-    </div>
-    )
-}
-
-const SystemContent = (ct: ChatContentType): JSX.Element => {
-    return (
-        <div className="flex gap-x-2 sm:gap-x-4 mt-4 ml-6">
-            <span className="
-                shrink-0 inline-flex items-center justify-center
-                size-[38px] rounded-full bg-purple-600">
-                <span className="
-                    text-sm font-medium text-white leading-none">
-                    GPT
-                </span>
-            </span>
-            <div className="grow max-w-[90%] md:max-w-2xl w-full space-y-3">
-                { ContentList(ct) }
-            </div>
-        </div>
-    )
-}
-
-const ContentList = (ct: ChatContentType): JSX.Element => {
-    const c = (ct.type === 'text') 
-                ? (
-                <div className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
-                    <pre className='text-sm text-white'>{ct.text}</pre>
-                </div>
-                )
-                : (
-                <div className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
-                    <img src={ct.image_url?.url} width={200} />
-                </div>
-                )
-    return (
-        <div className=''>
-            {c}
-        </div>
-    )
-}
 const onDragStart = (
     e: React.DragEvent | DragEvent,
     dispatch: Dispatch

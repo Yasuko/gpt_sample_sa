@@ -12,8 +12,8 @@ import { RealtimeReducer } from '../_domain/realtime/index.reducers'
 
 import ShowContent from '../_domain/_all/reducers/ShowContent'
 import FileForm from '../_domain/_all/reducers/FileForm'
-
 import JobStack from '../_domain/_all/reducers/JobStack'
+import Tools from '../_domain/_all/reducers/Tools'
 
 export const reducer = {
     ...animationReducers,
@@ -29,4 +29,5 @@ export const reducer = {
     ShowContent,
     FileForm,
     JobStack,
+    Tools,
 }
