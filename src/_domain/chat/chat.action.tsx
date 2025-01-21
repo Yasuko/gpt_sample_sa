@@ -29,6 +29,9 @@ export const RootChatAction = [
     takeEvery('ChatAction/exportChat', exportChat), // Chatを外部アクションから呼び出す
     takeEvery('ChatAction/dragStart', dragStart),
     takeEvery('ChatAction/dragEnd', dragEnd),
+
+    takeEvery('ChatAction/addTooles', addTooles),
+
 ]
 
 /**
@@ -123,5 +126,23 @@ function* dragEnd(val: any): any {
                 },
             }
         }
+    })
+}
+
+/**
+ * ツールを追加する
+ * @param val 
+ */
+function* addTooles(val: any): any {
+    const cf: ChatFormInterface = yield select(chatForm)
+    const token = yield select(Token)
+
+    // ChatAPIをコール
+    const r = yield ChatModel.call(token.token)
+        .callDocumetSummary(val.tool, undefined, cf.options)
+    yield put({
+        type    : val.dispatch,
+        role    : r.choices[0].message.role,
+        content : r.choices[0].message.content,
     })
 }

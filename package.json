@@ -16,6 +16,7 @@
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.6",
     "@ffmpeg/util": "^0.12.1",
+    "@preline/accordion": "^2.5.2",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/react-transition-group": "^4.4.5",
     "@types/uuid": "^9.0.1",
@@ -29,6 +30,7 @@
     "openai": "^4.47.1",
     "pdfjs-dist": "^4.1.392",
     "postcss": "^8.4.49",
+    "preline": "^2.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",

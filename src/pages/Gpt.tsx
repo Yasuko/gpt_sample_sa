@@ -1,5 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Provider } from 'react-redux'
+
+import "preline/preline"
+import { IStaticMethods } from "preline/preline"
+declare global {
+    interface Window {
+        HSStaticMethods: IStaticMethods;
+    }
+}
 
 // import rootReducer from './reducers'
 import { createStore } from '../_store/configureStore'
@@ -13,6 +21,7 @@ import ImageIndex from './Image/index'
 import VisionIndex from './Vision'
 import InputToken from './token/InputToken'
 import RealtimeIndex from './Realtime/index'
+import { useLocation } from 'react-router-dom';
 
 interface FaceInterface {
     page: string
@@ -21,6 +30,11 @@ interface FaceInterface {
 const store = createStore()
 
 const Gpt = (p: FaceInterface): JSX.Element => {
+    const location = useLocation()
+
+    useEffect(() => {
+        window.HSStaticMethods.autoInit()
+    }, [location.pathname])
 
     return (
         <Provider store={store}>
