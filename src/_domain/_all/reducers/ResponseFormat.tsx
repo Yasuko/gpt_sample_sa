@@ -1,52 +1,54 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { initialToolType, ToolType } from '../../../_lib/gpt/_helper/chat.helper'
+import { ResponseFormatType, JsonSchemaType } from '../../../_lib/gpt/_helper/chat.helper'
 
 // import helper
 import { duplicator } from '../../_helper/object.helper'
 
-export interface ToolsPropsInterface {
-    Tools?: ToolsInterface;
+export interface ResponseFormatPropsInterface {
+    ResponseFormat?: ResponseFormatInterface;
     dispatch?: any;
 }
 
 // 編集用のID付きのToolType
-export type EditToolType = 
-    ToolType['function']
+export type EditResponseFormat = 
+    JsonSchemaType
     & {
         id: number
     }
 
 
-export type ToolsInterface = {
-    tools: ToolType[]       // ツールリスト
-    editor: EditToolType    // 編集中のツール
-    edit_parameters: EditToolType['parameters'] // 編集中のパラメータ
-    edit_properties: EditToolType['parameters']['properties'] // 編集中のプロパティ
+export type ResponseFormatInterface = {
+    schemas: JsonSchemaType[]
+    type: 'text' | 'json_object' | 'json_schema'
+    edit_schema: EditResponseFormat
     screen: boolean         // スクリーン表示
 }
 
-export const initialToole: EditToolType = {
-    ...initialToolType,
+export const initialToole: EditResponseFormat = {
+    ...{
+        name: '',
+        schema: {},
+        strict: false
+    },
     ...{
         id: 999
     }
 }
 
-export const initialState: ToolsInterface = {
-    tools: [],
-    editor: initialToole,
-    edit_parameters: initialToole.parameters,
-    edit_properties: initialToole.parameters.properties,
+export const initialState: ResponseFormatInterface = {
+    schemas: [],
+    type: 'text',
+    edit_schema: initialToole,
     screen: false
 }
 
 const slice = createSlice({
-    name: 'Tools',
+    name: 'ResponseFormat',
     initialState,
     reducers: {
         set: (
-            state: ToolsInterface,
-            action: PayloadAction<ToolsInterface>
+            state: ResponseFormatInterface,
+            action: PayloadAction<ResponseFormatInterface>
         ) => {
             return Object.assign({}, state, {
                 ...action.payload

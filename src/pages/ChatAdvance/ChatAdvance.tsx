@@ -1,23 +1,22 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Dispatch } from '@reduxjs/toolkit'
 
 // import helper
 
 // import reducer
 import {
-    ChatFormPropsInterface,
-    ChatFormInterface,
+    ChatAdvanceFormPropsInterface,
+    ChatAdvanceFormInterface,
     initialState
-} from '../../_domain/chat/reducers/ChatForm'
+} from '../../_domain/chatAdvance/reducers/ChatAdvanceForm'
 
 // import component
 import Option from './Option'
 import ChatList from './ChatList'
-import { ChatMessagesType } from '../../_lib/gpt/_helper/chat.helper'
-import { Dispatch } from '@reduxjs/toolkit'
-import ChatScreen from './ChatScreen'
 
-export const Chat = (): JSX.Element => {
+
+export const ChatAdvance = (): JSX.Element => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -26,8 +25,8 @@ export const Chat = (): JSX.Element => {
             return: 'Chat'
         })
     })
-    const cf = useSelector((state: ChatFormPropsInterface): ChatFormInterface => {
-        return state.ChatForm === undefined ? initialState : state.ChatForm
+    const cf = useSelector((state: ChatAdvanceFormPropsInterface): ChatAdvanceFormInterface => {
+        return state.ChatAdvanceForm === undefined ? initialState : state.ChatAdvanceForm
     })
     return (
         <div className='
@@ -38,7 +37,7 @@ export const Chat = (): JSX.Element => {
                 <h1 className="
                 text-4xl text-left
                 text-gray-600
-                ">Chat</h1>
+                ">ChatAdvance</h1>
                 <Option />
             </div>
             <div className='
@@ -49,7 +48,6 @@ export const Chat = (): JSX.Element => {
             '>
                 { ChatList(cf.chatBlock) }
             </div>
-            <ChatScreen cf={cf.newChat} screen={cf.chatScreen} />
             <div className="col-span-2">
                 <label className="sr-only" htmlFor="text1">Text</label>
                 <textarea
@@ -61,18 +59,12 @@ export const Chat = (): JSX.Element => {
                     "
                     id="text1"
                     placeholder="Input Sample"
-                    defaultValue={cf.newChat.content[0]['text']}
+                    defaultValue={cf.newChat}
                     onChange={(e) => {
                         dispatch({
-                            type     : 'ChatForm/updateNewChat',
-                            payload  : {
-                                content : [{
-                                    type: 'text',
-                                    text: e.target.value
-                                }],
-                                id: 0
-                            }
-                        })
+                            type     : 'ChatForm/setNewChat',
+                            newChat  : e.target.value
+                        });
                     }}
                     onDragOver={(e) => onDragStart(e, dispatch)}
                     onDrop={(e) => onDragEnd(e, dispatch)}
@@ -150,4 +142,4 @@ const onDragEnd = (
 }
 
 
-export default Chat
+export default ChatAdvance

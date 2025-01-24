@@ -16,6 +16,7 @@ import { createStore } from '../_store/configureStore'
 import WhisperIndex from './Whisper/index'
 import SpeechIndex from './Speech/index'
 import ChatIndex from './Chat/index'
+import ChatAdvance from './ChatAdvance/index'
 import EmbedIndex from './Embed/index'
 import ImageIndex from './Image/index'
 import VisionIndex from './Vision'
@@ -46,6 +47,7 @@ const Gpt = (p: FaceInterface): JSX.Element => {
 const changer = (p: string): JSX.Element => {
     if (p === '') return <ChatIndex />
     if (p === 'chat') return <ChatIndex />
+    if (p === 'chatadvance') return <ChatAdvance />
     if (p === 'embed') return <EmbedIndex />
     if (p === 'whisper') return <WhisperIndex />
     if (p === 'speech') return <SpeechIndex />

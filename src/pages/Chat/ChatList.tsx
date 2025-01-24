@@ -33,46 +33,17 @@ export const ChatList = (cf: Chat[]) => {
 
 const RoleSwitch = (lists: Chat): JSX.Element => {
     switch (lists.role) {
-        case 'developer':
-            return DeveloperContent(lists.content)
         case 'user':
             return UserContent(lists.content)
-        case 'assistant':
-            return AssistantContent(lists.content)
         case 'system':
             return SystemContent(lists.content)
-        case 'tool':
-            return ToolContent(lists.content)
         default:
             return <div></div>
     }
 }
 
-const DeveloperContent = (
-    ct: string,
-): JSX.Element => {
-    return (
-        <div className="flex gap-x-2 sm:gap-x-4 mt-4 ml-6">
-            <span className="
-                shrink-0 inline-flex items-center justify-center
-                size-[38px] rounded-full bg-green-600">
-                <span className="
-                    text-sm font-medium text-white leading-none">
-                    Developer
-                </span>
-            </span>
-            <div className="grow max-w-[90%] md:max-w-2xl w-full space-y-3">
-                <div className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
-                    <pre className='text-sm text-white'>
-                        {ct}
-                    </pre>
-                </div>
-            </div>
-        </div>
-    )
-}
-
 const SystemContent = (ct: string): JSX.Element => {
+    console.log(ct)
     return (
         <div className="flex gap-x-2 sm:gap-x-4 mt-4 ml-6">
             <span className="
@@ -80,7 +51,7 @@ const SystemContent = (ct: string): JSX.Element => {
                 size-[38px] rounded-full bg-purple-600">
                 <span className="
                     text-sm font-medium text-white leading-none">
-                    GPT
+                    Sys
                 </span>
             </span>
             <div className="grow max-w-[90%] md:max-w-2xl w-full space-y-3">
@@ -100,7 +71,7 @@ const UserContent = (ct: UserMessageType['content']): JSX.Element => {
         max-w-2xl ms-auto flex justify-end gap-x-2
         mt-4 sm:gap-x-4
     ">
-        <div className="grow text-end space-y-3">
+        <div className="grid grid-cols-1 grow text-end space-y-3">
             { UserContentList(ct) }
         </div>
         <span className="
@@ -108,48 +79,10 @@ const UserContent = (ct: UserMessageType['content']): JSX.Element => {
             size-[38px] rounded-full bg-gray-600">
             <span className="
                 text-sm font-medium text-white leading-none">
-                User
+                Usa
             </span>
         </span>
     </div>
-    )
-}
-
-
-
-const AssistantContent = (ct: AssistantMessageType['content']): JSX.Element => {
-    return (
-        <div className="flex gap-x-2 sm:gap-x-4 mt-4 ml-6">
-            <span className="
-                shrink-0 inline-flex items-center justify-center
-                size-[38px] rounded-full bg-yellow-600">
-                <span className="
-                    text-sm font-medium text-white leading-none">
-                    Assistant
-                </span>
-            </span>
-            <div className="grow max-w-[90%] md:max-w-2xl w-full space-y-3">
-                { AssistantContentList(ct) }
-            </div>
-        </div>
-    )
-}
-
-const ToolContent = (ct: ToolMessageType['content']): JSX.Element => {
-    return (
-        <div className="flex gap-x-2 sm:gap-x-4 mt-4 ml-6">
-            <span className="
-                shrink-0 inline-flex items-center justify-center
-                size-[38px] rounded-full bg-blue-600">
-                <span className="
-                    text-sm font-medium text-white leading-none">
-                    Tool
-                </span>
-            </span>
-            <div className="grow max-w-[90%] md:max-w-2xl w-full space-y-3">
-                { ToolContentList(ct) }
-            </div>
-        </div>
     )
 }
 
@@ -182,67 +115,9 @@ const UserContentList = (ct: UserMessageType['content']): JSX.Element => {
         }
     })
     return (
-        <div className=''>
+        <>
             {c}
-        </div>
-    )
-}
-
-const AssistantContentList = (ct: AssistantMessageType['content']): JSX.Element => {
-    if (typeof ct === 'string')
-        return (
-            <div className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
-                <pre className='text-sm text-white'>{ct}</pre>
-            </div>
-        )
-
-    const c = ct.map((val, key) => {
-        if (val.refusal === undefined || val.refusal === null) {
-            return (
-                <div key={key} className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
-                    <pre className='text-sm text-white'>
-                        {val.type} : {val.text}
-                    </pre>
-                </div>
-            )
-        } else {
-            return (
-                <div key={key} className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
-                    <pre className='text-sm text-tomato'>
-                        {val.type} : {val.refusal}
-                    </pre>
-                </div>
-            )
-        }
-    })
-    return (
-        <div className=''>
-            {c}
-        </div>
-    )
-}
-
-const ToolContentList = (ct: ToolMessageType['content']): JSX.Element => {
-    if (typeof ct === 'string')
-        return (
-            <div className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
-                <pre className='text-sm text-white'>{ct}</pre>
-            </div>
-        )
-
-    const c = ct.map((val, key) => {
-        return (
-            <div key={key} className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
-                <pre className='text-sm text-tomato'>
-                    {val.type} : {val.text}
-                </pre>
-            </div>
-        )
-    })
-    return (
-        <div className=''>
-            {c}
-        </div>
+        </>
     )
 }
 

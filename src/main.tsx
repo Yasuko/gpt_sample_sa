@@ -16,6 +16,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Routes>
         <Route path="/" element={ <Gpt page="" /> }></Route>
         <Route path="/Chat" element={ <Gpt page="chat" /> }></Route>
+        <Route path="/ChatAdvance" element={ <Gpt page="chatadvance" /> }></Route>
         <Route path="/Embed" element={ <Gpt page="embed" /> }></Route>
         <Route path="/Whisper" element={ <Gpt page="whisper" /> }></Route>
         <Route path="/Speech" element={ <Gpt page="speech" /> }></Route>
