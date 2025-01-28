@@ -1,22 +1,23 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dispatch } from '@reduxjs/toolkit'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 
-import { ToolType } from '../../../_lib/gpt/_helper/chat.helper'
+import {
+    ResponseFormatInterface,
+} from '../../../_domain/_all/reducers/ResponseFormat'
 
 // import reducer
 
 
-const ToolEditorToolList = ({
-    tools
+const ResponseFormList = ({
+    schemas
 }: {
-    tools: ToolType[]
+    schemas: ResponseFormatInterface['schemas']
 }): JSX.Element => {
     const dispatch = useDispatch()
-
+    console.log(schemas)
     let list = [<div key={0} className='h-4 text-center col-span-8 gap-4'>none</div>]
-    if (tools.length > 0) {
-        list = tools.map((val, key) => {
+    if (schemas.length > 0) {
+        list = schemas.map((val, key) => {
             return (
                 <div
                     key={key}
@@ -30,7 +31,7 @@ const ToolEditorToolList = ({
                 '>
                     <div
                         className="
-                            col-span-2
+                            col-span-6
                             h-8 m-1
                             rounded-lg
                             bg-gray-600
@@ -38,20 +39,11 @@ const ToolEditorToolList = ({
                             "
                         onClick={() => {
                             dispatch({
-                                type: 'Tools/setEditor',
+                                type: 'ResponseFormat/setEditor',
                                 payload: key
                             })
                         }}>
-                        {val.function.name}
-                    </div>
-                    <div
-                        className="
-                            col-span-4
-                            h-8 m-1
-                            rounded-lg
-                            bg-gray-600 
-                            ">
-                        { splitDescription(val.function.description) }
+                        {val.name}
                     </div>
                 </div>
             )
@@ -68,18 +60,11 @@ const ToolEditorToolList = ({
             '>
             <div
                 className="
-                    col-span-2
+                    col-span-6
                     block h-4 -mt-4 mb-1
                     text-lg text-gray-700 font-medium text-center
                     dark:text-white
                 ">name</div>
-            <div
-                className="
-                    col-span-4
-                    block h-4 -mt-4 mb-1
-                    text-lg text-gray-700 font-medium text-center
-                    dark:text-white
-                ">description</div>
             {list}
         </div>
     )
@@ -92,4 +77,4 @@ const splitDescription = (description: string | undefined): string => {
 }
 
 
-export default ToolEditorToolList
+export default ResponseFormList

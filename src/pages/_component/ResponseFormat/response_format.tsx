@@ -5,27 +5,21 @@ import { ToolType } from '../../../_lib/gpt/_helper/chat.helper'
 
 // import reducer
 import {
-    ToolsInterface,
-    ToolsPropsInterface,
+    ResponseFormatInterface,
+    ResponseFormatPropsInterface,
     initialState
-} from '../../../_domain/_all/reducers/Tools'
+} from '../../../_domain/_all/reducers/ResponseFormat'
 
 // import component
-import ToolEditorForm from './response_format_form'
-import ToolEditorToolList from './response_format_tool_list'
-
-
-type ToolEditorState = {
-    tools?: ToolType[]
-    next?: string
-}
+import ResponseFormarForm from './response_format_form'
+import ResponseFormList from './response_format_list'
 
 export const ResponseFormat = (): JSX.Element => {
     const dispatch = useDispatch()
 
     // コンテンツ表示Reducer呼び出し
-    const t = useSelector((state: ToolsPropsInterface): ToolsInterface => {
-        return state.Tools === undefined ? initialState : state.Tools
+    const r = useSelector((state: ResponseFormatPropsInterface): ResponseFormatInterface => {
+        return state.ResponseFormat === undefined ? initialState : state.ResponseFormat
     })
 
     // if (!t.screen) return <></>
@@ -55,21 +49,9 @@ export const ResponseFormat = (): JSX.Element => {
                         dark:hover:text-blue-500 dark:hover:border-blue-600
                         dark:focus:text-blue-500 dark:focus:border-blue-600
                         '
-                        onClick={() => {
-                            const patch = t.editor.id < 999
-                            ? {
-                                type: 'Tools/update',
-                                payload: t.editor.id
-                            }:
-                            {
-                                type: 'Tools/add',
-                                payload: {}
-                            }
-                            
-                            dispatch(patch)
-                        }}
+                        onClick={() => {}}
                         >
-                        { (t.editor.id < 999) ? 'UpdateTool' : 'AddTool' }
+                        AddTool
                     </button>
                     <button
                         className='
@@ -123,8 +105,8 @@ export const ResponseFormat = (): JSX.Element => {
                         Close
                     </button>
                 </div>
-                <ToolEditorToolList tools={t.tools} />
-                <ToolEditorForm tool={t.editor}  parameters={t.edit_parameters} properties={t.edit_properties} />
+                <ResponseFormList schemas={r.schemas} />
+                <ResponseFormarForm schemas={r}  />
             </div>
         </div>
     )

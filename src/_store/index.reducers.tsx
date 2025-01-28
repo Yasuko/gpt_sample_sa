@@ -14,6 +14,7 @@ import ShowContent from '../_domain/_all/reducers/ShowContent'
 import FileForm from '../_domain/_all/reducers/FileForm'
 import JobStack from '../_domain/_all/reducers/JobStack'
 import Tools from '../_domain/_all/reducers/Tools'
+import ResponseFormat from '../_domain/_all/reducers/ResponseFormat'
 
 export const reducer = {
     ...animationReducers,
@@ -30,4 +31,5 @@ export const reducer = {
     FileForm,
     JobStack,
     Tools,
+    ResponseFormat,
 }

@@ -1,5 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ResponseFormatType, JsonSchemaType } from '../../../_lib/gpt/_helper/chat.helper'
+import {
+    parseJson, isJson, stringifyJson
+} from '../../../_lib/_helper/json.helper'
 
 // import helper
 import { duplicator } from '../../_helper/object.helper'
@@ -24,11 +27,42 @@ export type ResponseFormatInterface = {
     screen: boolean         // スクリーン表示
 }
 
-export const initialToole: EditResponseFormat = {
+export const initialResponseFormat: EditResponseFormat = {
     ...{
-        name: '',
-        schema: {},
-        strict: false
+        name: 'math_response',
+        schema: {
+            type: 'object',
+            properties: {
+                steps: {
+                    type: 'array',
+                    items: {
+                        type: 'object',
+                        properties: {
+                            explanation: {
+                                type: 'string'
+                            },
+                            output: {
+                                type: 'number'
+                            }
+                        },
+                        required: [
+                            'explanation',
+                            'output'
+                        ],
+                        additionalProperties: false
+                    },
+                },
+                final_answer: {
+                    type: 'string'
+                },
+            },
+            additionalProperties: false,
+            required: [
+                'steps',
+                'final_answer'
+            ]
+        },
+        strict: true
     },
     ...{
         id: 999
@@ -38,7 +72,7 @@ export const initialToole: EditResponseFormat = {
 export const initialState: ResponseFormatInterface = {
     schemas: [],
     type: 'text',
-    edit_schema: initialToole,
+    edit_schema: initialResponseFormat,
     screen: false
 }
 
@@ -54,187 +88,94 @@ const slice = createSlice({
                 ...action.payload
             })
         },
-        add: (
-            state: ToolsInterface,
+        setSchemas: (
+            state: ResponseFormatInterface,
+            action: PayloadAction<JsonSchemaType[]>
+        ) => {
+            return Object.assign({}, state, {
+                schemas: action.payload
+            })
+        },
+        addSchemas: (
+            state: ResponseFormatInterface,
             action: PayloadAction<void>
         ) => {
-            const edit: ToolType = {
-                type: 'function',
-                function: duplicator<ToolsInterface['editor']>(state.editor)
+            const edit = duplicator<ResponseFormatInterface['edit_schema']>(state.edit_schema)
+            const schemas = duplicator<ResponseFormatInterface['schemas']>(state.schemas)
+            if (edit.id !== 999) {
+                schemas[edit.id] = edit
+            } else {
+                schemas.push(edit)
             }
-            edit.function.parameters
-                = duplicator<ToolsInterface['edit_parameters']>(state.edit_parameters)
-            edit.function.parameters.properties
-                = duplicator<ToolsInterface['edit_properties']>(state.edit_properties)
-
             return Object.assign({}, state, {
-                tools: [...state.tools, edit],
-                editor: initialToole,
-                edit_properties: initialToole.parameters.properties
+                schemas
             })
         },
         update: (
-            state: ToolsInterface,
-            action: PayloadAction<number>
+            state: ResponseFormatInterface,
+            action: PayloadAction<{
+                id: number,
+                schema: JsonSchemaType
+            }>
         ) => {
-            const edit: ToolType = {
-                type: 'function',
-                function: duplicator<ToolsInterface['editor']>(state.editor)
-            }
-            edit.function.parameters
-                = duplicator<ToolsInterface['edit_parameters']>(state.edit_parameters)
-            edit.function.parameters.properties
-                = duplicator<ToolsInterface['edit_properties']>(state.edit_properties)
-
-            const tools = duplicator<ToolType[]>(state.tools)
-            tools[action.payload] = edit
-
+            const schemas = state.schemas.map((schema, index) => {
+                if (index === action.payload.id) {
+                    return action.payload.schema
+                }
+                return schema
+            })
             return Object.assign({}, state, {
-                tools,
-                editor: initialToole,
-                edit_properties: initialToole.parameters.properties
+                schemas: schemas
             })
         },
         remove: (
-            state: ToolsInterface,
+            state: ResponseFormatInterface,
             action: PayloadAction<number>
         ) => {
-            const tools = state.tools.filter((tool, index) => {
+            const schemas = state.schemas.filter((schema, index) => {
                 return index !== action.payload
             })
             return Object.assign({}, state, {
-                tools
+                schemas: schemas
             })
         },
         setEditor: (
-            state: ToolsInterface,
+            state: ResponseFormatInterface,
             action: PayloadAction<number>
         ) => {
-            const tools = duplicator<ToolsInterface['tools']>(state.tools)
+            const schema = duplicator<ResponseFormatInterface['schemas']>(state.schemas)
             return Object.assign({}, state, {
-                editor: {
-                    ...tools[action.payload].function,
-                    id: action.payload
-                },
-                edit_properties: tools[action.payload].function.parameters.properties
+                edit_schema: schema[action.payload]
             })
         },
         updateEditor: (
-            state: ToolsInterface,
-            action: PayloadAction<Partial<EditToolType>>
+            state: ResponseFormatInterface,
+            action: PayloadAction<string>
         ) => {
-            const edit = Object.assign({}, state.editor, action.payload)
             return Object.assign({}, state, {
-                editor: edit
+                edit_schemas: parseJson(action.payload)
             })
         },
         saveEditor: (
-            state: ToolsInterface,
-            action: PayloadAction<void>
+            state: ResponseFormatInterface,
+            action: PayloadAction<string>
         ) => {
+            const schemas = duplicator<ResponseFormatInterface['schemas']>(state.schemas)
+            schemas.push(parseJson(action.payload))
             return Object.assign({}, state, {
-                editor: initialToole,
-                edit_properties: initialToole.parameters.properties
-            })
-        },
-        setParameters: (
-            state: ToolsInterface,
-            action: PayloadAction<EditToolType['parameters']>
-        ) => {
-            return Object.assign({}, state, {
-                edit_parameters: action.payload
-            })
-        },
-        updateParameters: (
-            state: ToolsInterface,
-            action: PayloadAction<Partial<EditToolType['parameters']>>
-        ) => {
-            const edit = Object.assign({}, state.edit_parameters, action.payload)
-            return Object.assign({}, state, {
-                edit_parameters: edit
-            })
-        },
-        addProperties: (
-            state: ToolsInterface,
-            action: PayloadAction<{
-                id: number,
-                properties: {
-                    key: string,
-                    type: string,
-                    description: string
-                }
-            }>
-        ) => {
-            const edit = Object.assign({},
-                state.edit_properties, 
-                {
-                    [action.payload.properties.key]: {
-                        type: action.payload.properties.type,
-                        description: action.payload.properties.description
-                    }
-                }
-            )
-
-            return Object.assign({}, state, {
-                edit_properties: edit
-            })
-        },
-        updateProperties: (
-            state: ToolsInterface,
-            action: PayloadAction<{
-                id: number,
-                properties: {
-                    key: string,
-                    type: string,
-                    description: string
-                }
-            }>
-        ) => {
-            const edit = Object.assign({},
-                state.edit_properties,
-                {
-                    ...state.edit_properties,
-                    [action.payload.properties.key]: {
-                        type: action.payload.properties.type,
-                        description: action.payload.properties.description
-                    }
-                }
-            )
-
-            return Object.assign({}, state, {
-                edit_properties: edit
-            })
-        },
-        removeProperties: (
-            state: ToolsInterface,
-            action: PayloadAction<{
-                id: number,
-            }>
-        ) => {
-            const edit = Object.assign({}, state.edit_properties, 
-                Object.keys(state.edit_properties).reduce((acc, key) => {
-                    if (key !== action.payload.id.toString()) {
-                        acc[key] = state.edit_properties[key]
-                    }
-                    return acc
-                }, {})
-            )
-
-            return Object.assign({}, state, {
-                edit_properties: edit
+                schemas
             })
         },
         resetEditor: (
-            state: ToolsInterface,
+            state: ResponseFormatInterface,
             action: PayloadAction<void>
         ) => {
             return Object.assign({}, state, {
-                editor: initialToole,
-                edit_properties: initialToole.parameters.properties
+                edit_schema: initialState.edit_schema
             })
         },
         reset: (
-            state: ToolsInterface,
+            state: ResponseFormatInterface,
             action: PayloadAction<void>
         ) => {
             return initialState

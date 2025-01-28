@@ -4,20 +4,16 @@ import { useDispatch } from 'react-redux'
 
 // import reducer
 import {
-    EditToolType,
-} from '../../../_domain/_all/reducers/Tools'
+    ResponseFormatInterface
+} from '../../../_domain/_all/reducers/ResponseFormat'
 
 // import component
-import ToolEditorProperties from './response_format_properties'
+import ResponseFormatProperties from './response_format_properties'
 
-const ToolEditorForm = ({
-    tool,
-    parameters,
-    properties,
+const ResposenFormatForm = ({
+    schemas,
 }: {
-    tool: EditToolType,
-    parameters: EditToolType['parameters'],
-    properties: EditToolType['parameters']['properties'],
+    schemas: ResponseFormatInterface,
 }): JSX.Element => {
     const dispatch = useDispatch()
 
@@ -41,12 +37,13 @@ const ToolEditorForm = ({
                         dark:bg-neutral-900 dark:border-neutral-700
                         dark:text-neutral-400 dark:placeholder-neutral-500
                         dark:focus:ring-neutral-600'
-                    defaultValue={'text'}
+                    defaultValue={schemas.type}
                     onChange={(e) => {
                         dispatch({
-                            type    : 'WhisperForm/updateOption',
-                            key     : 'output_format',
-                            option  : e.target.value
+                            type    : 'ResponseFormat/set',
+                            payload : {
+                                type: e.target.value
+                            }
                         })
                     }}>
                     <option value='text'>text</option>
@@ -54,11 +51,14 @@ const ToolEditorForm = ({
                     <option value='json_schema'>json schema</option>
                 </select>
 
-                <ToolEditorProperties properties={properties} parameters={parameters} />
+                <ResponseFormatProperties
+                    schema={schemas.edit_schema}
+                    show={(schemas.type === 'json_schema')}
+                />
 
             </div>
         </div>
     )
 }
 
-export default ToolEditorForm
+export default ResposenFormatForm

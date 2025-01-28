@@ -23,7 +23,7 @@ export const Option = (): JSX.Element => {
     return (
         <div
             className='
-                absolute top-0 left-0
+                absolute top-[8%] left-0
                 grid grid-cols-4 gap-4 w-full h-[90vh]
                 p-4
                 bg-gray-800 bg-opacity-95
@@ -419,7 +419,7 @@ export const Option = (): JSX.Element => {
                 />
             </div>
 
-            <ResponseFormat />
+            {/*<ResponseFormat /> */}
             <div className='leading-10 mt-1'>
                 responce_format [{cf.options.response_format}]: 
             </div>
