@@ -140,7 +140,7 @@ export const ChatFormTest = (): JSX.Element => {
             <div data-testid="chat-n">{String(cf.options.n)}</div>
             <div data-testid="chat-stream">{String(cf.options.stream)}</div>
             <div data-testid="chat-stop">{String(cf.options.stop)}</div>
-            <div data-testid="chat-max_tokens">{String(cf.options.max_tokens)}</div>
+            <div data-testid="chat-max_completion_tokens">{String(cf.options.max_completion_tokens)}</div>
             <div data-testid="chat-presence_penalty">{String(cf.options.presence_penalty)}</div>
             <div data-testid="chat-frequency_penalty">{String(cf.options.frequency_penalty)}</div>
             <div data-testid="chat-logit_bias">{String(cf.options.logit_bias)}</div>

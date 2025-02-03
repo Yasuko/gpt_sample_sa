@@ -210,7 +210,12 @@ const slice = createSlice({
             }>
         ) => {
             const edit = Object.assign({}, state.edit_properties, 
-                Object.keys(state.edit_properties).reduce((acc, key) => {
+                Object.keys(state.edit_properties).reduce((acc: {
+                    [key: string]: {
+                        type: string,
+                        description: string
+                    }
+                }, key) => {
                     if (key !== action.payload.id.toString()) {
                         acc[key] = state.edit_properties[key]
                     }

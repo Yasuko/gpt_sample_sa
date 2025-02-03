@@ -197,7 +197,7 @@ const AssistantContentList = (ct: AssistantMessageType['content']): JSX.Element 
         )
 
     const c = ct.map((val, key) => {
-        if (val.refusal === undefined || val.refusal === null) {
+        if (!('refusal' in val)) {
             return (
                 <div key={key} className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
                     <pre className='text-sm text-white'>

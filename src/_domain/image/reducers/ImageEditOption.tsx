@@ -29,6 +29,7 @@ const slice = createSlice({
             })
         },
         setMaskBase64: (state: any, action: any) => {
+            console.log(action.mask_base64)
             return Object.assign({}, state, {
                 mask_base64: action.mask_base64
             })

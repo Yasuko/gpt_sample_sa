@@ -122,7 +122,7 @@ export const Option = (): JSX.Element => {
             </div>
 
             <div className='leading-10 mt-1'>
-                logit_bias [{cf.options.logit_bias}]: : 
+                logit_bias [{(cf.options.logit_bias !== undefined) ? 0 : cf.options.logit_bias}]: : 
             </div>
             <div className=''>
                 <input
@@ -138,7 +138,7 @@ export const Option = (): JSX.Element => {
                     min={-100}
                     max={100}
                     step={1}
-                    defaultValue={cf.options.logit_bias}
+                    defaultValue={(cf.options.logit_bias !== undefined) ? 0 : cf.options.logit_bias}
                     onChange={(e) => {
                         dispatch({
                             type    : 'ChatForm/setOptions',
@@ -163,7 +163,7 @@ export const Option = (): JSX.Element => {
                         dark:focus:ring-neutral-600
                         '
                     type='checkbox'
-                    defaultChecked={cf.options.logprobs}
+                    defaultChecked={(cf.options.logprobs) ? true : false}
                     onChange={(e) => {
                         dispatch({
                             type    : 'ChatForm/setOptions',
@@ -196,7 +196,7 @@ export const Option = (): JSX.Element => {
                     min={0}
                     max={20}
                     step={1}
-                    defaultValue={cf.options.top_logprobs}
+                    defaultValue={(cf.options.top_logprobs) ? cf.options.top_logprobs : 0}
                     onChange={(e) => {
                         dispatch({
                             type    : 'ChatForm/setOptions',
@@ -224,7 +224,7 @@ export const Option = (): JSX.Element => {
                     min={1}
                     max={12800}
                     step={1}
-                    defaultValue={cf.options.max_completion_tokens}
+                    defaultValue={(cf.options.max_completion_tokens) ? cf.options.max_completion_tokens : 1}
                     onChange={(e) => {
                         dispatch({
                             type    : 'ChatForm/setOptions',
@@ -278,13 +278,13 @@ export const Option = (): JSX.Element => {
                         dark:text-neutral-400 dark:placeholder-neutral-500
                         dark:focus:ring-neutral-600
                     '
-                    defaultValue={cf.options.modalities}
+                    defaultValue={(cf.options.modalities) ? cf.options.modalities.length : 0}
                     onChange={(e) => {
                         const v = [['text'], ['audio'], ['text', 'audio']]
                         dispatch({
                             type    : 'ImageOption/setModel',
                             key     : 'modalities',
-                            option   : v[e.target.value]
+                            option   : v[Number(e.target.value)]
                         })
                     }}
                 >
@@ -295,7 +295,7 @@ export const Option = (): JSX.Element => {
             </div>
 
             <div className='leading-10 mt-1'>
-                prediction [{cf.options.prediction}]:
+                prediction [{(cf.options.prediction) ? 'true' : 'false'}]:
             </div>
             <div className=''>
                 <input
@@ -308,7 +308,7 @@ export const Option = (): JSX.Element => {
                         dark:focus:ring-neutral-600
                     '
                     type='text'
-                    defaultValue={cf.options.prediction}
+                    defaultValue={(cf.options.prediction) ? 'true' : 'false'}
                     onChange={(e) => {
                         dispatch({
                             type    : 'ChatForm/setOptions',
@@ -344,11 +344,6 @@ export const Option = (): JSX.Element => {
                             }
                         })
                     }}
-                    disabled={
-                        (!cf.options.modalities || cf.options.modalities.includes('audio'))
-                        ? false
-                        : true
-                    }
                 >
                     <option value='ash'>ash</option>
                     <option value='ballad'>ballad</option>
@@ -408,7 +403,7 @@ export const Option = (): JSX.Element => {
                     min={-2.0}
                     max={2.0}
                     step={0.1}
-                    defaultValue={cf.options.presence_penalty}
+                    defaultValue={(cf.options.presence_penalty) ? cf.options.presence_penalty : 0}
                     onChange={(e) => {
                         dispatch({
                             type    : 'ChatForm/setOptions',
@@ -421,7 +416,7 @@ export const Option = (): JSX.Element => {
 
             {/*<ResponseFormat /> */}
             <div className='leading-10 mt-1'>
-                responce_format [{cf.options.response_format}]: 
+                responce_format [{(cf.options.response_format) ? 'true' : 'false'}]: 
             </div>
             <div className=''>
                 <input
@@ -434,7 +429,7 @@ export const Option = (): JSX.Element => {
                         dark:focus:ring-neutral-600
                     '
                     type='text'
-                    defaultValue={cf.options.response_format}
+                    defaultValue={(cf.options.response_format) ? 'true' : 'false'}
                     onChange={(e) => {
                         dispatch({
                             type    : 'ChatForm/setOptions',
@@ -459,7 +454,7 @@ export const Option = (): JSX.Element => {
                         dark:focus:ring-neutral-600
                     '
                     type='range'
-                    defaultValue={cf.options.seed}
+                    defaultValue={(cf.options.seed) ? cf.options.seed : 0}
                     min={0.0}
                     max={1.0}
                     step={0.1}
@@ -495,7 +490,7 @@ export const Option = (): JSX.Element => {
                         dark:focus:ring-neutral-600
                     '
                     type='text'
-                    defaultValue={cf.options.stop}
+                    defaultValue={(cf.options.stop) ? cf.options.stop : ''}
                     onChange={(e) => {
                         dispatch({
                             type    : 'ChatForm/setOptions',
@@ -520,7 +515,7 @@ export const Option = (): JSX.Element => {
                         dark:focus:ring-neutral-600
                         '
                     type='checkbox'
-                    checked={cf.options.stream}
+                    checked={(cf.options.stream) ? true : false}
                     onChange={(e) => {
                         dispatch({
                             type    : 'ChatForm/setOptions',
@@ -532,7 +527,7 @@ export const Option = (): JSX.Element => {
             </div>
 
             <div className='leading-10 mt-1'>
-                stream_options : [{cf.options.stream_options}]
+                stream_options : [{(cf.options.stream_options) ? 'true' : 'false'}]
             </div>
             <div className=''>
                 <input
@@ -545,7 +540,7 @@ export const Option = (): JSX.Element => {
                         dark:focus:ring-neutral-600
                         '
                     type='checkbox'
-                    checked={cf.options.stream_options}
+                    checked={(cf.options.stream_options) ? true : false}
                     onChange={(e) => {
                         dispatch({
                             type    : 'ChatForm/setOptions',
@@ -570,7 +565,7 @@ export const Option = (): JSX.Element => {
                         dark:focus:ring-neutral-600
                     '
                     type='range'
-                    defaultValue={cf.options.temperature}
+                    defaultValue={(cf.options.temperature) ? cf.options.temperature : 0}
                     min={0.0}
                     max={2.0}
                     step={0.1}
@@ -597,7 +592,7 @@ export const Option = (): JSX.Element => {
                         dark:focus:ring-neutral-600
                     '
                     type='range'
-                    defaultValue={cf.options.top_p}
+                    defaultValue={(cf.options.top_p) ? cf.options.top_p : 0}
                     min={0.0}
                     max={1.0}
                     step={0.1}
@@ -614,7 +609,7 @@ export const Option = (): JSX.Element => {
             <ToolEditor />
 
             <div className='leading-10 mt-1'>
-                tool_choice [{cf.options.tool_choice}]: 
+                tool_choice [{(cf.options.tool_choice) ? 'true' : 'false'}]: 
             </div>
             <div className=''>
                 <input
@@ -627,7 +622,7 @@ export const Option = (): JSX.Element => {
                         dark:focus:ring-neutral-600
                     '
                     type='text'
-                    defaultValue={cf.options.tool_choice}
+                    defaultValue={(cf.options.tool_choice) ? 'true' : 'false'}
                     onChange={(e) => {
                         dispatch({
                             type    : 'ChatForm/setOptions',
@@ -652,7 +647,7 @@ export const Option = (): JSX.Element => {
                         dark:focus:ring-neutral-600
                     '
                     type='checkbox'
-                    defaultValue={cf.options.parallel_tool_calls}
+                    defaultValue={(cf.options.parallel_tool_calls) ? 'true' : 'false'}
                     onChange={(e) => {
                         dispatch({
                             type    : 'ChatForm/setOptions',

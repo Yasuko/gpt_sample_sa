@@ -10,12 +10,14 @@ export const setupPaint = async (
     const size = ImageInformationService.call().getSize()
     const scale = await getImageScale(image)
 
+
     await PaintService.call()
-        .setPaintTarget(target)
-        .setLineWidth(20)
-        .setLineColor('rgba(0,250,0,0.4)')
-        .setFillColor('rgba(0,0,0,1.0)')
-        .setEraseMode(true)
+        .setRatio(2)
+        .setPaintTarget(target, {width: size.width, height: size.height})
+        .setLineWidth(60)
+        .setLineColor('rgba(0,250,0,1.0)')
+        //.setFillColor('rgba(rgba(0,250,0,1.0))')
+        .setEraseMode(false)
         .setScale(scale)
         .setBaseImage(image)
 
@@ -28,6 +30,16 @@ export const setupPaint = async (
         )
     }, 500)
     */
+}
+
+/**
+ * マスクの色調を反転した画像を返す
+ */
+export const getInvertMask = async (
+    mask: string
+): Promise<string> => {
+    const d = PaintService.call().callDrawHelper()
+    return await d.reverseImage(mask)
 }
 
 /**

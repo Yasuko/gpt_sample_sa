@@ -58,7 +58,6 @@ function* sendPrompt(val: any): any {
 function* dragEnd(val: any): any {
     yield FileHelper.call().dragEnd(val.event)
     const f = FileHelper.call().getDataFile()
-    console.log(f)
 
     yield put({
         type        : 'ImageChangeOption/setImage',

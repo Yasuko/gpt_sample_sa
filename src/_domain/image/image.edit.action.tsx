@@ -7,7 +7,7 @@ import { loadingShow, loadingHide } from '../animation/animation'
 import { ImageModel } from '../_model/image.model'
 
 // import helper 
-import { toMatchImage } from './helper/paint.helper'
+import { toMatchImage, getInvertMask } from './helper/paint.helper'
 
 // reducer
 import {
@@ -66,7 +66,6 @@ function* sendPrompt(val: any): any {
 function* dragEnd(val: any): any {
     yield FileHelper.call().dragEnd(val.event)
     const f = FileHelper.call().getDataFile()
-    console.log(f)
 
     if (val.target === 'base') {
         yield put({
@@ -97,9 +96,12 @@ function* setupMaskPaint(): any {
 
 function* saveMakeMask(val: any): any {
     const image = yield select(imageEditOption)
+    const _mask = yield getInvertMask(val.mask_base64)
+    //const _mask = yield getInvertMask(__mask)
+    //const _mask = val.mask_base64
 
     yield put({
         type        : 'ImageEditOption/setMaskBase64',
-        mask_base64 : yield toMatchImage(image.image_base64, val.mask_base64)
+        mask_base64 : yield toMatchImage(image.image_base64, _mask)
     })
 }

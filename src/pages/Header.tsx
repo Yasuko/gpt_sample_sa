@@ -63,6 +63,7 @@ const Header = (): JSX.Element => {
                             ">
                             Chat
                         </Link>
+                        {/*
                         <Link
                             to="/ChatAdvance"
                             className="
@@ -72,6 +73,7 @@ const Header = (): JSX.Element => {
                             ">
                             ChatAdvance
                         </Link>
+                        */}
                         <Link
                             to="/Embed"
                             className="

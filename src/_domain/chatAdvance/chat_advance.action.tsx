@@ -8,7 +8,7 @@ import { ChatModel } from '../_model/chat.model'
 
 // import reducer
 import {
-    ChatFormInterface, ChatFormPropsInterface,
+    ChatAdvanceFormInterface, ChatAdvanceFormPropsInterface,
     initialState
 } from './reducers/ChatAdvanceForm'
 import { consistent } from '../_helper/object.helper'
@@ -21,7 +21,7 @@ import { FileHelper } from './helper/file.helper'
 import { ChatHelper } from './helper/chat.helper'
 
 const Token = (state: TokenFormPropsInterface) => state.TokenForm
-const chatForm = (state: ChatFormPropsInterface) => state.ChatForm
+const chatForm = (state: ChatAdvanceFormPropsInterface) => state.ChatAdvanceForm
 
 // Root Saga登録配列
 export const RootChatAdvanceAction = [
@@ -40,13 +40,12 @@ export const RootChatAdvanceAction = [
 function* sendChat(): any {
     yield loadingShow('Now 呼び出してるねん Now')
 
-    const cf: ChatFormInterface = yield select(chatForm)
+    const cf: ChatAdvanceFormInterface = yield select(chatForm)
     const token = yield select(Token)
     const block = consistent(cf.chatBlock, initialState.chatBlock)
                     ? undefined
                     : cf.chatBlock
-    const content = ChatHelper.call()
-                        .buildSendContents(cf.newChat, cf.images)
+    const content = cf.newChat
 
     // ChatBlockに送信したメッセージを追加
     yield put({
@@ -60,28 +59,6 @@ function* sendChat(): any {
         }
     })
 
-    // ChatAPIをコール
-    const r = yield ChatModel.call(token.token)
-                .callDocumetSummary(content, block, cf.options)
-
-    // messagesに格納された全てのメッセージをChatBlockに追加
-    yield put({
-        type        : 'ChatForm/addChatBlock',
-        chatBlock   : {
-            role    : r.choices[0].message.role,
-            content : {
-                type: 'text',
-                text: r.choices[0].message.content
-            },
-        }
-    })
-
-    yield put({
-        type        : 'ChatForm/setChatStack',
-        chatStack   : ''
-    })
-
-    yield loadingHide()
 }
 
 /**
@@ -89,12 +66,12 @@ function* sendChat(): any {
  * @param val 
  */
 function* exportChat(val: any): any {
-    const cf: ChatFormInterface = yield select(chatForm)
+    const cf: ChatAdvanceFormInterface = yield select(chatForm)
     const token = yield select(Token)
 
     // ChatAPIをコール
     const r = yield ChatModel.call(token.token)
-        .callDocumetSummary(val.chat, undefined, cf.options)
+        .callDocumetSummary(val.chat, cf.options)
     yield put({
         type    : val.dispatch,
         role    : r.choices[0].message.role,
@@ -134,12 +111,12 @@ function* dragEnd(val: any): any {
  * @param val 
  */
 function* addTooles(val: any): any {
-    const cf: ChatFormInterface = yield select(chatForm)
+    const cf: ChatAdvanceFormInterface = yield select(chatForm)
     const token = yield select(Token)
 
     // ChatAPIをコール
     const r = yield ChatModel.call(token.token)
-        .callDocumetSummary(val.tool, undefined, cf.options)
+        .callDocumetSummary(val.tool, cf.options)
     yield put({
         type    : val.dispatch,
         role    : r.choices[0].message.role,

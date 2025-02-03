@@ -13,7 +13,6 @@ import {
 // import component
 import Option from './Option'
 import ChatList from './ChatList'
-import { ChatMessagesType } from '../../_lib/gpt/_helper/chat.helper'
 import { Dispatch } from '@reduxjs/toolkit'
 import ChatScreen from './ChatScreen'
 
@@ -61,7 +60,11 @@ export const Chat = (): JSX.Element => {
                     "
                     id="text1"
                     placeholder="Input Sample"
-                    defaultValue={cf.newChat.content[0]['text']}
+                    defaultValue={
+                        cf.newChat.content[0].type === 'text' 
+                        ? cf.newChat.content[0].text 
+                        : ''
+                    }
                     onChange={(e) => {
                         dispatch({
                             type     : 'ChatForm/updateNewChat',

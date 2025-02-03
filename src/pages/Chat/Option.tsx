@@ -10,7 +10,6 @@ import {
 
 // import component
 import GPT_Selector from '../_component/gpt_selector'
-import ToolEditor from '../_component/tool_editor'
 
 export const Option = (): JSX.Element => {
     const dispatch = useDispatch()
@@ -137,7 +136,7 @@ export const Option = (): JSX.Element => {
                     min={1}
                     max={12800}
                     step={1}
-                    defaultValue={cf.options.max_completion_tokens}
+                    defaultValue={(cf.options.max_completion_tokens) ? cf.options.max_completion_tokens : 64}
                     onChange={(e) => {
                         dispatch({
                             type    : 'ChatForm/setOptions',
