@@ -48,9 +48,13 @@ const SystemContent = (ct: string): JSX.Element => {
         <div className="flex gap-x-2 sm:gap-x-4 mt-4 ml-6">
             <span className="
                 shrink-0 inline-flex items-center justify-center
-                size-[38px] rounded-full bg-purple-600">
+                size-[38px] rounded-full bg-purple-600 hover:bg-purple-700 cursor-pointer">
                 <span className="
-                    text-sm font-medium text-white leading-none">
+                    text-sm font-medium text-white leading-none"
+                    onClick={() => {
+                        copyToClipboard(ct)
+                    }}
+                    >
                     Sys
                 </span>
             </span>
@@ -119,6 +123,14 @@ const UserContentList = (ct: UserMessageType['content']): JSX.Element => {
             {c}
         </>
     )
+}
+
+const copyToClipboard = (text: string): void => {
+    navigator.clipboard.writeText(text).then(() => {
+        console.log("クリップボードにコピーされました。");
+    }).catch(err => {
+        console.error("クリップボードへのコピーに失敗しました: ", err);
+    });
 }
 
 export default ChatList

@@ -44,7 +44,7 @@ export const Chat = (): JSX.Element => {
         '>
             <div
                 className="
-                    lg:flex-1 
+                    lg:flex-2
                     hidden lg:flex items-center h-full px-2
                     transition duration-150 ease-in-out
                 ">
