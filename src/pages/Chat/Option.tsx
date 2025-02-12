@@ -21,7 +21,7 @@ export const Option = (): JSX.Element => {
     return (
         <div
             className='
-                grid grid-cols-2 gap4 w-full h-[90vh]
+                grid grid-cols-2 w-full h-[90vh]
                 p-4
                 overflow-y-auto overflow-x-hidden
             '>

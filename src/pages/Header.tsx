@@ -22,11 +22,13 @@ const Header = (): JSX.Element => {
                         transition-all duration-300 basis-full
                         grow sm:grow-0 sm:basis-auto sm:block sm:order-2"
                     aria-labelledby="hs-navbar-alignment-collapse">
+                    
                     <div
                         className="
                             flex justify-center gap-5 relative mt-3 m-auto
 
                             sm:flex-row sm:items-center sm:mt-0">
+                        
                         <Link
                             to="/Realtime"
                             className="

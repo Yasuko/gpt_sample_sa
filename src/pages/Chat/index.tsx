@@ -15,9 +15,7 @@ export const ChatIndex = () => {
     return (
         <Provider store={store}>
             <Header />
-            <div className="container">
-                <Chat />
-            </div>
+            <Chat />
             <LoadingAnimation />
             <ToasterAnimation />
         </Provider>

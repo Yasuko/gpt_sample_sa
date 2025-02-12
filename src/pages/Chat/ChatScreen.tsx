@@ -25,8 +25,8 @@ export const ChatScreen = ({
 
     return (
         <div className="
-        absolute bottom-[30%] right-[10%]
-        w-[50%] h-[50%] bg-gray-800 bg-opacity-95
+        absolute top-[10%] right-[10%]
+        w-[50%] min-w-[300px] h-[50%] bg-gray-800 bg-opacity-95
         rounded-lg p-4
         gap-4">
             <div className='w-full ms-auto flex justify-center gap-x-2'>
@@ -42,10 +42,11 @@ const UserContent = (
     dispatch: Dispatch
 ): JSX.Element => {
     return (
-        <div className="
-        w-full ms-auto flex justify-end gap-x-2
-        mt-4 sm:gap-x-4
-    ">
+        <div
+            className="
+                w-full ms-auto flex justify-end gap-x-2
+                mt-4 sm:gap-x-4
+            ">
         <div className="grow text-end space-y-3">
             { UserContentList(ct, dispatch) }
         </div>
