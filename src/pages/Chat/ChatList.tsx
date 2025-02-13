@@ -95,7 +95,13 @@ const UserContentList = (ct: UserMessageType['content']): JSX.Element => {
         switch (val.type) {
             case 'text':
                 return (
-                    <div key={key} className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
+                    <div
+                        key={key}
+                        className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm"
+                        onClick={() => {
+                            copyToClipboard(val.text)
+                        }}
+                        >
                         <pre className='text-sm text-white'>{val.text}</pre>
                     </div>
                 )
