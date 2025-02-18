@@ -5,6 +5,11 @@ import { loadingShow, loadingHide } from '../animation/animation'
 
 // import model
 import { ChatModel } from '../_model/chat.model'
+import { 
+    TokenPropsInterface,
+    TokenInterface,
+    initialState as ChatTokenInitial
+ } from '../_all/reducers/Token'
 
 // import reducer
 import {
@@ -18,8 +23,8 @@ import {
 
 // import helper
 import { FileHelper } from './helper/file.helper'
-import { ChatHelper } from './helper/chat.helper'
 
+const ChatToken = (state: TokenPropsInterface) => state.Token
 const Token = (state: TokenFormPropsInterface) => state.TokenForm
 const chatForm = (state: ChatFormPropsInterface) => state.ChatForm
 
@@ -57,6 +62,13 @@ function* sendChat(): any {
     // ChatAPIをコール
     const r = yield ChatModel.call(token.token)
                 .callDocumetSummary([cf.newChat], cf.options)
+    
+    if ('usage' in r) {
+        yield put({
+            type        : 'Token/setHistory',
+            payload     : r.usage
+        })
+    }
 
     // messagesに格納された全てのメッセージをChatBlockに追加
     yield put({
