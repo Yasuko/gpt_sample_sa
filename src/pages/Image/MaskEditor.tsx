@@ -15,6 +15,23 @@ export const MaskEditor = (): JSX.Element => {
         return state.ImageEditOption === undefined ? initialState : state.ImageEditOption
     })
 
+    let css = 'p-5 absolute w-[1024px] h-[1024px]'
+
+    switch (io.size) {
+        case '256x256':
+            css = 'p-5 absolute w-[512px] h-[512px]'
+            break
+        case '512x512':
+            css = 'p-5 absolute w-[512px] h-[512px]'
+            break
+        case '1024x1024':
+            css = 'p-5 absolute w-[512px] h-[512px]'
+            break
+        default:
+            css = 'p-5 absolute w-[512px] h-[512px]'
+            break
+    }
+
     useEffect(() => {
         dispatch({
             type: 'ImageEditAction/setupMaskPaint',
@@ -25,29 +42,54 @@ export const MaskEditor = (): JSX.Element => {
     },[])
 
     return (
-        <div className='whisper-option'>
-            <img src={io.image_base64} alt='BaseImage' className='image-editor-baseimage'/>
-            <canvas id="mask-paint-target" className='image-editor-canvaszone' />
-            <div className='image-editor-caption'>
-                <span>
-                    再生成させたい箇所をマウスで塗りつぶしてください
-                </span>
+        <div
+            className='
+                absolute top-0 left-0 w-svw h-full
+                p-36
+                flex flex-col
+                items-center justify-center 
+
+                bg-gray-900 bg-opacity-80 z-50'>
+            <div className='h-[512px] w-[512px]'>
+                <img
+                    src={io.image_base64}
+                    alt='BaseImage'
+                    className={css + ' opacity-80'}
+                />
+                <canvas
+                    id="mask-paint-target"
+                    width={512}
+                    height={512}
+                    className={css + ' cursor-pointer'}
+                />
             </div>
             <div
-                className='btn btn-secondary image-editor-button'
-                onClick={() => {
-                    dispatch({
-                        type    : 'ImageEditAction/saveMakeMask',
-                        mask_base64    : getCanvasToBase64()
-                    })
-                    dispatch({
-                        type    : 'ImageScreen/setSubScreen',
-                        subscreen: ''
-                    })
-                }}>
-                Save
+                className='flex inline-flex items-center justify-center'>
+                <div className='mx-4 leading-10 text-center'>
+                fill out the areas you want to regenerate
+                </div>
+                <button
+                    className='
+                        ml-2 mr-4 py-2 px-4 inline-flex items-center gap-x-2
+                        text-sm font-medium text-white
+                        rounded-lg border border-transparent
+                        bg-blue-600 
+                        hover:bg-blue-700 focus:outline-none focus:bg-blue-700
+                        disabled:opacity-50 disabled:pointer-events-none
+                    '
+                    onClick={() => {
+                        dispatch({
+                            type    : 'ImageEditAction/saveMakeMask',
+                            mask_base64    : getCanvasToBase64()
+                        })
+                        dispatch({
+                            type    : 'ImageScreen/setSubScreen',
+                            subscreen: ''
+                        })
+                    }}>
+                    Save
+                </button>
             </div>
-
         </div>
     )
 }

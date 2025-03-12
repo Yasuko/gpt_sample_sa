@@ -13,7 +13,6 @@ import {
 
 // import component
 import Option from './Option'
-import { ChatContentType } from '../../_lib/gpt/_helper/chat.helper'
 
 export const Realtime = (): JSX.Element => {
     const dispatch = useDispatch();

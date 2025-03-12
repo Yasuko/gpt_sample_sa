@@ -5,6 +5,11 @@ import { loadingShow, loadingHide } from '../animation/animation'
 
 // import model
 import { ChatModel } from '../_model/chat.model'
+import { 
+    TokenPropsInterface,
+    TokenInterface,
+    initialState as ChatTokenInitial
+ } from '../_all/reducers/Token'
 
 // import reducer
 import {
@@ -18,8 +23,8 @@ import {
 
 // import helper
 import { FileHelper } from './helper/file.helper'
-import { ChatHelper } from './helper/chat.helper'
 
+const ChatToken = (state: TokenPropsInterface) => state.Token
 const Token = (state: TokenFormPropsInterface) => state.TokenForm
 const chatForm = (state: ChatFormPropsInterface) => state.ChatForm
 
@@ -29,6 +34,9 @@ export const RootChatAction = [
     takeEvery('ChatAction/exportChat', exportChat), // Chatを外部アクションから呼び出す
     takeEvery('ChatAction/dragStart', dragStart),
     takeEvery('ChatAction/dragEnd', dragEnd),
+
+    takeEvery('ChatAction/addTooles', addTooles),
+
 ]
 
 /**
@@ -42,40 +50,37 @@ function* sendChat(): any {
     const block = consistent(cf.chatBlock, initialState.chatBlock)
                     ? undefined
                     : cf.chatBlock
-    const content = ChatHelper.call()
-                        .buildSendContents(cf.newChat, cf.images)
+    //const content = ChatHelper.call()
+                        //.buildSendContents(cf.newChat, cf.images)
 
     // ChatBlockに送信したメッセージを追加
     yield put({
         type        : 'ChatForm/addChatBlock',
-        chatBlock   : {
-            role    : 'user',
-            content : {
-                type: 'text',
-                text: cf.newChat
-            }
-        }
+        payload     : cf.newChat
     })
 
     // ChatAPIをコール
     const r = yield ChatModel.call(token.token)
-                .callDocumetSummary(content, block, cf.options)
+                .callDocumetSummary([cf.newChat], cf.options)
+    
+    if ('usage' in r) {
+        yield put({
+            type        : 'Token/setHistory',
+            payload     : r.usage
+        })
+    }
 
     // messagesに格納された全てのメッセージをChatBlockに追加
     yield put({
         type        : 'ChatForm/addChatBlock',
-        chatBlock   : {
-            role    : r.choices[0].message.role,
-            content : {
-                type: 'text',
-                text: r.choices[0].message.content
-            },
+        payload   : {
+            role    : 'system',
+            content : r.choices[0].message.content
         }
     })
 
     yield put({
-        type        : 'ChatForm/setChatStack',
-        chatStack   : ''
+        type        : 'ChatForm/resetNewChat',
     })
 
     yield loadingHide()
@@ -91,7 +96,7 @@ function* exportChat(val: any): any {
 
     // ChatAPIをコール
     const r = yield ChatModel.call(token.token)
-        .callDocumetSummary(val.chat, undefined, cf.options)
+        .callDocumetSummary(val.chat, cf.options)
     yield put({
         type    : val.dispatch,
         role    : r.choices[0].message.role,
@@ -106,22 +111,31 @@ function* dragEnd(val: any): any {
     yield FileHelper.call().dragEnd(val.event)
     const f = FileHelper.call().getDataFile()
     console.log(f)
-    
-    // ChatAPIのコール要求をサーバーに送信
     yield put({
-        type    : 'ChatForm/addImage',
-        image   : f.image
+        type        : 'ChatForm/addNewChat',
+        payload     : [{
+            type: 'image_url',
+            image_url: {
+                url: f.image,
+            },
+        }]
     })
+}
+
+/**
+ * ツールを追加する
+ * @param val 
+ */
+function* addTooles(val: any): any {
+    const cf: ChatFormInterface = yield select(chatForm)
+    const token = yield select(Token)
+
+    // ChatAPIをコール
+    const r = yield ChatModel.call(token.token)
+        .callDocumetSummary(val.tool, cf.options)
     yield put({
-        type        : 'ChatForm/addChatBlock',
-        chatBlock   : {
-            role    : 'user',
-            content : {
-                type: 'image_url',
-                image_url: {
-                    url: f.image
-                },
-            }
-        }
+        type    : val.dispatch,
+        role    : r.choices[0].message.role,
+        content : r.choices[0].message.content,
     })
 }

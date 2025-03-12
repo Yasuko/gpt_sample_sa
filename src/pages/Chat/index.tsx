@@ -6,6 +6,7 @@ const store = createStore()
 // import Component
 import Header from '../Header'
 import Chat from './Chat'
+import TokenCounter from '../_component/token_counter'
 
 // import animation
 import LoadingAnimation from '../animation/loading.animation'
@@ -15,11 +16,10 @@ export const ChatIndex = () => {
     return (
         <Provider store={store}>
             <Header />
-            <div className="container">
-                <Chat />
-            </div>
+            <Chat />
             <LoadingAnimation />
             <ToasterAnimation />
+            <TokenCounter />
         </Provider>
     )
 }

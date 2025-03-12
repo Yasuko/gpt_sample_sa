@@ -1,27 +1,34 @@
-import { ChatMessagesType, UserMessageType } from '../../../_lib/gpt/_helper/chat.helper'
+import { ChatMessagesType } from '../../../_lib/gpt/_helper/chat.helper'
 import {
     ChatOptions
 } from '../../../_lib/gpt/type.service'
 
 /**
  * チャットの型
+ * @param role    : 'user' | 'system' | 'assistant'
+ * @param content : string
+ * 
  */
 export type Chat = ChatMessagesType
-
-export type UserMessage = UserMessageType
 
 /**
  * ChatReducerの型
  * @param options   : ChatOptions
  * @param newChat   : string
  * @param chatBlock : [Chat]
+ * @param saveBlock : { [key: string]: [Chat] }
+ * @param chatStack : string
  * 
  */
 export type ChatFormType = {
     options     : ChatOptions
-    newChat     : UserMessageType
+    newChat     : string        // 新規チャットメッセージ
+    images      : string[]      // 画像のURL
     chatBlock   : [Chat]        // Chat全体を保持する
-    chatScreen  : boolean
+    saveBlock   : {
+        [key: string]: [Chat]
+    }
+    chatStack   : string
 }
 
 /**
@@ -29,6 +36,8 @@ export type ChatFormType = {
  * @param options   : ChatOptions
  * @param newChat   : string
  * @param chatBlock : [Chat]
+ * @param saveBlock : { [key: string]: [Chat] }
+ * @param chatStack : string
  */
 export const initialChatForm: ChatFormType = {
     options     : {
@@ -42,17 +51,19 @@ export const initialChatForm: ChatFormType = {
         presence_penalty: 0,
         frequency_penalty: 0,
     },
-    newChat     : {
-        role    : 'user',
-        content : [{
-            type: 'text',
-            text: ''
-        }],
-    },
+    newChat     : '',
+    images      : [],
     chatBlock   : [{
         role    : 'developer',
         content : '',
         name: ''
     }],
-    chatScreen  : false
+    saveBlock   : {
+        '': [{
+            role    : 'developer',
+            content : '',
+            name: ''
+        }]
+    },
+    chatStack   : ''
 }

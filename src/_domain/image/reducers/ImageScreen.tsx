@@ -13,28 +13,28 @@ const slice = createSlice({
     name: 'ImageScreen',
     initialState,
     reducers: {
-        showBase: (state: any, action: any) => {
+        showBase: (state: ImageScreenInterface, action: any) => {
             return Object.assign({}, state, {
                 base    : true,
                 edit    : false,
                 change  : false
             })
         },
-        showEdit: (state: any, action: any) => {
+        showEdit: (state: ImageScreenInterface, action: any) => {
             return Object.assign({}, state, {
                 base    : false,
                 edit    : true,
                 change  : false
             })
         },
-        showChange: (state: any, action: any) => {
+        showChange: (state: ImageScreenInterface, action: any) => {
             return Object.assign({}, state, {
                 base    : false,
                 edit    : false,
                 change  : true
             })
         },
-        setSubScreen: (state: any, action: any) => {
+        setSubScreen: (state: ImageScreenInterface, action: any) => {
             return Object.assign({}, state, {
                 subscreen: action.subscreen
             })

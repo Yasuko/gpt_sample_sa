@@ -18,106 +18,142 @@ export const Option = (): JSX.Element => {
     const io = useSelector((state: ImageEditOptionPropsInterface): ImageEditOptionInterface => {
         return state.ImageEditOption === undefined ? initialState : state.ImageEditOption
     })
-
+console.log(io.mask_base64)
     return (
-        <div className='whisper-option'>
-            <h3>Edit Option</h3>
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col my-box">
-                        <div
-                            id="File1b"
-                            className="drag-area-sm center"
-                            onDragOver={(e: React.DragEvent) => onDragStart(e)}
-                            onDrop={(e: React.DragEvent) => onDragEnd(e, dispatch, 'base')}
-                        >
-                            BaseImage
-                        </div>
+        <div className='grid grid-cols-3 gap-4'>
+
+                <div className="col-span-3 flex justify-center items-center">
+                    <div
+                        id="File1b"
+                        className="
+                            w-full h-36 mt-4 p-4
+                            border-2 border-gray-300
+                            rounded-lg
+                            text-center
+                            hover:border-blue-500
+                            "
+                        onDragOver={(e: React.DragEvent) => onDragStart(e)}
+                        onDrop={(e: React.DragEvent) => onDragEnd(e, dispatch, 'base')}
+                    >
+                        <p className='mt-4'>BaseImage</p>
                     </div>
-                    <div className="col my-box">
+                </div>
+                <div className="col-span-3 flex justify-center items-center -mt-8">
+                    <div className="mr-4">
                         {(io.image_base64 === '')
                             ? ''
                             : showImage(io.image_base64, dispatch)
                         }
 
                     </div>
-                </div>
-            </div>
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col my-box">
+
+                    {/*
+                    <div className="">
                         <div
                             id="File1b"
-                            className="drag-area-sm center"
+                            className=""
                             onDragOver={(e) => onDragStart(e)}
                             onDrop={(e) => onDragEnd(e, dispatch, 'mask')}
                         >
                             MaskImage
                         </div>
                     </div>
-                    <div className="col my-box">
+                    */}
+                    <div className="
+                    w-36 ml-8 p-0 border-2
+                    rounded-lg text-center hover:border-blue-500
+                    ">
                         {(io.mask_base64 === '')
                             ? ''
                             : <img
                                 src={io.mask_base64}
                                 alt='MaskImage'
-                                className='img-fluid'/>
+                                className='w-36'/>
                         }
                         
                     </div>
                 </div>
-            </div>
-            <label className="sr-only" htmlFor="text1">Prompt:</label>
-            <textarea
-                className="form-control mb-2"
-                id="text1"
-                placeholder="Input Sample"
-                defaultValue={io.prompt}
-                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                    dispatch({
-                        type     : 'ImageEditOption/setPrompt',
-                        prompt   : e.target.value
-                    })
-                }} />
-            <div
-                className='btn btn-info'
-                onClick={() => {
-                    dispatch({
-                        type: 'ImageEditAction/sendPrompt',
-                    })
-                }}>
-                Send
-            </div>
-            <div className='whisper-option-cell'>
-                <div className='whisper-option-title'>
+                <div className='col-span-3'>
+                    <textarea
+                        cols={70}
+                        rows={4}
+                        className="
+                            w-full rounded m-2 mb-1 p-4
+                            text-gray-500
+                        "
+                        id="text1"
+                        placeholder="Input Prompt"
+                        defaultValue={io.prompt}
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                            dispatch({
+                                type     : 'ImageEditOption/setPrompt',
+                                prompt   : e.target.value
+                            })
+                        }} />
+                    <button
+                        className='
+                            ml-2 mr-4 py-2 px-4 inline-flex items-center gap-x-2
+                            text-sm font-medium text-white
+                            rounded-lg border border-transparent
+                            bg-blue-600 
+                            hover:bg-blue-700 focus:outline-none focus:bg-blue-700
+                            disabled:opacity-50 disabled:pointer-events-none
+                        '
+                        onClick={() => {
+                            dispatch({
+                                type: 'ImageEditAction/sendPrompt',
+                            })
+                        }}>
+                        Send
+                    </button>
+                </div>
+                <div className='leading-10 mt-1'>
                     model :
                 </div>
-                <div className='whisper-option-content'>
+                <div className='col-span-2'>
                     <select
-                    value={io.model}
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                        dispatch({
-                            type    : 'ImageEditOption/setModel',
-                            model   : e.target.value
-                        })
+                        className='
+                            py-3 px-4 pe-9 block w-full
+                            border-gray-200 rounded-lg
+                            text-sm
+                            focus:border-blue-500 focus:ring-blue-500
+                            disabled:opacity-50 disabled:pointer-events-none
+                            dark:bg-neutral-900 dark:border-neutral-700
+                            dark:text-neutral-400 dark:placeholder-neutral-500
+                            dark:focus:ring-neutral-600
+                        '
+                        value={io.model}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                            dispatch({
+                                type    : 'ImageEditOption/setModel',
+                                model   : e.target.value
+                            })
                     }}>
                         <option value='dall-e-2'>dall-e-2</option>
                     </select>
                 </div>
-            </div>
-            <div className='whisper-option-cell'>
-                <div className='whisper-option-title'>
+
+                <div className='leading-10 mt-1'>
                     size :
                 </div>
-                <div className='whisper-option-content'>
+                <div className='col-span-2'>
                     <select
-                    value={io.size}
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                        dispatch({
-                            type    : 'ImageEditOption/setSize',
-                            size    : e.target.value
-                        })
-                    }}>
+                        className='
+                            py-3 px-4 pe-9 block w-full
+                            border-gray-200 rounded-lg
+                            text-sm
+                            focus:border-blue-500 focus:ring-blue-500
+                            disabled:opacity-50 disabled:pointer-events-none
+                            dark:bg-neutral-900 dark:border-neutral-700
+                            dark:text-neutral-400 dark:placeholder-neutral-500
+                            dark:focus:ring-neutral-600'
+                        value={io.size}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                            dispatch({
+                                type    : 'ImageEditOption/setSize',
+                                size    : e.target.value
+                            })
+                        }}>
                         <option value='256x256'>256x256</option>
                         <option value='512x512'>512x512</option>
                         <option value='1024x1024'>1024x1024</option>
@@ -125,31 +161,46 @@ export const Option = (): JSX.Element => {
                         <option value='1792x1024'>1792x1024</option>
                     </select>
                 </div>
-            </div>
-            <div className='whisper-option-cell'>
-                <div className='whisper-option-title'>
+                <div className='leading-10 mt-1'>
                     response_format :
                 </div>
-                <div className='whisper-option-content'>
+                <div className='col-span-2'>
                     <select
-                    value={io.response_format}
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                        dispatch({
-                            type    : 'ImageEditOption/setResponseFormat',
-                            responseFormat    : e.target.value
-                        })
-                    }}>
+                        className='
+                            py-3 px-4 pe-9 block w-full
+                            border-gray-200 rounded-lg
+                            text-sm
+                            focus:border-blue-500 focus:ring-blue-500
+                            disabled:opacity-50 disabled:pointer-events-none
+                            dark:bg-neutral-900 dark:border-neutral-700
+                            dark:text-neutral-400 dark:placeholder-neutral-500
+                            dark:focus:ring-neutral-600
+                        '
+                        value={io.response_format}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                            dispatch({
+                                type    : 'ImageEditOption/setResponseFormat',
+                                responseFormat    : e.target.value
+                            })
+                        }}>
                         <option value='b64_json'>b64_json</option>
                         <option value='url'>url</option>
                     </select>
                 </div>
-            </div>
-            <div className='whisper-option-cell'>
-                <div className='whisper-option-title'>
+
+                <div className='leading-10 mt-1'>
                     n :
                 </div>
-                <div className='whisper-option-content'>
+                <div className='col-span-2'>
                     <input
+                        className='
+                            py-3 px-4 pe-9 block w-full
+                            focus:border-blue-500 focus:ring-blue-500
+                            disabled:opacity-50 disabled:pointer-events-none
+                            dark:bg-neutral-900 dark:border-neutral-700
+                            dark:text-neutral-400 dark:placeholder-neutral-500
+                            dark:focus:ring-neutral-600
+                        '
                         type='number'
                         min={1}
                         max={4}
@@ -161,7 +212,6 @@ export const Option = (): JSX.Element => {
                             })
                         }} />
                 </div>
-            </div>
             <Screen />
         </div>
     )
@@ -198,17 +248,27 @@ const showImage = (
             key={0}
             src={image}
             alt='MaskImage'
-            className='img-fluid'/>) ,
+            className='h-36 m-4 mb-2 rounded-lg'/>) ,
         (<button
             key={1}
-            className='btn btn-secondary btn-sm'
+            className='
+                ml-6 py-2 px-4 inline-flex items-center gap-x-2
+                text-sm font-medium text-white
+                rounded-lg border border-transparent
+                bg-gray-600 
+                hover:bg-gray-700 focus:outline-none focus:bg-gray-700
+                disabled:opacity-50 disabled:pointer-events-none
+            '
             onClick={() => {
                 dispatch({
                     type: 'ImageScreen/setSubScreen',
                     subscreen : 'mask'
                 })
+                dispatch({
+                    type: 'ImageEditAction/setupMaskPaint',
+                })
             }}>
-            make mask
+            Mask Builder
         </button>)
     ]
 }

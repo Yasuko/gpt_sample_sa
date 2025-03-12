@@ -130,7 +130,8 @@ export const updateArray =
  * @returns Array<string | number | object> | object
  */
 export const duplicator = 
-<T extends Array<string | number | object> | { [key:string]: object }>
+<T extends Array<string | number | object>
+    | { [key:string]: any }>
 (
     org: T
 ): T => {
