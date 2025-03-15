@@ -39,8 +39,20 @@ export const RootWhisperAction = [
     takeEvery('WhisperAction/characterization', characterization),
 ]
 
+/**
+ * ドラッグ開始時の処理
+ * 現在は未実装。
+ *
+ * @param val any ドラッグイベントのデータ
+ */
 export function* dragStart(val: any): any {}
 
+/**
+ * ドラッグ終了時の処理
+ * ドラッグされたファイルを処理し、録音ファイル一覧に保存します。
+ *
+ * @param val any ドラッグイベントのデータ
+ */
 export function* dragEnd(val: any): any {
     yield FileHelper.call().dragEnd(val.event, 'file')
     const f = FileHelper.call().getDataFile()
@@ -65,12 +77,13 @@ export function* dragEnd(val: any): any {
         type        : 'WhisperForm/setRecorder',
         recorder    : wf.recorder
     })
-    
 }
 
 /**
  * 文字起こし文書を整形
- * @param val 
+ * WhisperFormのデータを基に文書を整形し、ChatActionにエクスポートします。
+ *
+ * @param val any 文書整形に必要なデータ
  */
 export function* convertText(val: any): any {
     yield loadingShow('Now 文書整形中 Now')
@@ -95,7 +108,9 @@ export function* convertText(val: any): any {
 
 /**
  * WhisperAPIに送信(文字起こし)
- * @param val 
+ * 録音ファイルをWhisper APIに送信し、結果を取得して保存します。
+ *
+ * @param val any 録音ファイルデータ
  */
 export function* characterization(val: any): any {
     const wf = duplicator(yield select(WhisperForm))
@@ -119,7 +134,12 @@ export function* characterization(val: any): any {
     yield loadingHide()
 }
 
-
+/**
+ * 整形後の文書を保存
+ * WhisperFormに整形後の文書を保存し、表示用テキストを更新します。
+ *
+ * @param val any 整形後の文書データ
+ */
 export function* setFormation(val: any): any {
     yield put({
         type        : 'WhisperForm/setFormation',
@@ -131,6 +151,12 @@ export function* setFormation(val: any): any {
     yield loadingHide()
 }
 
+/**
+ * 要約後の文書を保存
+ * WhisperFormに要約後の文書を保存し、表示用テキストを更新します。
+ *
+ * @param val any 要約後の文書データ
+ */
 export function* setSummary(val: any): any {
     yield put({
         type    : 'WhisperForm/setSummary',
@@ -142,7 +168,12 @@ export function* setSummary(val: any): any {
     yield loadingHide()
 }
 
-
+/**
+ * 表示用のテキストを更新
+ * WhisperFormのデータを基に表示用テキストを更新します。
+ *
+ * @param key number 更新するテキストのキー
+ */
 export function* updateShowText(key: number): any {
     const wf: WhisperFormInterface = yield select(WhisperForm);
     yield put({
@@ -154,13 +185,19 @@ export function* updateShowText(key: number): any {
     })
 }
 
-
-export function*showLoading(show: boolean, message: string = ''): any
+/**
+ * ローディング表示の制御
+ * ローディングの表示状態とメッセージを設定します。
+ *
+ * @param show boolean ローディングを表示するかどうか
+ * @param message string ローディングメッセージ（省略可能）
+ */
+export function* showLoading(show: boolean, message: string = ''): any
 {
     yield put({
         type        : 'LoadingAction/showLoading',
         show        : true,
         message     : message
     })
-} 
+}
 

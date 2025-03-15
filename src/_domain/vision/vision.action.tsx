@@ -28,15 +28,15 @@ export const RootVisionAction = [
 ];
 
 /**
- * Chatを送信する
- * @param val 
+ * Visionに関連するデータを送信し、結果を取得する
+ * VisionFormの状態とトークンを使用して、VisionModelを呼び出し、結果を取得して状態を更新します。
+ *
+ * @param val any 送信するデータ
  */
 function* sendVision(val: any): any {
     yield loadingShow('Now 呼び出してるねん Now')
-
     const cf: VisionFormInterface = yield select(visionForm)
     const token = yield select(Token)
-
     // ChatBlockに送信したメッセージを追加
     yield put({
         type        : 'VisionForm/addMessage',
@@ -45,22 +45,31 @@ function* sendVision(val: any): any {
             message : val.message,
         }
     })
-
     const r = yield VisionModel.call(token.token)
                 .question(cf.image, cf.message, buildOptions(cf))
     
     console.log(r)
-
     yield put({
         type        : 'VisionForm/setResult',
         result      : r.message.content,
     })
-
     yield loadingHide()
 }
 
+/**
+ * ドラッグ開始時の処理
+ * 現在は未実装。
+ *
+ * @param val any ドラッグイベントのデータ
+ */
 function* dragStart(val: any): any {}
 
+/**
+ * ドラッグ終了時の処理
+ * ドラッグ終了イベントを処理し、取得したファイルデータをVisionFormの状態に設定します。
+ *
+ * @param val any ドラッグイベントのデータ
+ */
 function* dragEnd(val: any): any {
     yield FileHelper.call().dragEnd(val.event)
     const f = FileHelper.call().getDataFile()

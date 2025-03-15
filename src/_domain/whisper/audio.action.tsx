@@ -33,6 +33,7 @@ export const RootAudioAction = [
 
 /**
  * 録音開始
+ * AudioVisualHelperを使用して録音を開始し、録音フラグを設定します。
  */
 export function* recorder(): any
 {
@@ -46,6 +47,7 @@ export function* recorder(): any
 
 /**
  * 録音終了
+ * 録音を停止し、録音データをWhisperFormに追加します。
  */
 export function* doneRecorder(): any {
     yield AudioVisualHelper.call().stop()
@@ -72,7 +74,9 @@ export function* doneRecorder(): any {
 
 /**
  * 録音削除
- * @param val 
+ * 指定されたキーの録音データを削除します。
+ *
+ * @param val any 削除対象のキーを含むオブジェクト
  */
 export function* delRecorder(val: any): any
 {
@@ -87,8 +91,9 @@ export function* delRecorder(val: any): any
 
 /**
  * オーディオデータのダウンロード
- * @param val any
- * @return any
+ * 指定された録音データをダウンロードします。
+ *
+ * @param val any ダウンロード対象のデータ
  */
 export function* download(val: any): any
 {
@@ -97,8 +102,9 @@ export function* download(val: any): any
 
 /**
  * コーデック変換
- * @param val any
- * @return any
+ * 録音データを指定された形式に変換し、録音ファイル一覧を更新します。
+ *
+ * @param val any 変換対象のデータ
  */
 export function* encode(val: any): any
 {
@@ -136,7 +142,9 @@ export function* encode(val: any): any
 
 /**
  * 音ファイルの分割
- * @param val 
+ * 録音データを分割し、録音ファイル一覧を更新します。
+ *
+ * @param val any 分割対象のデータ
  */
 export function* split(val: any): any
 {
@@ -157,6 +165,7 @@ export function* split(val: any): any
 
 /**
  * 音声再生
+ * AudioVisualHelperを使用して音声を再生します。
  */
 export function* Sound(): any
 {

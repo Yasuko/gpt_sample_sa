@@ -4,12 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Gpt from './pages/Gpt'
 import './index.css'
 import './styles/app.css'
-import './styles/chat.css'
-import './styles/tag.css'
-import './styles/search.css'
-import './styles/whisper.css'
-import './styles/embed.css'
-import './styles/image.css'
+
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <BrowserRouter>
@@ -24,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Route path="/Image" element={ <Gpt page="image" /> }></Route>
         <Route path="/Token" element={ <Gpt page="token" /> }></Route>
         <Route path="/Realtime" element={ <Gpt page="realtime" /> }></Route>
+        <Route path="/VectorStore" element={ <Gpt page="vector_store" /> }></Route>
     </Routes>
   </BrowserRouter>
 )

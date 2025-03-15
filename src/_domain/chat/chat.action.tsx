@@ -40,34 +40,33 @@ export const RootChatAction = [
 ]
 
 /**
- * Chatを送信する
+ * Chatを送信するSaga関数。
+ * ChatFormの状態を取得し、APIを呼び出して結果を処理します。
  */
 function* sendChat(): any {
-    yield loadingShow('Now 呼び出してるねん Now')
+    yield loadingShow('Now 呼び出してるねん Now');
 
-    const cf: ChatFormInterface = yield select(chatForm)
-    const token = yield select(Token)
+    const cf: ChatFormInterface = yield select(chatForm);
+    const token = yield select(Token);
     const block = consistent(cf.chatBlock, initialState.chatBlock)
                     ? undefined
-                    : cf.chatBlock
-    //const content = ChatHelper.call()
-                        //.buildSendContents(cf.newChat, cf.images)
+                    : cf.chatBlock;
 
     // ChatBlockに送信したメッセージを追加
     yield put({
         type        : 'ChatForm/addChatBlock',
         payload     : cf.newChat
-    })
+    });
 
     // ChatAPIをコール
     const r = yield ChatModel.call(token.token)
-                .callDocumetSummary([cf.newChat], cf.options)
-    
+                .callDocumetSummary([cf.newChat], cf.options);
+
     if ('usage' in r) {
         yield put({
             type        : 'Token/setHistory',
             payload     : r.usage
-        })
+        });
     }
 
     // messagesに格納された全てのメッセージをChatBlockに追加
@@ -77,40 +76,48 @@ function* sendChat(): any {
             role    : 'system',
             content : r.choices[0].message.content
         }
-    })
+    });
 
     yield put({
         type        : 'ChatForm/resetNewChat',
-    })
+    });
 
-    yield loadingHide()
+    yield loadingHide();
 }
 
 /**
- * Chat機能を外部アクションから呼び出したい時に使う
- * @param val 
+ * Chat機能を外部アクションから呼び出すためのSaga関数。
+ *
+ * @param val - 外部から渡される値。
  */
 function* exportChat(val: any): any {
-    const cf: ChatFormInterface = yield select(chatForm)
-    const token = yield select(Token)
+    const cf: ChatFormInterface = yield select(chatForm);
+    const token = yield select(Token);
 
     // ChatAPIをコール
     const r = yield ChatModel.call(token.token)
-        .callDocumetSummary(val.chat, cf.options)
+        .callDocumetSummary(val.chat, cf.options);
     yield put({
         type    : val.dispatch,
         role    : r.choices[0].message.role,
         content : r.choices[0].message.content,
-    })
+    });
 }
 
-
+/**
+ * ドラッグ開始時の処理を行うSaga関数。
+ */
 function* dragStart(): any {}
 
+/**
+ * ドラッグ終了時の処理を行うSaga関数。
+ *
+ * @param val - ドラッグイベントの情報。
+ */
 function* dragEnd(val: any): any {
-    yield FileHelper.call().dragEnd(val.event)
-    const f = FileHelper.call().getDataFile()
-    console.log(f)
+    yield FileHelper.call().dragEnd(val.event);
+    const f = FileHelper.call().getDataFile();
+    console.log(f);
     yield put({
         type        : 'ChatForm/addNewChat',
         payload     : [{
@@ -119,23 +126,24 @@ function* dragEnd(val: any): any {
                 url: f.image,
             },
         }]
-    })
+    });
 }
 
 /**
- * ツールを追加する
- * @param val 
+ * ツールを追加するSaga関数。
+ *
+ * @param val - ツール情報。
  */
 function* addTooles(val: any): any {
-    const cf: ChatFormInterface = yield select(chatForm)
-    const token = yield select(Token)
+    const cf: ChatFormInterface = yield select(chatForm);
+    const token = yield select(Token);
 
     // ChatAPIをコール
     const r = yield ChatModel.call(token.token)
-        .callDocumetSummary(val.tool, cf.options)
+        .callDocumetSummary(val.tool, cf.options);
     yield put({
         type    : val.dispatch,
         role    : r.choices[0].message.role,
         content : r.choices[0].message.content,
-    })
+    });
 }

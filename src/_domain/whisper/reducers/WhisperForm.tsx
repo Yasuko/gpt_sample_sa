@@ -1,12 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { addArray, duplicator } from '../../_helper/object.helper';
 
-
+/**
+ * WhisperFormのプロパティインターフェース
+ * WhisperFormのオプションとディスパッチ関数を含むインターフェースを定義します。
+ */
 export type WhisperFormPropsInterface = {
     WhisperForm?: WhisperFormInterface;
     dispatch?: any;
 }
 
+/**
+ * Whisper APIのオプション型定義
+ * Whisper APIに送信するオプションを定義します。
+ */
 export type WhisperOptions = {
     audio: any,
     model: 'tiny' | 'small' | 'basic' | 'large',
@@ -17,7 +24,10 @@ export type WhisperOptions = {
     fp16?: 'True' | 'False',
 }
 
-
+/**
+ * 録音データの型定義
+ * 録音データに必要なプロパティを定義します。
+ */
 export type RecordType = {
     rec         : any,
     time        : number,
@@ -29,6 +39,9 @@ export type RecordType = {
     extension   : string,
 }
 
+/**
+ * 録音データの初期値
+ */
 export const initialRecorder: RecordType = {
     rec         : null,
     time        : 0,
@@ -40,6 +53,10 @@ export const initialRecorder: RecordType = {
     extension   : '',
 }
 
+/**
+ * WhisperFormの型定義
+ * WhisperFormに必要なプロパティを定義します。
+ */
 export type WhisperFormInterface = {
     text        : string
     formation   : string
@@ -51,6 +68,10 @@ export type WhisperFormInterface = {
     recVideo    : boolean
 }
 
+/**
+ * WhisperFormの初期状態
+ * 初期値を設定します。
+ */
 export const initialState: WhisperFormInterface = {
     text        :  '',
     formation   :  '',
@@ -74,10 +95,19 @@ export const initialState: WhisperFormInterface = {
     recVideo    : false,
 };
 
+/**
+ * WhisperFormのスライス
+ * Redux Toolkitを使用して、WhisperFormのリデューサーとアクションを定義します。
+ */
 const slice = createSlice({
     name: 'WhisperForm',
     initialState,
     reducers: {
+        /**
+         * テキストを設定する
+         * @param state any 現在の状態
+         * @param action any アクションオブジェクト
+         */
         setText: (state: any, action: any) => {
             const re = duplicator(state.recorder)
             re[action.key].text = action.text
@@ -86,6 +116,11 @@ const slice = createSlice({
                 recorder: re
             })
         },
+        /**
+         * 整形データを設定する
+         * @param state any 現在の状態
+         * @param action any アクションオブジェクト
+         */
         setFormation: (state: any, action: any) => {
             const re = duplicator(state.recorder)
             re[action.key].formation = action.formation
@@ -94,6 +129,11 @@ const slice = createSlice({
                 recorder: re
             })
         },
+        /**
+         * 要約データを設定する
+         * @param state any 現在の状態
+         * @param action any アクションオブジェクト
+         */
         setSummary: (state: any, action: any) => {
             const re = duplicator(state.recorder)
             re[action.key].summary = action.summary
@@ -102,11 +142,21 @@ const slice = createSlice({
                 recorder: re
             })
         },
+        /**
+         * 録音データを設定する
+         * @param state any 現在の状態
+         * @param action any アクションオブジェクト
+         */
         setRecorder: (state: any, action: any) => {
             return Object.assign({}, state, {
                 recorder: action.recorder
             })
         },
+        /**
+         * 録音データを追加する
+         * @param state any 現在の状態
+         * @param action any アクションオブジェクト
+         */
         addRecorder: (state: any, action: any) => {
             console.log(action)
             const re = duplicator(state.recorder)
@@ -114,6 +164,11 @@ const slice = createSlice({
                 recorder: addArray(re, action.recorder, initialState.recorder)
             })
         },
+        /**
+         * オプションを更新する
+         * @param state any 現在の状態
+         * @param action any アクションオブジェクト
+         */
         updateOption: (state: any, action: any) => {
             const re = duplicator(state.options)
             re[action.key] = action.option
@@ -121,16 +176,32 @@ const slice = createSlice({
                 options: re
             })
         },
+        /**
+         * 録音フラグを設定する
+         * @param state any 現在の状態
+         * @param action any アクションオブジェクト
+         */
         setAudioFlag: (state: any, action: any) => {
             return Object.assign({}, state, {
                 recAudio: action.recAudio
             })
         },
+        /**
+         * 録画フラグを設定する
+         * @param state any 現在の状態
+         * @param action any アクションオブジェクト
+         */
         setVideoFlag: (state: any, action: any) => {
             return Object.assign({}, state, {
                 recVideo: action.recVideo
             })
         },
+        /**
+         * 状態をリセットする
+         * 初期状態に戻します。
+         * @param state any 現在の状態
+         * @param action any アクションオブジェクト
+         */
         reset: (state: any, action: any) => {
             return initialState;
         }

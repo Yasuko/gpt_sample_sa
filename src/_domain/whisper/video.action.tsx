@@ -30,7 +30,9 @@ export const RootVideoAction = [
 
 /**
  * Video Hook受け口
- * @param val 
+ * 指定されたタスクとデータをディスパッチします。
+ *
+ * @param val any タスクとデータを含むオブジェクト
  */
 export function* hook(val: any): any {
     yield put({
@@ -41,7 +43,9 @@ export function* hook(val: any): any {
 
 /**
  * 録画開始
- * @param val 
+ * 録画フラグを設定し、VideoHelperを使用して録画を開始します。
+ *
+ * @param val any 録画に必要なデータ
  * @returns any
  */
 export function* camera(val: any): any {
@@ -54,12 +58,13 @@ export function* camera(val: any): any {
                 .setTask('VideoAction/setMove')
                 .setup()
     yield VideoHelper.call().start()
-
 }
 
 /**
  * 録画終了処理
- * @param val 
+ * 録画を停止し、録画データを取得します。
+ *
+ * @param val any 録画終了に必要なデータ
  */
 export function* doneCamera(val: any): any {
     yield VideoHelper.call().stop()
@@ -71,6 +76,12 @@ export function* doneCamera(val: any): any {
     })
 }
 
+/**
+ * 録画データを保存
+ * 録画データをWhisperFormに追加します。
+ *
+ * @param val any 録画データ
+ */
 export function* setMove(val: any): any {
     yield put({
         type        : 'WhisperForm/addRecorder',
@@ -86,6 +97,12 @@ export function* setMove(val: any): any {
     });
 }
 
+/**
+ * 録画データの変換試験
+ * 録画データをエンコードし、結果をWhisperFormに追加します。
+ *
+ * @param val any 録画データ
+ */
 export function* encodeTest(val: any): any {
     const wf: WhisperFormInterface = yield select(WhisperForm);
     yield EncodeHelper.call()
@@ -108,19 +125,29 @@ export function* encodeTest(val: any): any {
     });
 }
 
-
+/**
+ * 音声のセットアップと再生
+ * AudioVisualHelperを使用して音声をセットアップし、再生します。
+ */
 export function* Sound(): any
 {
     yield AudioVisualHelper.call().setupSound();
     yield AudioVisualHelper.call().playSound();
 }
 
-export function*showLoading(show: boolean, message: string = ''): any
+/**
+ * ローディング表示の制御
+ * ローディングの表示状態とメッセージを設定します。
+ *
+ * @param show boolean ローディングを表示するかどうか
+ * @param message string ローディングメッセージ（省略可能）
+ */
+export function* showLoading(show: boolean, message: string = ''): any
 {
     yield put({
         type        : 'LoadingAction/showLoading',
         show        : true,
         message     : message
     });
-} 
+}
 

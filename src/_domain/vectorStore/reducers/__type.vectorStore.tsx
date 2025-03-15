@@ -1,0 +1,56 @@
+import { 
+    VectorStoreObjectType,
+    VectorStoreCreateType,
+
+    VectorStoreFileObjectType,
+    CreateVectorStoreFileType,
+} from '../../../_lib/gpt/_helper/vector_store.helper'
+
+export type VectorStoreType = VectorStoreObjectType
+export const initialVectorStore: VectorStoreType = {
+    created_at: 0,
+    expires_after: {
+        anchor: '',
+        days: 0,
+    },
+    expires_at: 0,
+    file_counts: {
+        cancelled: 0,
+        completed: 0,
+        failed: 0,
+        in_progress: 0,
+        total: 0
+    },
+    id: '',
+    last_active_at: 0,
+    metadata: { },
+    name: '',
+    usage_bytes: 0
+}
+
+export type VectorStoreFormType = VectorStoreCreateType
+export const initialVectorStoreForm: VectorStoreFormType = {
+    name: '',
+}
+
+
+export type VectorFileType = VectorStoreFileObjectType
+export const initialVectorStoreFile: VectorFileType = {
+    attributes: {},
+    chunk_strategy: {type: 'other'},
+    created_at: 0,
+    id: '',
+    last_error: null,
+    metadata: {},
+    object: '',
+    status: "cancelled",
+    usage_bytes: 0,
+    vector_store_id: ''
+}
+
+export type VectorFileFormType = CreateVectorStoreFileType
+export const initialVectorFileForm: VectorFileFormType = {
+    attributes: {},
+    chunk_strategy: {type: 'auto'},
+    file_id: ''
+}

@@ -35,9 +35,11 @@ export const RootImageEditAction = [
 ]
 
 /**
- * Promptの内容をImageAPIに送信する
- * @param val any
- * @returns any
+ * Promptの内容をImageAPIに送信し、画像の再生成を行う
+ * 再生成中のローディング表示、API呼び出し、生成結果のストアへの保存を行う
+ *
+ * @param val any API呼び出しに必要なデータを含む
+ * @returns any 生成された画像データ
  */
 function* sendPrompt(val: any): any {
 
@@ -63,6 +65,13 @@ function* sendPrompt(val: any): any {
     yield loadingHide()
 }
 
+/**
+ * ドラッグ操作の終了時に画像やマスクを設定する
+ * ドラッグ終了イベントに基づいて、画像またはマスクのデータを更新する
+ *
+ * @param val any ドラッグ終了イベントとターゲット情報を含む
+ * @returns void
+ */
 function* dragEnd(val: any): any {
     yield FileHelper.call().dragEnd(val.event)
     const f = FileHelper.call().getDataFile()
@@ -89,16 +98,27 @@ function* dragEnd(val: any): any {
     return
 }
 
+/**
+ * マスクペイントのセットアップを行う
+ * 指定されたターゲット要素に対して、画像のベース64データを使用してペイントを初期化する
+ *
+ * @returns void
+ */
 function* setupMaskPaint(): any {
     const image: ImageEditOptionInterface = yield select(imageEditOption)
     yield setupPaint('mask-paint-target', image.image_base64)
 }
 
+/**
+ * 生成されたマスクを保存する
+ * 画像データとマスクデータを一致させ、ストアに保存する
+ *
+ * @param val any マスクのベース64データを含む
+ * @returns void
+ */
 function* saveMakeMask(val: any): any {
     const image = yield select(imageEditOption)
     const _mask = yield getInvertMask(val.mask_base64)
-    //const _mask = yield getInvertMask(__mask)
-    //const _mask = val.mask_base64
 
     yield put({
         type        : 'ImageEditOption/setMaskBase64',

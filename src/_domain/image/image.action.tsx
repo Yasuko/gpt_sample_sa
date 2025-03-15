@@ -26,9 +26,11 @@ export const RootImageAction = [
 ]
 
 /**
- * Promptの内容をImageAPIに送信する
- * @param val any
- * @returns any
+ * Promptの内容をImageAPIに送信し、画像生成を行う
+ * 画像生成中のローディング表示、API呼び出し、生成結果のストアへの保存を行う
+ *
+ * @param val any API呼び出しに必要なデータを含む
+ * @returns any 生成された画像データ
  */
 function* sendPrompt(val: any): any {
 
@@ -54,9 +56,11 @@ console.log(r)
 }
 
 /**
- * Imageを削除
- * @param val
- * @returns any
+ * 指定されたキーに基づいて画像を削除する
+ * ストア内のImageFormから該当する画像データを削除
+ *
+ * @param val any 削除対象のキーを含む
+ * @returns any 削除処理の結果
  */
 function* deleteImage(val: any): any {
     yield put({

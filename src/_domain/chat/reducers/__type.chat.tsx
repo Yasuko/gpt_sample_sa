@@ -5,30 +5,40 @@ import {
 
 /**
  * チャットの型
+ * ChatMessagesTypeを基にした型定義。
  */
 export type Chat = ChatMessagesType
 
+/**
+ * ユーザーメッセージの型
+ * UserMessageTypeを基にした型定義。
+ */
 export type UserMessage = UserMessageType
 
 /**
  * ChatReducerの型
- * @param options   : ChatOptions
- * @param newChat   : string
- * @param chatBlock : [Chat]
- * 
+ * 各プロパティはチャットフォームの状態を表します。
+ *
+ * @property options - チャットオプション。
+ * @property newChat - 新しいユーザーメッセージ。
+ * @property chatBlock - チャット全体のブロック。
+ * @property chatScreen - チャット画面の表示状態。
  */
 export type ChatFormType = {
     options     : ChatOptions
     newChat     : UserMessageType
-    chatBlock   : [Chat]        // Chat全体を保持する
+    chatBlock   : [Chat]
     chatScreen  : boolean
 }
 
 /**
  * ChatFormの初期値
- * @param options   : ChatOptions
- * @param newChat   : string
- * @param chatBlock : [Chat]
+ * 各プロパティにデフォルト値を設定します。
+ *
+ * @property options - デフォルトのチャットオプション。
+ * @property newChat - 空のユーザーメッセージ。
+ * @property chatBlock - 初期のチャットブロック。
+ * @property chatScreen - 初期状態は非表示。
  */
 export const initialChatForm: ChatFormType = {
     options     : {

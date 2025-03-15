@@ -29,9 +29,11 @@ export const RootImageChangeAction = [
 ]
 
 /**
- * Promptの内容をImageAPIに送信する
- * @param val any
- * @returns any
+ * Promptの内容をImageAPIに送信し、画像の変更を行う
+ * 変更中のローディング表示、API呼び出し、生成結果のストアへの保存を行う
+ *
+ * @param val any API呼び出しに必要なデータを含む
+ * @returns any 生成された画像データ
  */
 function* sendPrompt(val: any): any {
 
@@ -55,6 +57,13 @@ function* sendPrompt(val: any): any {
     yield loadingHide()
 }
 
+/**
+ * ドラッグ操作の終了時に画像データを設定する
+ * ドラッグ終了イベントに基づいて、画像データを更新する
+ *
+ * @param val any ドラッグ終了イベントを含む
+ * @returns void
+ */
 function* dragEnd(val: any): any {
     yield FileHelper.call().dragEnd(val.event)
     const f = FileHelper.call().getDataFile()

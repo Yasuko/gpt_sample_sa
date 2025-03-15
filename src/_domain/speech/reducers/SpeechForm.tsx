@@ -2,11 +2,31 @@ import { createSlice } from '@reduxjs/toolkit'
 import { SpeechFormType, initialSpeechForm } from './__type.speech'
 import { duplicator } from '../../_helper/object.helper'
 
+/**
+ * Interface for the properties of the SpeechForm component.
+ *
+ * @interface SpeechFormPropsInterface
+ */
+/**
+ * SpeechFormコンポーネントのプロパティを表すインターフェース。
+ *
+ * @interface SpeechFormPropsInterface
+ */
 export interface SpeechFormPropsInterface {
     SpeechForm?: SpeechFormInterface,
     dispatch?: any
 }
 
+/**
+ * Interface for the structure of the SpeechForm state.
+ *
+ * @interface SpeechFormInterface
+ */
+/**
+ * SpeechFormのステート構造を表すインターフェース。
+ *
+ * @interface SpeechFormInterface
+ */
 export type SpeechFormInterface = SpeechFormType & {
     message : string,
     response_format: 'mp3' | 'opus' | 'aac' | 'flac',
@@ -18,6 +38,16 @@ export type SpeechFormInterface = SpeechFormType & {
     }] | '',
 }
 
+/**
+ * The initial state for the SpeechForm reducer.
+ *
+ * @constant initialState
+ */
+/**
+ * SpeechFormリデューサーの初期状態。
+ *
+ * @constant initialState
+ */
 export const initialState: SpeechFormInterface = {
     ...initialSpeechForm,
     message         : '',
@@ -27,6 +57,18 @@ export const initialState: SpeechFormInterface = {
     results         : '',
 }
 
+/**
+ * Redux slice for managing the SpeechForm state.
+ * Contains reducers for updating various properties of the SpeechForm.
+ *
+ * @constant slice
+ */
+/**
+ * SpeechFormのステートを管理するReduxスライス。
+ * SpeechFormのさまざまなプロパティを更新するリデューサーを含みます。
+ *
+ * @constant slice
+ */
 const slice = createSlice({
     name: 'SpeechForm',
     initialState,

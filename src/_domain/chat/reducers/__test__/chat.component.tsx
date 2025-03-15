@@ -6,14 +6,20 @@ import {
     
 } from './_test_data';
 
+/**
+ * ChatFormTestコンポーネント。
+ * Reduxの状態を操作するUIを提供します。
+ * 各ボタンで状態を変更し、変更後の値を画面に表示します。
+ */
 export const ChatFormTest = (): JSX.Element => {
     const dispatch = useDispatch();
     const cf = useSelector((state: ChatFormPropsInterface) => {
         return state.ChatForm === undefined ? initialState : state.ChatForm;
     });
+
     return (
         <div className="container">
-            {/* modelを変更 */}
+            {/* モデルを変更 */}
             <button
                 onClick={() => {
                     dispatch({
@@ -61,7 +67,7 @@ export const ChatFormTest = (): JSX.Element => {
             >
                 setN
             </button>
-            {/* streamを変更 */}
+            {/* Streamを変更 */}
             <button
                 onClick={() => {
                     dispatch({
@@ -134,6 +140,7 @@ export const ChatFormTest = (): JSX.Element => {
                 setLogitBias
             </button>
 
+            {/* 各状態の表示 */}
             <div data-testid="chat-model">{String(cf.options.model)}</div>
             <div data-testid="chat-temperature">{String(cf.options.temperature)}</div>
             <div data-testid="chat-top_p">{String(cf.options.top_p)}</div>

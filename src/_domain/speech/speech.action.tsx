@@ -26,8 +26,11 @@ export const RootSpeechAction = [
 ]
 
 /**
- * Chatを送信する
- * @param val 
+ * サーバーにスピーチメッセージを送信し、レスポンスを処理します。
+ * スピーチフォームとトークンをステートから取得し、SpeechModelを呼び出してレスポンスの音声を再生します。
+ *
+ * @param val any スピーチアクションの入力値。
+ * @returns any スピーチアクションの結果。
  */
 function* sendSpeech(val: any): any {
     yield loadingShow('Now 呼び出してるねん Now')
@@ -51,7 +54,12 @@ function* sendSpeech(val: any): any {
     })
 }
 
-
+/**
+ * 指定されたスピーチ音声を再生します。
+ *
+ * @param val any 再生する音声を含む入力値。
+ * @returns any 再生アクションの結果。
+ */
 function* playSpeech(val: any): any {
     yield AudioVisualHelper.call().play(val.audio)
 }
