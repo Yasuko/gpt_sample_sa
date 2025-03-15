@@ -4,6 +4,8 @@ import {
 
     VectorStoreFileObjectType,
     CreateVectorStoreFileType,
+    VectorStoreBatchObjectType,
+    CreateVectorStoreBatchType,
 } from '../../../_lib/gpt/_helper/vector_store.helper'
 
 export type VectorStoreType = VectorStoreObjectType
@@ -53,4 +55,27 @@ export const initialVectorFileForm: VectorFileFormType = {
     attributes: {},
     chunk_strategy: {type: 'auto'},
     file_id: ''
+}
+
+
+
+export type VectorBatchType = VectorStoreBatchObjectType
+export const initialVectorStoreBatch: VectorBatchType = {
+    created_at: 0,
+    file_contents: {
+        cancelled: 0,
+        completed: 0,
+        failed: 0,
+        in_progress: 0,
+        total: 0
+    },
+    id: '',
+    object: '',
+    status: "cancelled",
+    vector_store_id: ''
+}
+
+export type VectorBatchFormType = CreateVectorStoreBatchType
+export const initialVectorBatchForm: VectorBatchFormType = {
+    file_ids: []
 }
