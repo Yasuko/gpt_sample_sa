@@ -5,7 +5,7 @@ import {
 } from './__type.vectorStore'
 
 export interface VectorStorePropsInterface {
-    VectorStore?: VectorStoreType
+    VectorStore?: VectorStoreInterface
     dispatch?: Dispatch
 }
 export type VectorStoreInterface = {

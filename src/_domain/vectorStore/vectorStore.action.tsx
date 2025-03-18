@@ -4,7 +4,12 @@ import { put, select, takeEvery } from 'redux-saga/effects'
 import { loadingShow, loadingHide } from '../animation/animation'
 
 // import model
-import { ChatModel } from '../_model/chat.model'
+import {
+    TokenPropsInterface
+} from '../_all/reducers/Token'
+import {
+    VectorStoreModel
+} from '../_model/vectorStore.model'
 
 // import reducer
 import {
@@ -12,21 +17,53 @@ import {
     VectorStoreInterface,
     initialState
 } from './reducers/VectorStore'
-import { consistent } from '../_helper/object.helper'
+import {
+    VectorStoreFormPropsInterface,
+    VectorStoreFormInterface,
+} from './reducers/VectorStoreForm'
+import {
+    VectorStoreEditPropsInterface,
+    VectorStoreEditInterface
+} from './reducers/VectorStoreEdit'
 
 
 // import helper
 import { FileHelper } from './helper/file.helper'
 
+const Store = (state: VectorStorePropsInterface) => state.VectorStore
+const StoreForm = (state: VectorStoreFormPropsInterface) => state.VectorStoreForm
+const StoreEdit = (state: VectorStoreEditPropsInterface) => state.VectorStoreEdit
 
 // Root Saga登録配列
 export const RootVectorStoreAction = [
-    takeEvery('VectorStorAction/sendChat', sendChat), // Chatを送信する
-
+    takeEvery('VectorStorAction/initialLoad', initialLoad),
+    takeEvery('VectorStorAction/newStore', newStore),
+    takeEvery('VectorStorAction/retrieve', retrieveStore),
+    takeEvery('VectorStorAction/search', searchStore),
+    takeEvery('VectorStorAction/remove', removeStore),
+    takeEvery('VectorStorAction/update', updateStore)
 ]
 
-function* sendChat(): any {
-    yield loadingShow('Now 呼び出してるねん Now');
+function* initialLoad(): any {
 
-    yield loadingHide();
+}
+
+function* newStore(): any {
+
+}
+
+function* retrieveStore(): any {
+
+}
+
+function* searchStore(): any {
+
+}
+
+function* removeStore(): any {
+
+}
+
+function* updateStore(): any {
+
 }

@@ -1,6 +1,12 @@
 import VectorStore from "./reducers/VectorStore"
+import VectorStoreForm from "./reducers/VectorStoreForm"
+import VectorStoreEdit from "./reducers/VectorStoreEdit"
 import VectorFile from "./reducers/VectorFile"
+import VectorFileForm from "./reducers/VectorFileForm"
+import VectorFileEdit from "./reducers/VectorFileEdit"
 import VectorBatch from "./reducers/VectorBatch"
+import VectorBatchForm from "./reducers/VectorBatchForm"
+import VectorBatchEdit from "./reducers/VectorBatchEdit"
 
 /**
  * ChatReducerオブジェクト。
@@ -10,6 +16,12 @@ import VectorBatch from "./reducers/VectorBatch"
  */
 export const VectorStoreReducer = {
     VectorStore,
+    VectorStoreForm,
+    VectorStoreEdit,
     VectorFile,
-    VectorBatch
+    VectorFileForm,
+    VectorFileEdit,
+    VectorBatch,
+    VectorBatchForm,
+    VectorBatchEdit,
 }

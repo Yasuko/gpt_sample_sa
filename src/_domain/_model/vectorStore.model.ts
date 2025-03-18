@@ -23,21 +23,37 @@ export class VectorStoreModel {
         VectorStoreService.call().setAPIKey(key)
     }
 
-    public async newStore(
+    public async new(
         options: Partial<VectorStoreCreateType>
     ): Promise<VectorStoreObjectType> {
         await VectorStoreService.call().createStore(options)
         return VectorStoreService.call().getResult()
     }
 
-    public async listStore(
+    public async list(
         options: Partial<VectorStoreListType>
     ): Promise<VectorStoreObjectType> {
         await VectorStoreService.call().listStore(options)
         return VectorStoreService.call().getResult()
     }
 
-    public async deleteStore(
+    public async retrieve(
+        storeId: string
+    ): Promise<VectorStoreObjectType> {
+        await VectorStoreService.call().retrieveStore(storeId)
+        return VectorStoreService.call().getResult()
+    }
+
+    public async search(
+        storeId: string,
+        options: Partial<VectorStoreSearchType>
+    ): Promise<VectorStoreObjectType> {
+        await VectorStoreService.call().searchStore(storeId, options)
+        return VectorStoreService.call().getResult()
+    }
+
+
+    public async remove(
         storeId: string
     ): Promise<VectorStoreObjectType> {
         await VectorStoreService.call().deleteStore(storeId)

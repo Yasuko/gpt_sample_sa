@@ -1,46 +1,48 @@
 import {
-    VectorStoreListType,
-    VectorStoreCreateType,
-    VectorStoreDeleteType,
-    VectorStoreModifyType,
-    VectorStoreObjectType,
-    VectorStoreRetrieveType,
-    VectorStoreSearchType
+    CreateVectorStoreBatchType,
+    initialVectorStoreBatchCreate,
+    
+    VectorStoreBatchObjectType,
+    
 } from '../../_lib/gpt/_helper/vector_store.helper'
 import { VectorStoreService } from '../../_lib/gpt/vector_store.service'
 
-export class VectorStoreModel {
-    private static instance: VectorStoreModel
+export class VectorBatchModel {
+    private static instance: VectorBatchModel
 
-    public static call(key: string): VectorStoreModel {
-        if (!VectorStoreModel.instance) {
-            VectorStoreModel.instance = new VectorStoreModel(key)
+    public static call(key: string): VectorBatchModel {
+        if (!VectorBatchModel.instance) {
+            VectorBatchModel.instance = new VectorBatchModel(key)
         }
-        return VectorStoreModel.instance
+        return VectorBatchModel.instance
     }
 
     public constructor(key: string) {
         VectorStoreService.call().setAPIKey(key)
     }
 
-    public async newStore(
-        options: Partial<VectorStoreCreateType>
-    ): Promise<VectorStoreObjectType> {
-        await VectorStoreService.call().createStore(options)
+    public async new(
+        storeId: string,
+        options: Partial<CreateVectorStoreBatchType>
+    ): Promise<VectorStoreBatchObjectType> {
+        const _options = Object.assign({}, initialVectorStoreBatchCreate, options)
+        await VectorStoreService.call().createBatch(storeId, _options)
         return VectorStoreService.call().getResult()
     }
 
-    public async listStore(
-        options: Partial<VectorStoreListType>
-    ): Promise<VectorStoreObjectType> {
-        await VectorStoreService.call().listStore(options)
+    public async list(
+        storeId: string,
+        batchId: string
+    ): Promise<VectorStoreBatchObjectType> {
+        await VectorStoreService.call().listBatch(storeId, batchId)
         return VectorStoreService.call().getResult()
     }
 
-    public async deleteStore(
-        storeId: string
-    ): Promise<VectorStoreObjectType> {
-        await VectorStoreService.call().deleteStore(storeId)
+    public async retrieve(
+        storeId: string,
+        batchId: string
+    ): Promise<VectorStoreBatchObjectType> {
+        await VectorStoreService.call().retrieveBatch(storeId, batchId)
         return VectorStoreService.call().getResult()
     }
 

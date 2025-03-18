@@ -5,7 +5,7 @@ import {
 } from './__type.vectorStore'
 
 export interface VectorBatchFormPropsInterface {
-    VectorFileForm?: VectorBatchFormInterface
+    VectorBatchForm?: VectorBatchFormInterface
     dispatch?: Dispatch
 }
 export type VectorBatchFormInterface = VectorBatchFormType & {

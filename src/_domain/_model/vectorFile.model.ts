@@ -39,7 +39,7 @@ export class VectorFileModel {
 
     public async remove(
         storeId: string
-    ): Promise<VectorStoreObjectType> {
+    ): Promise<VectorStoreFileObjectType> {
         await VectorStoreService.call().deleteStore(storeId)
         return VectorStoreService.call().getResult()
     }
