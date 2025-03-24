@@ -13,7 +13,7 @@ import ToasterAnimation from '../animation/toaster.animation'
 
 export const VectorStoreIndex = () => {
     return (
-        <Provider store={store}>
+        <Provider store={store} children>
             <Header />
             <VectorStore />
             <LoadingAnimation />

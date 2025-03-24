@@ -10,6 +10,7 @@ import { EmbedReducer } from '../_domain/embed/index.reducers'
 import { TokenReducer } from '../_domain/token/index.reducers'
 import { RealtimeReducer } from '../_domain/realtime/index.reducers'
 import { VectorStoreReducer } from '../_domain/vectorStore/index.reducers'
+import { FileReducer } from '../_domain/file/index.reducers'
 
 import ShowContent from '../_domain/_all/reducers/ShowContent'
 import FileForm from '../_domain/_all/reducers/FileForm'
@@ -30,6 +31,7 @@ export const reducer = {
     ...TokenReducer,
     ...RealtimeReducer,
     ...VectorStoreReducer,
+    ...FileReducer,
     ShowContent,
     FileForm,
     JobStack,

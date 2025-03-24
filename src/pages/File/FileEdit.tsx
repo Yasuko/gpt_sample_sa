@@ -4,29 +4,28 @@ import React, { useEffect } from 'react'
 
 // import reducer
 import {
-    VectorStoreEditPropsInterface,
-    VectorStoreEditInterface,
+    FileEditPropsInterface,
+    FileEditInterface,
     initialState
-} from '../../_domain/vectorStore/reducers/VectorStoreEdit'
+} from '../../_domain/file/reducers/FileEdit'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 
 
 // import component
 
-export const StoreEdit = () => {
+export const FileEdit = () => {
     const dispatch = useDispatch()
-    const store = useSelector((state: VectorStoreEditPropsInterface): VectorStoreEditInterface => {
-        return state.VectorStoreEdit === undefined ? initialState : state.VectorStoreEdit
+    const file = useSelector((state: FileEditPropsInterface): FileEditInterface => {
+        return state.FileEdit === undefined ? initialState : state.FileEdit
     })
 
     useEffect(() => {
         dispatch({
-            type: 'VectorStoreAction/initialLoad',
+            type: 'FileAction/initialLoad',
         })
     })
 
-    if (store.name === '')
+    if (!file)
         return <div className='flex flex-row gap-4'>none</div>
 
     return (
@@ -44,7 +43,6 @@ export const StoreEdit = () => {
                         id="name"
                         name="name"
                         type="text"
-                        defaultValue={store.name}
                         placeholder="Guest"
                         className="
                             peer block w-full
@@ -77,4 +75,4 @@ export const StoreEdit = () => {
     )
 }
 
-export default StoreEdit
+export default FileEdit

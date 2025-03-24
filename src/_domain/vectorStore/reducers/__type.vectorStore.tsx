@@ -8,6 +8,28 @@ import {
     CreateVectorStoreBatchType,
 } from '../../../_lib/gpt/_helper/vector_store.helper'
 
+import {
+    UploadFileType,
+    FileResponseType,
+} from '../../../_lib/gpt/_helper/file.helper'
+
+export type FileType = FileResponseType
+export const initialFile: FileType = {
+    id: '',
+    object: "file",
+    bytes: 0,
+    created_at: 0,
+    expires_at: 0,
+    filename: '',
+    purpose: 'user_data',
+}
+
+export type FileFormType = UploadFileType
+export const initialFileForm: FileFormType = {
+    file: null,
+    purpose: 'user_data',
+}
+
 export type VectorStoreType = VectorStoreObjectType
 export const initialVectorStore: VectorStoreType = {
     created_at: 0,
