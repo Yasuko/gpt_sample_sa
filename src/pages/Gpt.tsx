@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { JSX, useEffect } from 'react'
 import { Provider } from 'react-redux'
 
 import "preline/preline"
@@ -22,13 +22,14 @@ import ImageIndex from './Image/index'
 import VisionIndex from './Vision'
 import InputToken from './token/InputToken'
 import RealtimeIndex from './Realtime/index'
+import VectorStoreIndex from './VectorStore/index'
 import { useLocation } from 'react-router-dom';
 
 interface FaceInterface {
     page: string
 }
 
-const store = createStore()
+// const store = createStore()
 
 const Gpt = (p: FaceInterface): JSX.Element => {
     const location = useLocation()
@@ -37,11 +38,7 @@ const Gpt = (p: FaceInterface): JSX.Element => {
         window.HSStaticMethods.autoInit()
     }, [location.pathname])
 
-    return (
-        <Provider store={store}>
-            { changer(p.page) }
-        </Provider>
-    )
+    return changer(p.page) 
 }
 
 const changer = (p: string): JSX.Element => {
@@ -55,6 +52,7 @@ const changer = (p: string): JSX.Element => {
     if (p === 'vision') return <VisionIndex />
     if (p === 'token') return <InputToken />
     if (p === 'realtime') return <RealtimeIndex />
+    if (p === 'vector_store') return <VectorStoreIndex />
     return <ChatIndex />
 }
 

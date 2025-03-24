@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { connect } from 'react-redux';
 import { Transition } from 'react-transition-group';
 // import 'bootstrap/dist/css/bootstrap.css';
-import './toaster.css';
+//import './toaster.css';
 
 import {
     toasterAnimationPropsInterface,

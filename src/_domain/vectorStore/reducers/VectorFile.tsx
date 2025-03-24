@@ -12,7 +12,9 @@ export type VectorFileInterface = {
     files: VectorFileFormType[],
 }
 export const initialState: VectorFileInterface = {
-    files: []
+    files: [{
+        file_id: '',
+    }]
 }
 
 /**

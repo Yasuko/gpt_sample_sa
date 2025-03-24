@@ -7,7 +7,7 @@ import VectorFileEdit from "./reducers/VectorFileEdit"
 import VectorBatch from "./reducers/VectorBatch"
 import VectorBatchForm from "./reducers/VectorBatchForm"
 import VectorBatchEdit from "./reducers/VectorBatchEdit"
-
+import VectorStoreScreen from "./reducers/VectorStoreScreen"
 /**
  * ChatReducerオブジェクト。
  * 各リデューサーをまとめてエクスポートします。
@@ -24,4 +24,5 @@ export const VectorStoreReducer = {
     VectorBatch,
     VectorBatchForm,
     VectorBatchEdit,
+    VectorStoreScreen,
 }

@@ -4,139 +4,143 @@ import React, { useEffect } from 'react'
 
 // import reducer
 import {
-    Chat,
-} from '../../_domain/chat/reducers/__type.chat'
-import { AssistantMessageType, ToolMessageType, UserMessageType } from '../../_lib/gpt/_helper/chat.helper'
+    VectorFilePropsInterface,
+    VectorFileInterface,
+    initialState
+} from '../../_domain/vectorStore/reducers/VectorFile'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 // import component
 
-export const ChatList = (cf: Chat[]) => {
+export const FileList = () => {
 
-    if (cf.length === 0)
+    const dispatch = useDispatch()
+    const files = useSelector((state: VectorFilePropsInterface): VectorFileInterface => {
+        return state.VectorFiles === undefined ? initialState : state.VectorFiles
+    })
+
+    useEffect(() => {
+        dispatch({
+            type: 'VectorFileAction/initialLoad',
+        })
+    })
+
+    if (files.files.length === 0)
         return <div className='flex flex-row gap-4'>none</div>
 
-    const list = cf.map((val, key) => {
-        return (
-            <div key={key} className="
-            flex flex-row gap-4">
-                { RoleSwitch(val) }
-            </div>
-        )
-    })
     return (
-        <div className=''>
-            {list}
-        </div>
-    )
-}
-
-const RoleSwitch = (lists: Chat): JSX.Element => {
-    switch (lists.role) {
-        case 'user':
-            return UserContent(lists.content)
-        case 'system':
-            return SystemContent(lists.content)
-        default:
-            return <div></div>
-    }
-}
-
-const SystemContent = (ct: string): JSX.Element => {
-    console.log(ct)
-    return (
-        <div className="flex gap-x-2 sm:gap-x-4 mt-4 ml-6">
-            <span className="
-                shrink-0 inline-flex items-center justify-center
-                size-[38px] rounded-full bg-purple-600 hover:bg-purple-700 cursor-pointer">
-                <span className="
-                    text-sm font-medium text-white leading-none"
-                    onClick={() => {
-                        copyToClipboard(ct)
-                    }}
+    <div className="mt-6 flow-root">
+        <div className="inline-block min-w-full align-middle">
+            <div className="rounded-lg bg-gray-900 p-2 md:pt-0">
+                <div className="md:hidden">
+                {files.files.map((val) => (
+                    <div
+                        key={val.file_id}
+                        className="mb-2 w-full rounded-md bg-white p-4"
                     >
-                    Sys
-                </span>
-            </span>
-            <div className="grow max-w-[90%] md:max-w-2xl w-full space-y-3">
-                <div className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
-                    <pre className='text-sm text-white'>
-                        {ct}
-                    </pre>
+                        <div className="flex items-center justify-between border-b pb-4">
+                            <div className="mb-2 flex items-center">
+                                <p>{val.file_id}</p>
+                            </div>
+                        </div>
+                        <div className="flex w-full items-center justify-between pt-4">
+                            <div className="flex justify-end gap-2">
+                                <button className="rounded-md border p-2 hover:bg-gray-100">
+                                    <span className="sr-only">Edit</span>
+                                </button>
+                                <button className="rounded-md border p-2 hover:bg-gray-100">
+                                    <span className="sr-only">Del</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                ))}
                 </div>
+                <table className="hidden min-w-full text-gray-100 md:table">
+                    <thead className="rounded-lg text-left text-sm font-normal">
+                        <tr>
+                        <th scope="col" className="px-4 py-2 font-medium sm:pl-6">
+                            ID
+                        </th>
+                        <th scope="col" className="px-3 py-2 font-medium">
+                            Name
+                        </th>
+                        <th scope="col" className="px-3 py-2 font-medium">
+                            Files
+                        </th>
+                        <th scope="col" className="px-3 py-2 font-medium">
+                            Bytes
+                        </th>
+                        <th scope="col" className="relative py-3 pl-6 pr-3">
+                            <span className="sr-only">Edit</span>
+                        </th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-gray-800 text-gray-100 text-sm font-normal">
+                        {files.files.map((val) => (
+                        <tr
+                            key={val.file_id}
+                            className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
+                        >
+                            <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                                <div className="flex items-center gap-3">
+                                    <p>{val.file_id}</p>
+                                </div>
+                            </td>
+                            <td className="whitespace-nowrap px-3 py-3">
+                                {val.file_id}
+                            </td>
+                            <td className="whitespace-nowrap px-3 py-3">
+                                <p className="text-sm text-gray-500">{val.file_id}</p>
+                            </td>
+                            <td className="whitespace-nowrap px-3 py-3">
+                                <p className="text-sm text-gray-500">{val.file_id}</p>
+                            </td>
+                            <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                                <div className="flex justify-end gap-3">
+                                    <button
+                                        className="
+                                            w-15 h-6
+                                            rounded-md border 
+                                            hover:bg-gray-600
+                                            cursor-pointer"
+                                        onClick={() => {
+                                            dispatch({
+                                                type: 'VectorStoreAction/beginEdit',
+                                                payload: val.file_id
+                                            })
+                                        }}>
+                                        <p
+                                            className="
+                                                -mt-1
+                                                text-gray-100 text-sm font-medium
+                                                leading-1
+                                            ">Edit</p>
+                                    </button>
+                                    <button
+                                        className="
+                                            w-15 h-6
+                                            rounded-md border p-2
+                                            hover:bg-gray-600">
+                                        <p
+                                            className="
+                                                -mt-1
+                                                text-gray-100 text-sm font-medium
+                                                leading-1
+                                            "
+                                        >Del</p>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
-    )
-}
-
-const UserContent = (ct: UserMessageType['content']): JSX.Element => {
-    return (
-        <div className="
-        max-w-2xl ms-auto flex justify-end gap-x-2
-        mt-4 sm:gap-x-4
-    ">
-        <div className="grid grid-cols-1 grow text-end space-y-3">
-            { UserContentList(ct) }
-        </div>
-        <span className="
-            shrink-0 inline-flex items-center justify-center
-            size-[38px] rounded-full bg-gray-600">
-            <span className="
-                text-sm font-medium text-white leading-none">
-                Usa
-            </span>
-        </span>
     </div>
     )
 }
 
-const UserContentList = (ct: UserMessageType['content']): JSX.Element => {
-    const c = ct.map((val, key) => {
-        switch (val.type) {
-            case 'text':
-                return (
-                    <div
-                        key={key}
-                        className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm"
-                        onClick={() => {
-                            copyToClipboard(val.text)
-                        }}
-                        >
-                        <pre className='text-sm text-white'>{val.text}</pre>
-                    </div>
-                )
-            case 'image_url':
-                return (
-                    <div key={key} className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
-                        <img src={val.image_url?.url} width={200} />
-                    </div>
-                )
-            case 'input_audio':
-                return (
-                    <div key={key} className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
-                        <audio controls>
-                            <source src={val.input_audio.data} type="audio/mpeg" />
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                )
-            default:
-                return <div></div>
-        }
-    })
-    return (
-        <>
-            {c}
-        </>
-    )
-}
-
-const copyToClipboard = (text: string): void => {
-    navigator.clipboard.writeText(text).then(() => {
-        console.log("クリップボードにコピーされました。");
-    }).catch(err => {
-        console.error("クリップボードへのコピーに失敗しました: ", err);
-    });
-}
-
-export default ChatList
+export default FileList

@@ -1,4 +1,4 @@
-import React from 'react-redux'
+import React from 'react'
 import { Provider } from 'react-redux'
 import { createStore } from '../../_store/configureStore'
 const store = createStore()

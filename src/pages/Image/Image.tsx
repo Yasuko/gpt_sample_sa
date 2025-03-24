@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { JSX, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 // import reducer
@@ -22,7 +22,7 @@ export const Image = (): JSX.Element => {
     useEffect(() => {
         dispatch({
             type: 'TokenAction/checkToken',
-            return: 'Image'
+            payload: { redirect: '/Image' }
         })
     })
 

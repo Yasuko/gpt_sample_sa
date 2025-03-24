@@ -19,7 +19,7 @@ export const Embed = (): JSX.Element => {
     useEffect(() => {
         dispatch({
             type: 'TokenAction/checkToken',
-            return: 'Embed'
+            payload: { redirect: '/Embed' }
         })
     })
 

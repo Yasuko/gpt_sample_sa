@@ -4,6 +4,7 @@ import {
     VectorStoreDeleteType,
     VectorStoreModifyType,
     VectorStoreObjectType,
+    VectorStoreObjectListType,
     VectorStoreRetrieveType,
     VectorStoreSearchType
 } from '../../_lib/gpt/_helper/vector_store.helper'
@@ -32,7 +33,7 @@ export class VectorStoreModel {
 
     public async list(
         options: Partial<VectorStoreListType>
-    ): Promise<VectorStoreObjectType> {
+    ): Promise<VectorStoreObjectListType> {
         await VectorStoreService.call().listStore(options)
         return VectorStoreService.call().getResult()
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { JSX, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 // import helper
@@ -23,7 +23,7 @@ export const Chat = (): JSX.Element => {
     useEffect(() => {
         dispatch({
             type: 'TokenAction/checkToken',
-            return: 'Chat'
+            payload: { redirect: '/Chat' }
         })
     })
 
@@ -44,7 +44,7 @@ export const Chat = (): JSX.Element => {
         '>
             <div
                 className="
-                    lg:flex-2
+                    lg:flex-1
                     hidden lg:flex items-center h-full px-2
                     transition duration-150 ease-in-out
                 ">
@@ -98,7 +98,7 @@ export const Chat = (): JSX.Element => {
                 </div>
             </div>
             <div 
-                className="flex-1 ml-10 mr-16">
+                className="flex-2 ml-10 mr-16">
                 <ChatScreen cf={cf.newChat} screen={cf.chatScreen} />
                 <div className='
                     h-[55%] min-h-[400px] max-h-[500px]
@@ -112,6 +112,7 @@ export const Chat = (): JSX.Element => {
                         rows={4}
                         className="
                             w-full rounded m-4 mb-1 p-4
+                            bg-gray-200
                             text-gray-500
                         "
                         id="text1"

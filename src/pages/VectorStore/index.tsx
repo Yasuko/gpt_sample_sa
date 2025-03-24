@@ -6,7 +6,6 @@ const store = createStore()
 // import Component
 import Header from '../Header'
 import VectorStore from './VectorStore'
-import TokenCounter from '../_component/token_counter'
 
 // import animation
 import LoadingAnimation from '../animation/loading.animation'
@@ -19,7 +18,6 @@ export const VectorStoreIndex = () => {
             <VectorStore />
             <LoadingAnimation />
             <ToasterAnimation />
-            <TokenCounter />
         </Provider>
     )
 }

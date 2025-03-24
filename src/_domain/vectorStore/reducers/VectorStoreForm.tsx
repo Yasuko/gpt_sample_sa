@@ -1,15 +1,15 @@
 import { Dispatch, PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import {
-    VectorStoreType, initialVectorStore
+    VectorStoreFormType, initialVectorStoreForm
 } from './__type.vectorStore'
 
 export interface VectorStoreFormPropsInterface {
-    VectorStoreForm?: VectorStoreType
+    VectorStoreForm?: VectorStoreFormInterface
     dispatch?: Dispatch
 }
-export type VectorStoreFormInterface = VectorStoreType
-export const initialState: VectorStoreFormInterface = initialVectorStore
+export type VectorStoreFormInterface = VectorStoreFormType
+export const initialState: VectorStoreFormInterface = initialVectorStoreForm
 
 /**
  * ChatFormの状態管理を行うスライス。
@@ -21,7 +21,7 @@ const slice = createSlice({
     reducers: {
         update: (
             state: VectorStoreFormInterface,
-            action: PayloadAction<Partial<VectorStoreType>>
+            action: PayloadAction<Partial<VectorStoreFormType>>
         ) => {
             return Object.assign({}, state, action.payload)
         },

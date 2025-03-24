@@ -9,7 +9,20 @@ export const createStore = () => {
     const store = configureStore({
         reducer,
         // middleware: [sagaMiddleware, loggerMiddleware]
-        middleware: [sagaMiddleware]
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware(
+            {
+                serializableCheck: {
+                    // 巨大なstateを持つ場合は、以下の配列に無視したいactionを追加する
+                    ignoredActions: [],
+                    ignoredActionPaths: [],
+                    ignoredPaths: [
+                        'ImageEditOption.image',
+                        'ImageEditOption.mask',
+                        'ImageChangeOption.image',
+                    ]
+                }
+            }
+        ).concat(sagaMiddleware)
     });
     sagaMiddleware.run(rootSaga);
     return store;

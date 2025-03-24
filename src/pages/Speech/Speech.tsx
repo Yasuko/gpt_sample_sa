@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { JSX, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Dispatch } from '@reduxjs/toolkit'
 
@@ -18,7 +18,7 @@ export const Speech = (): JSX.Element => {
     useEffect(() => {
         dispatch({
             type: 'TokenAction/checkToken',
-            return: 'Speech'
+            payload: { redirect: '/Speech' }
         })
     })
 

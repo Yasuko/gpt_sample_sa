@@ -4,20 +4,20 @@ import React, { useEffect } from 'react'
 
 // import reducer
 import {
-    VectorStoreFormInterface,
-    VectorStoreFormPropsInterface,
+    VectorFileFormPropsInterface,
+    VectorFileFormInterface,
     initialState
-} from '../../_domain/vectorStore/reducers/VectorStoreForm'
+} from '../../_domain/vectorStore/reducers/VectorFileForm'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 
 // import component
 
-export const StoreForm = () => {
+export const BatchForm = () => {
     const dispatch = useDispatch()
-    const store = useSelector((state: VectorStoreFormPropsInterface): VectorStoreFormInterface => {
-        return state.VectorStoreForm === undefined ? initialState : state.VectorStoreForm
-    })
+    const store = useSelector(
+        (state: VectorFileFormPropsInterface): VectorFileFormInterface => 
+            state.VectorFileForm === undefined ? initialState : state.VectorFileForm
+    )
 
     return (
         <div className=''>

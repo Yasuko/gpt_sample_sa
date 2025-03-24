@@ -1,4 +1,5 @@
 import { put, select, takeEvery } from 'redux-saga/effects';
+import { PayloadAction } from '@reduxjs/toolkit'
 
 // import model
 import { StrageModel } from '../_model/strage.model'
@@ -15,21 +16,38 @@ export const RootTokenAction = [
     takeEvery('TokenAction/setToken', setToken),
 ]
 
-function* checkToken(val: any): any
-{
+function* checkToken(
+    actoin: PayloadAction<{
+        next: string,
+        payload: any,
+    } | {
+        redirect: string,
+    }> = {
+        next: '',
+        payload: {},
+    }
+): any {
     const key = yield StrageModel.call().getAPI()
 
     if (!key) {
-        yield put({
-            type: 'TokenForm/setReturn',
-            return: 'Chat',
-        })
+        if ('redirect' in actoin.payload) {
+            yield put({
+                type: 'TokenForm/setReturn',
+                return: actoin.payload,
+            })
+        }
         window.location.href = './Token'
     } else {
         yield put({
             type: 'TokenForm/setToken',
             token: key,
         })
+        if ('next' in actoin.payload) {
+            yield put({
+                type: actoin.payload.next,
+                payload: actoin.payload.payload,
+            })
+        }
     }
 
     return
