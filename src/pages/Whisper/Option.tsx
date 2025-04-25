@@ -1,4 +1,5 @@
-import React from 'react';
+import { JSX } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 // import reducer
@@ -39,10 +40,9 @@ export const Option = (): JSX.Element => {
                             option  : e.target.value
                         })
                     }}>
-                    <option value='tiny'>Tiny</option>
-                    <option value='small'>Small</option>
-                    <option value='basic'>Basic</option>
-                    <option value='large'>Large</option>
+                    <option value='gpt-4o-mini-transcribe'>gpt-4o-mini-transcribe</option>
+                    <option value='gpt-4o-transcribe'>gpt-4o-transcribe</option>
+                    <option value='whisper-1'>whisper-1</option>
                 </select>
             </div>
             <div className='leading-10 mt-1'>

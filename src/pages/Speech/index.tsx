@@ -13,7 +13,7 @@ import ToasterAnimation from '../animation/toaster.animation'
 
 export const SpeechIndex = () => {
     return (
-        <Provider store={store} children>
+        <Provider store={store}>
             <Header />
             <div className="container">
                 <Speech />

@@ -82,7 +82,8 @@ export const StoreList = () => {
                             key={store.id}
                             className="
                                 w-full border-b py-3
-                                last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg
+                                last-of-type:border-none
+                                [&:first-child>td:first-child]:rounded-tl-lg
                                 [&:first-child>td:last-child]:rounded-tr-lg
                                 [&:last-child>td:first-child]:rounded-bl-lg
                                 [&:last-child>td:last-child]:rounded-br-lg"
@@ -92,11 +93,8 @@ export const StoreList = () => {
                                     className="flex items-center gap-3 cursor-pointer"
                                     onClick={() => {
                                         dispatch({
-                                            type: 'VectorStoreScreen/set',
-                                            payload: {
-                                                show: true,
-                                                target: 'store_edit',
-                                            }
+                                            type: 'VectorFile/storeID',
+                                            payload: store.id
                                         })
                                     }}>
                                     <p>{ store.id.length > 5 ? ` ${ store.id.substring(0, 5) }... ` : store.id }</p>

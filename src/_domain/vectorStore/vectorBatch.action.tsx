@@ -6,8 +6,10 @@ import { loadingShow, loadingHide } from '../animation/animation'
 
 // import model
 import {
-    TokenPropsInterface
-} from '../_all/reducers/Token'
+    TokenFormInterface,
+    TokenFormPropsInterface,
+} from '../token/reducers/TokenForm'
+
 import {
     VectorBatchModel
 } from '../_model/vectorBatch.model'
@@ -30,8 +32,9 @@ import {
 
 // import helper
 import { FileHelper } from './helper/file.helper'
+import TokenForm from '../token/reducers/TokenForm'
 
-const Token = (state: TokenPropsInterface) => state.Token
+const Token = (state: TokenFormPropsInterface) => state.TokenForm
 
 const Batch = (state: VectorBatchPropsInterface) => state.VectorStore
 const BatchForm = (state: VectorBatchFormPropsInterface) => state.VectorBatchForm
@@ -64,9 +67,13 @@ function* initialLoad(
 
 }
 
-function* newBatch(action: PayloadAction): any {
-    const batch = yield select(BatchForm)
-    const token = yield select(Token)
+function* newBatch(action: PayloadAction<{
+    storeId: string,
+    batchId: string,
+    file: File
+}>): any {
+    const batch: VectorBatchFormInterface = yield select(BatchForm)
+    const token: TokenFormInterface = yield select(Token)
 
     if (token.token === '') {
         return;

@@ -7,17 +7,16 @@ import { Dispatch } from '@reduxjs/toolkit'
 // import reducer
 
 // import component
-import StoreList from './StoreList'
 import FileList from './FileList'
-import VectorStoreScreen from './FileScreen'
-import ControlPanel from './ControlPanel'
+import FileScreen from './FileScreen'
+import FileForm from './FileForm'
 
 export const File = (): JSX.Element => {
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch({
-            type: 'VectorStoreAction/initialLoad',
+            type: 'FileAction/initialLoad',
         })
     }, [])
 
@@ -26,7 +25,6 @@ export const File = (): JSX.Element => {
         flex flex-col lg:flex-row lg:flex-wrap
         w-svw max-h-[95vh] 
         '>
-            <ControlPanel />
             <div
                 className="
                     lg:flex-1
@@ -40,45 +38,20 @@ export const File = (): JSX.Element => {
                         text-4xl text-left
                         text-gray-600
                         ">VectorStore</h1>
-                    <StoreList />
-                </div>
-            </div>
-            <div 
-                className="flex-1 mt-10 ml-10 mr-16">
-                <div className='
-                    grid grid-cols-1 w-full
-                '>
                     <FileList />
                 </div>
             </div>
-            <VectorStoreScreen />
+            <div 
+                className="flex-1 mt-10 p-6">
+                <div className='
+                    grid grid-cols-1 w-[80%] mx-auto
+                '>
+                    <FileForm />
+                </div>
+            </div>
+            <FileScreen />
         </div>
     )
 }
-
-const onDragStart = (
-    e: React.DragEvent | DragEvent,
-    dispatch: Dispatch
-): void => {
-    e.preventDefault();
-    dispatch({
-        type    : 'ChatAction/dragStart',
-        event   : e,
-    })
-}
-
-const onDragEnd = (
-    e: React.DragEvent | DragEvent,
-    dispatch: Dispatch
-): void => {
-    e.preventDefault()
-    
-    dispatch({
-        type    : 'ChatAction/dragEnd',
-        event   : e,
-    })
-    e.stopPropagation()
-}
-
 
 export default File

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { JSX, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 // import reducer
@@ -18,13 +18,15 @@ export const Vision = (): JSX.Element => {
     useEffect(() => {
         dispatch({
             type: 'TokenAction/checkToken',
-            return: 'Chat'
+            payload: {
+                redirect: 'Chat'
+            }
         })
     })
 
-    const cf = useSelector((state: VisionFormPropsInterface): VisionFormInterface => {
-        return state.VisionForm === undefined ? initialState : state.VisionForm
-    })
+    const cf = useSelector((state: VisionFormPropsInterface): VisionFormInterface => 
+        state.VisionForm === undefined ? initialState : state.VisionForm
+    )
     return (
         <div className='
             w-full 

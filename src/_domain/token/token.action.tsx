@@ -17,23 +17,14 @@ export const RootTokenAction = [
 ]
 
 function* checkToken(
-    actoin: PayloadAction<{
-        next: string,
-        payload: any,
-    } | {
-        redirect: string,
-    }> = {
-        next: '',
-        payload: {},
-    }
+    action: PayloadAction<any>
 ): any {
     const key = yield StrageModel.call().getAPI()
-
     if (!key) {
-        if ('redirect' in actoin.payload) {
+        if ('redirect' in action.payload) {
             yield put({
                 type: 'TokenForm/setReturn',
-                return: actoin.payload,
+                return: action.payload.redirect,
             })
         }
         window.location.href = './Token'
@@ -42,10 +33,10 @@ function* checkToken(
             type: 'TokenForm/setToken',
             token: key,
         })
-        if ('next' in actoin.payload) {
+        if ('next' in action.payload) {
             yield put({
-                type: actoin.payload.next,
-                payload: actoin.payload.payload,
+                type: action.payload.next,
+                payload: action.payload.payload,
             })
         }
     }

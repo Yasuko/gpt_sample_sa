@@ -6,8 +6,7 @@ export interface FileScreenPropsInterface {
 }
 export type FileScreenInterface = {
     show: boolean,
-    target: 'file_form' | 'file_edit' | 'file_detail' | 'file_delete'
-            | 'none'
+    target: 'show' | 'none'
 }
 export const initialState: FileScreenInterface = {
     show: false,

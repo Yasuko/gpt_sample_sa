@@ -14,13 +14,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src", "jest.setup.ts"],
   "references": [{ "path": "./tsconfig.node.json" }],
   "exclude": [
     "src/_lib/**/*",
     "src/_lib/vite.config.ts",
-    "functions/**/*",
+    "functions/**/*"
   ]
 }

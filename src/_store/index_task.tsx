@@ -13,6 +13,8 @@ import { RootEmbedAction } from '../_domain/embed/embed.action'
 import { RootTokenAction } from '../_domain/token/token.action'
 import { RootRealtimeAction } from '../_domain/realtime/realtime.action'
 import { RootVectorStoreAction } from '../_domain/vectorStore/vectorStore.action'
+import { RootVectorFileAction } from '../_domain/vectorStore/vectorFile.action'
+import { RootVectorBatchAction } from '../_domain/vectorStore/vectorBatch.action'
 import { RootFileAction } from '../_domain/file/file.action'
 
 // Load AnimationAction
@@ -35,6 +37,8 @@ export default function* rootSaga() {
         ...RootTokenAction,
         ...RootRealtimeAction,
         ...RootVectorStoreAction,
+        ...RootVectorFileAction,
+        ...RootVectorBatchAction,
         ...RootFileAction,
         ...AnimationTask
     ]);

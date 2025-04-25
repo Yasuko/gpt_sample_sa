@@ -5,16 +5,16 @@ import {
 } from './__type.vectorStore'
 
 export interface VectorFilePropsInterface {
-    VectorFiles?: VectorFileInterface
+    VectorFile?: VectorFileInterface
     dispatch?: Dispatch
 }
 export type VectorFileInterface = {
     files: VectorFileFormType[],
+    store_id: string
 }
 export const initialState: VectorFileInterface = {
-    files: [{
-        file_id: '',
-    }]
+    files: [],
+    store_id: ''
 }
 
 /**
@@ -33,7 +33,6 @@ const slice = createSlice({
                 files: action.payload
             })
         },
-
         add: (
             state: VectorFileInterface,
             action: PayloadAction<VectorFileFormType>
@@ -45,6 +44,14 @@ const slice = createSlice({
             })
         },
 
+        storeID: (
+            state: VectorFileInterface,
+            action: PayloadAction<string>
+        ) => {
+            return Object.assign({}, state, {
+                store_id: action.payload
+            })
+        },
         reset: () => {
             return initialState;
         },

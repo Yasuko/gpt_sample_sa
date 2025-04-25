@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { JSX } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 // import reducer
@@ -15,6 +15,8 @@ export const OptionChange = (): JSX.Element => {
     const io = useSelector((state: ImageChangeOptionPropsInterface): ImageChangeOptionInterface => {
         return state.ImageChangeOption === undefined ? initialState : state.ImageChangeOption
     })
+
+    const imageBase64 = useSelector((state: ImageChangeOptionPropsInterface) => state.ImageChangeOption?.image_base64);
 
     return (
         <div className='grid grid-cols-3 gap-4'>
@@ -40,7 +42,13 @@ export const OptionChange = (): JSX.Element => {
                         ? ''
                         : showImage(io.image_base64, dispatch)
                     }
-
+                    {imageBase64 && (
+                        <img
+                            src={imageBase64}
+                            alt="MaskImage"
+                            className="w-full h-auto mt-4"
+                        />
+                    )}
                 </div>
                 <button
                     className='

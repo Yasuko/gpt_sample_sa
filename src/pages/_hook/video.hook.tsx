@@ -6,12 +6,9 @@ import {
     VideoHelper
 } from '../../_domain/whisper/helper/video.helper'
 
-interface VideoInterface
-{
-    dispatch    : string,
-}
 
-const VideoHook = ((s: VideoInterface): any => {
+
+const VideoHook = (): any => {
     const dispatch = useDispatch()
     useEffect(() => {
         VideoHelper.call()
@@ -35,6 +32,6 @@ const VideoHook = ((s: VideoInterface): any => {
     }, [])
 
     return { message: false }
-})
+}
 
 export default VideoHook

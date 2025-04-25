@@ -53,7 +53,7 @@ export class SocketHelper
      * 
      * @param next Function 受信時のコールバック関数
      */
-    public listen(next: Function)
+    public listen(next: (e: Event | MessageEvent) => void): void
     {
         this.Socket?.setNext(next, 'message').listen();
     }

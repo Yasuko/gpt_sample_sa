@@ -6,23 +6,16 @@ import { loadingShow, loadingHide } from '../animation/animation'
 
 // import model
 import {
-    TokenPropsInterface
-} from '../_all/reducers/Token'
+    TokenFormPropsInterface,
+    TokenFormInterface,
+    initialState as TokenInitial
+ } from '../token/reducers/TokenForm'
 import {
     FileModel
 } from '../_model/file.model'
 
 // import reducer
-import {
-    FilesPropsInterface,
-    FilesInterface,
-    initialState
-} from './reducers/Files'
-import {
-    FileEditPropsInterface,
-    FileEditInterface,
-    initialState as initialFileEdit
-} from './reducers/FileEdit'
+
 import {
     FileFormPropsInterface,
     FileFormInterface,
@@ -31,53 +24,141 @@ import {
 
 // import helper
 import { FileHelper } from './helper/file.helper'
+import { FileListResponseType, FileResponseType } from '@/_lib/gpt/_helper/file.helper'
 
-const Token = (state: TokenPropsInterface) => state.Token
+const Token = (state: TokenFormPropsInterface) => state.TokenForm
 
-const Files = (state: FilesPropsInterface) => state.Files
-const FileEdit = (state: FileEditPropsInterface) => state.FileEdit
 const FileForm = (state: FileFormPropsInterface) => state.FileForm
 
 
 // Root Saga登録配列
 export const RootFileAction = [
     takeEvery('FileAction/initialLoad', initialLoad),
-    takeEvery('FileAction/newFile', newFile),
-    takeEvery('FileAction/delFile', delFile),
+    takeEvery('FileAction/upload', upload),
+    takeEvery('FileAction/download', download),
+    takeEvery('FileAction/remove', remove),
+    takeEvery('FileAction/show', show),
+
+    takeEvery('FileAction/dragEnd', dragEnd),
 ]
 
-function* initialLoad(
-    action: PayloadAction<{
-        storeId: string,
-        batchId: string
-    }>
-): any {
+function* initialLoad(): any {
     const token = yield select(Token)
 
-    if (token.token === '') {
-        return;
+    if (token.token === undefined || token.token === '') {
+        yield put({
+            type: 'TokenAction/checkToken',
+            payload: {
+                next: 'FileAction/initialLoad',
+                payload: ''
+            }
+        })
+        return
     }
-    const batch = yield FileModel
+    const files: FileListResponseType = yield FileModel
                     .call(token.token)
                     .list()
+    console.log(files)
+    yield put({
+        type: 'Files/set',
+        payload: files.data
+    })
     
 
 }
 
-function* newFile(action: PayloadAction): any {
-    const file = yield select(FileForm)
+function* upload(action: PayloadAction): any {
+    const file: FileFormInterface = yield select(FileForm)
     const token = yield select(Token)
 
     if (token.token === '') {
         return;
     }
 
-    FileModel.call(token.token).upload(action.payload.storeId)
+    try {
+        FileModel.call(token.token).multiUpload(file.files)
+        yield put({
+            type: 'FileForm/reset'
+        })
+    } catch (error) {
+        console.log(error)
+    }
 
 }
 
-
-function* delFile(action: PayloadAction<string>): any {
+function* download(action: PayloadAction<string>): any {
     const token = yield select(Token)
+
+    if (token.token === '') {
+        return
+    }
+
+    console.log(action.payload)
+
+    try {
+        yield FileModel.call(token.token)
+                    .download(action.payload)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function* remove(action: PayloadAction<string>): any {
+    const token = yield select(Token)
+
+    if (token.token === '') {
+        return
+    }
+
+    try {
+        yield FileModel.call(token.token).delete(action.payload)
+        yield initialLoad()
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function* show(action: PayloadAction<string>): any {
+    const token = yield select(Token)
+
+    if (token.token === '') {
+        return
+    }
+    console.log(action.payload)
+
+    try {
+        const file: FileResponseType = yield FileModel.call(token.token)
+                    .retrieve(action.payload)
+
+        console.log(file)
+        yield put({
+            type: 'FileShow/set',
+            payload: file
+        })
+        yield put({
+            type: 'FileScreen/set',
+            payload: {
+                show: true,
+                target: 'show'
+            }
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function* dragEnd(val: any): any {
+    yield FileHelper.call().dragEnd(val.event)
+    const f = FileHelper.call().getDataFiles()
+
+    for (const f_ of f) {
+        yield put({
+            type: 'FileForm/add',
+            payload: {
+                ...f_,
+                purpose: 'user_data'
+            }
+        })
+    }
 
 }

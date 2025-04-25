@@ -16,23 +16,6 @@ export const ControlPanel = (): JSX.Element => {
                 grid grid-cols-3 gap-2
                 bg-gray-800 bg-opacity-95
             '>
-
-            <div
-                className='
-                    w-full h-10 p-2 m-1
-                    bg-gray-500 bg-opacity-95
-                    text-sm text-center text-gray-300
-                    hover:bg-gray-700 hover:bg-opacity-95
-                    cursor-pointer
-                '
-                onClick={() => {
-                    dispatch({
-                        type: 'VectorStoreAction/beginNew',
-                    })
-                }}
-            >
-                new store
-            </div>
             <div
                 className='
                 w-full h-10 p-2 m-1
@@ -48,22 +31,6 @@ export const ControlPanel = (): JSX.Element => {
                 }}
             >
                 new file
-            </div>
-            <div
-                className='
-                w-full h-10 p-2 m-1
-                bg-gray-500 bg-opacity-95
-                text-sm text-center text-gray-300
-                hover:bg-gray-700 hover:bg-opacity-95
-                cursor-pointer
-            '
-                onClick={() => {
-                    dispatch({
-                        type: 'VectorBatchAction/beginNew',
-                    })
-                }}
-            >
-                new batch
             </div>
 
         </div>

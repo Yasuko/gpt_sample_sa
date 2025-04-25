@@ -1,5 +1,6 @@
 import React, { JSX, useEffect } from 'react'
 import { Provider } from 'react-redux'
+import { useLocation } from 'react-router-dom';
 
 import "preline/preline"
 import { IStaticMethods } from "preline/preline"
@@ -20,10 +21,10 @@ import ChatAdvance from './ChatAdvance/index'
 import EmbedIndex from './Embed/index'
 import ImageIndex from './Image/index'
 import VisionIndex from './Vision'
-import InputToken from './token/InputToken'
+import TokenIndex from './token/index'
 import RealtimeIndex from './Realtime/index'
 import VectorStoreIndex from './VectorStore/index'
-import { useLocation } from 'react-router-dom';
+import FileIndex from './File/index'
 
 interface FaceInterface {
     page: string
@@ -50,9 +51,10 @@ const changer = (p: string): JSX.Element => {
     if (p === 'speech') return <SpeechIndex />
     if (p === 'image') return <ImageIndex />
     if (p === 'vision') return <VisionIndex />
-    if (p === 'token') return <InputToken />
+    if (p === 'token') return <TokenIndex />
     if (p === 'realtime') return <RealtimeIndex />
     if (p === 'vector_store') return <VectorStoreIndex />
+    if (p === 'file') return <FileIndex />
     return <ChatIndex />
 }
 

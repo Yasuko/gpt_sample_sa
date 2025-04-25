@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { JSX } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 // import reducer
@@ -82,7 +82,7 @@ export const Option = (): JSX.Element => {
                         })
                     }}
                     disabled={
-                        (cf.options.model === 'o1-preview' || cf.options.model === 'o1-mini')
+                        checkImageModel(cf.options.model)
                         ? false
                         : true
                     }
@@ -686,5 +686,23 @@ export const Option = (): JSX.Element => {
         </div>
     )
 }
+
+const checkImageModel = (model: string): boolean => {
+    const models = [
+        'o3',
+        'o1',
+        'o1-mini',
+        'o1-small',
+        'o1-medium',
+        'o1-large',
+        'gpt-4.1',
+        'gpt-4.1-mini',
+        'gpt-4.1-nano',
+        'gpt-4o',
+        'gpt-4o-mini'
+    ]
+    return models.includes(model)
+}
+
 
 export default Option

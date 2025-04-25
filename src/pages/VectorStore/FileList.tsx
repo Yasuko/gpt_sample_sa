@@ -17,13 +17,16 @@ export const FileList = () => {
 
     const dispatch = useDispatch()
     const files = useSelector((state: VectorFilePropsInterface): VectorFileInterface => {
-        return state.VectorFiles === undefined ? initialState : state.VectorFiles
+        return state.VectorFile === undefined ? initialState : state.VectorFile
     })
 
+    if (files.store_id === '') return <div className='flex flex-row gap-4'>none</div>
+
     useEffect(() => {
-        dispatch({
-            type: 'VectorFileAction/initialLoad',
-        })
+        if (files.files.length === 0 && files.store_id !== '')
+            dispatch({
+                type: 'VectorFileAction/initialLoad',
+            })
     })
 
     if (files.files.length === 0)

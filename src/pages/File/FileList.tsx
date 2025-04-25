@@ -21,9 +21,8 @@ export const FileList = () => {
     })
 
     useEffect(() => {
-        dispatch({
-            type: 'VectorFileAction/initialLoad',
-        })
+        if (files.files.length === 0)
+            dispatch({ type: 'VectorFileAction/initialLoad' })
     })
 
     if (files.files.length === 0)
@@ -60,9 +59,6 @@ export const FileList = () => {
                 <table className="hidden min-w-full text-gray-100 md:table">
                     <thead className="rounded-lg text-left text-sm font-normal">
                         <tr>
-                        <th scope="col" className="px-4 py-2 font-medium sm:pl-6">
-                            ID
-                        </th>
                         <th scope="col" className="px-3 py-2 font-medium">
                             Name
                         </th>
@@ -83,13 +79,15 @@ export const FileList = () => {
                             key={val.id}
                             className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                         >
-                            <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                                <div className="flex items-center gap-3">
-                                    <p>{val.id}</p>
-                                </div>
-                            </td>
-                            <td className="whitespace-nowrap px-3 py-3">
-                                {val.filename}
+                            <td
+                                className="whitespace-nowrap px-3 py-3 cursor-pointer"
+                                onClick={() => {
+                                    dispatch({
+                                        type: 'FileAction/show',
+                                        payload: val.id
+                                    })
+                                }}>
+                                {val.filename.length > 20 ? `${val.filename.substring(0, 20)}...` : val.filename}
                             </td>
                             <td className="whitespace-nowrap px-3 py-3">
                                 <p className="text-sm text-gray-500">{val.bytes}</p>
@@ -107,7 +105,7 @@ export const FileList = () => {
                                             cursor-pointer"
                                         onClick={() => {
                                             dispatch({
-                                                type: 'VectorStoreAction/beginEdit',
+                                                type: 'FileAction/download',
                                                 payload: val.id
                                             })
                                         }}>
@@ -116,20 +114,27 @@ export const FileList = () => {
                                                 -mt-1
                                                 text-gray-100 text-sm font-medium
                                                 leading-1
-                                            ">Edit</p>
+                                            ">DL</p>
                                     </button>
                                     <button
                                         className="
                                             w-15 h-6
                                             rounded-md border p-2
-                                            hover:bg-gray-600">
+                                            hover:bg-gray-600
+                                            cursor-pointer"
+                                        onClick={() => {
+                                            dispatch({
+                                                type: 'FileAction/remove',
+                                                payload: val.id
+                                            })
+                                        }}>
                                         <p
                                             className="
                                                 -mt-1
                                                 text-gray-100 text-sm font-medium
                                                 leading-1
                                             "
-                                        >Del</p>
+                                        >RM</p>
                                     </button>
                                 </div>
                             </td>

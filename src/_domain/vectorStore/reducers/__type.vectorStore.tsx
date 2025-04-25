@@ -15,16 +15,21 @@ import {
 
 export type FileType = FileResponseType
 export const initialFile: FileType = {
-    id: '',
-    object: "file",
-    bytes: 0,
     created_at: 0,
     expires_at: 0,
+    id: '',
     filename: '',
+    object: 'file',
     purpose: 'user_data',
+    bytes: 0,
+    status: 'processed',
+    status_details: null,
 }
 
-export type FileFormType = UploadFileType
+export type FileFormType = {
+    file: any
+    purpose: 'assistants' | 'batch' | 'fine-tune' | 'vision' | 'user_data' | 'evals'
+}
 export const initialFileForm: FileFormType = {
     file: null,
     purpose: 'user_data',

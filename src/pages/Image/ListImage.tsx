@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { JSX } from 'react'
 import { useSelector } from 'react-redux'
 
 // import reducer
@@ -11,9 +11,9 @@ import {
 // import Hook
 
 export const ListImage = (): JSX.Element => {
-    const ifm = useSelector((state: ImageListPropsInterface): ImageListInterface => {
-        return state.ImageList === undefined ? initialState : state.ImageList
-    })
+    const ifm = useSelector((state: ImageListPropsInterface): ImageListInterface => 
+        state.ImageList === undefined ? initialState : state.ImageList
+    )
 
     return (
         <div className='

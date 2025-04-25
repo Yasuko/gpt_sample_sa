@@ -1,5 +1,8 @@
 // import Library
-import { DragService } from '../../../_lib/drag/drag.service'
+import {
+    DragService,
+    FileType
+} from '../../../_lib/drag/drag.service'
 
 /**
  * FileHelperクラス。
@@ -31,8 +34,8 @@ export class FileHelper {
      *
      * @returns 最初のファイルデータ。
      */
-    public getDataFile(): any {
-        return this.file[0];
+    public getDataFiles(): FileType[] {
+        return this.file
     }
 
     /**
@@ -51,8 +54,8 @@ export class FileHelper {
      * @returns FileHelperのインスタンス。
      */
     public async dragStart(target = 'dragtarget'): Promise<FileHelper> {
-        await DragService.call().setTarget(target);
-        return this;
+        await DragService.call().setTarget(target)
+        return this
     }
 
     /**
@@ -64,8 +67,9 @@ export class FileHelper {
     public async dragEnd(
         e: React.DragEvent | DragEvent
     ): Promise<FileHelper> {
-        await DragService.call().onDrop(e);
-        this.file = DragService.call().getImage();
-        return this;
+        await DragService.call().onDrop(e)
+        //this.file = DragService.call().getImage()
+        this.file = DragService.call().getFile()
+        return this
     }
 }

@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { JSX, useEffect } from 'react'
+import { Dispatch } from '@reduxjs/toolkit'
 
 // import helper
 
@@ -14,45 +15,39 @@ import { useDispatch, useSelector } from 'react-redux'
 
 export const FileForm = () => {
     const dispatch = useDispatch()
-    const store = useSelector(
+    const files = useSelector(
         (state: FileFormPropsInterface): FileFormInterface => 
             state.FileForm === undefined ? initialState : state.FileForm
     )
 
     return (
         <div className=''>
-            <div className="rounded-md bg-gray-50 p-4 md:p-6">
+            <div className="rounded-md bg-gray-100 p-4 md:p-6">
                 {/* store name */}
                 <div className="mb-4">
-                    <label htmlFor="name" className="mb-2 block text-sm font-medium">
-                        Name
-                    </label>
                     <div className="relative mt-2 rounded-md">
                         <div className="relative">
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-
-                            placeholder="Enter store name"
-                            className="
-                                peer block w-full rounded-md border border-gray-200 py-2 pl-10
-                                text-sm text-gray-700 outline-2 placeholder:text-gray-700"
-                            aria-describedby='amount-error'
-                            onChange={(e) => {
-                                dispatch({
-                                    type: 'VectorStoreForm/update',
-                                    payload: {
-                                        name: e.target.value
-                                    }
-                                })
-                            }}
-                        />
+                            <div
+                                className="
+                                    w-full h-40 peer block w-full rounded-md border border-gray-600 py-2 pt-12
+                                    text-center outline-2 placeholder:text-gray-700
+                                    hover:bg-gray-200 cursor-pointer"
+                                aria-describedby='amount-error'
+                                onDragOver={(e) => {
+                                    e.preventDefault()
+                                }}
+                                onDrop={(e) => {
+                                    onDragEnd(e, dispatch)
+                                }}   
+                            >
+                                <p className='text-gray-400'>Drag Here</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
+                <div className="mb-4">
+                    {(files.files.length === 0) ? <p>none</p> : fileList(files, dispatch)}
+                </div>
             </div>
             <div className="mt-6 flex justify-end gap-4">
                 <button
@@ -66,7 +61,7 @@ export const FileForm = () => {
                         })
                     }}
                 >
-                    Close
+                    Clear
                 </button>
                 <button
                     className='
@@ -77,15 +72,102 @@ export const FileForm = () => {
                         active:bg-blue-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50'
                     onClick={() => {
                         dispatch({
-                            type: 'VectorStoreAction/newStore',
+                            type: 'FileAction/upload',
                         })
                     }}
                 >
-                    Create
+                    Upload
                 </button>
             </div>
         </div>
     )
+}
+
+const fileList = (files: FileFormInterface, dispatch: Dispatch): JSX.Element => {
+    return (
+        <table className="hidden min-w-full text-gray-100 bg-gray-600 md:table rounded-md">
+            <thead className="rounded-lg text-left text-sm font-normal">
+                <tr>
+                <th scope="col" className="px-3 py-2 font-medium">
+                    Name
+                </th>
+                <th scope="col" className="px-3 py-2 font-medium">
+                    Files
+                </th>
+                <th scope="col" className="px-3 py-2 font-medium">
+                    Bytes
+                </th>
+                <th scope="col" className="relative py-3 pl-6 pr-3">
+                    <span className="sr-only">del</span>
+                </th>
+                </tr>
+            </thead>
+            <tbody
+                className="
+                    bg-gray-700 text-gray-100
+                    text-sm font-normal
+                ">
+                {files.files.map((val, index) => (
+                <tr
+                    key={index}
+                    className="
+                        w-full border-b py-3
+                        text-sm last-of-type:border-none
+                        [&:first-child>td:first-child]:rounded-tl-lg
+                        [&:first-child>td:last-child]:rounded-tr-lg
+                        [&:last-child>td:first-child]:rounded-bl-lg
+                        [&:last-child>td:last-child]:rounded-br-lg"
+                >
+                    <td className="whitespace-nowrap px-3 py-3">
+                        {val.name.length > 15 ? `${val.name.substring(0, 15)}...` : val.name}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-3">
+                        <p className="text-sm text-gray-500">{ val.type }</p>
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-3">
+                        <p className="text-sm text-gray-500">{ val.size }</p>
+                    </td>
+                    <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                        <div className="flex justify-end gap-3">
+                            <button
+                                className="
+                                    w-15 h-6
+                                    rounded-md border p-2
+                                    hover:bg-gray-600"
+                                onClick={() => {
+                                    dispatch({
+                                        type: 'FileForm/remove',
+                                        payload: index
+                                    })
+                                }}>
+                                <p
+                                    className="
+                                        -mt-1
+                                        text-gray-100 text-sm font-medium
+                                        leading-1
+                                    "
+                                >Del</p>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                ))}
+            </tbody>
+        </table>
+    )
+}
+
+const onDragEnd = (
+    e: React.DragEvent | DragEvent,
+    dispatch: Dispatch
+): void => {
+    e.preventDefault()
+    
+    dispatch({
+        type    : 'FileAction/dragEnd',
+        event   : e,
+    })
+    e.stopPropagation()
 }
 
 export default FileForm

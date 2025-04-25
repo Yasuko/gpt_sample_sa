@@ -54,6 +54,7 @@ export function* dragStart(val: any): any {}
  * @param val any ドラッグイベントのデータ
  */
 export function* dragEnd(val: any): any {
+    console.log(val)
     yield FileHelper.call().dragEnd(val.event, 'file')
     const f = FileHelper.call().getDataFile()
     console.log(f)

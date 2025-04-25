@@ -1,7 +1,7 @@
-import VectorStoreScreen from "./reducers/FileScreen"
+import FileScreen from "./reducers/FileScreen"
 import Files from "./reducers/Files"
 import FileForm from "./reducers/FileForm"
-import FileEdit from "./reducers/FileEdit"
+import FileShow from "./reducers/FileShow"
 
 /**
  * ChatReducerオブジェクト。
@@ -10,8 +10,8 @@ import FileEdit from "./reducers/FileEdit"
  * @property ChatForm - ChatFormリデューサー。
  */
 export const FileReducer = {
-    VectorStoreScreen,
+    FileScreen,
     Files,
     FileForm,
-    FileEdit,
+    FileShow,
 }

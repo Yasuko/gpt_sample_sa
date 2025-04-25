@@ -1,5 +1,6 @@
 import React, { JSX, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Dispatch } from '@reduxjs/toolkit'
 
 // import helper
 
@@ -13,7 +14,6 @@ import {
 // import component
 import Option from './Option'
 import ChatList from './ChatList'
-import { Dispatch } from '@reduxjs/toolkit'
 import ChatScreen from './ChatScreen'
 
 export const Chat = (): JSX.Element => {

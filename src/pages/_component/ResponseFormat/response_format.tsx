@@ -1,4 +1,4 @@
-import React from 'react'
+import { JSX } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { ToolType } from '../../../_lib/gpt/_helper/chat.helper'

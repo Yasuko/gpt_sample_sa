@@ -28,8 +28,6 @@ import {
 
 
 // import helper
-import { FileHelper } from './helper/file.helper'
-import { sleep } from '@/_lib/_helper/timer.helper'
 
 const Token = (state: TokenFormPropsInterface) => state.TokenForm
 
@@ -55,8 +53,6 @@ export const RootVectorStoreAction = [
     takeEvery('VectorStoreAction/closeScreen', closeScreen),
 ]
 
-let count = 0
-
 function* initialLoad(
     action: PayloadAction<boolean> = { type: '', payload: false }
 ): any {
@@ -69,7 +65,7 @@ function* initialLoad(
             type: 'TokenAction/checkToken',
             payload: {
                 next: 'VectorStoreAction/initialLoad',
-                payload: 'false'
+                payload: false
             }
         })
         return
@@ -126,7 +122,7 @@ function* compNew(): any {
 function* beginEdit(
     action: PayloadAction<string>
 ): any {
-    const store = yield select(Store)
+    const store: VectorStoreInterface = yield select(Store)
     yield put({
         type: 'VectorStoreEdit/set',
         payload: store.VectorStores.find((v) => v.id === action.payload)

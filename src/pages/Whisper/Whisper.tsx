@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { JSX, useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '@/_store/configureStore'
 
 // import reducer
 import {
-    WhisperFormPropsInterface,
     WhisperFormInterface,
-    initialState
 } from '../../_domain/whisper/reducers/WhisperForm'
 
 // import Component
@@ -14,21 +12,23 @@ import ShowRecorder from './ShowRecorder'
 // import Hook
 import VideoHook from '../_hook/video.hook'
 import Option from './Option'
+import { Dispatch } from 'redux'
+
 
 export const Whisper = (): JSX.Element => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch({
             type: 'TokenAction/checkToken',
-            return: 'Whisper'
+            payload: {
+                redirect: 'Whisper'
+            }
         })
-    })
+    },[])
 
-    VideoHook({dispatch: 'WhisperAction/hook'})
-    const wf = useSelector((state: WhisperFormPropsInterface): WhisperFormInterface => {
-        return state.WhisperForm === undefined ? initialState : state.WhisperForm;
-    })
+    //VideoHook()
+    const wf = useAppSelector<WhisperFormInterface>((state) => state.WhisperForm)
 
     return (
     <div className='
@@ -50,7 +50,7 @@ export const Whisper = (): JSX.Element => {
                 text-center leading-10 text-gray-500
                 w-3/4 h-[200px] border border-gray-500 rounded
                 "
-                onDragOver={(e) => onDragStart(e, dispatch)}
+                onDragOver={(e) => onDragStart(e)}
                 onDrop={(e) => onDragEnd(e, dispatch)}
             >
                 Drag Area
@@ -176,17 +176,13 @@ export const Whisper = (): JSX.Element => {
     )
 }
 
-const onDragStart = (e: any, dispatch: any): void => {
-    const _e = e as Event;
+const onDragStart = (e: React.DragEvent): void => {
+    const _e = e as React.DragEvent;
     _e.preventDefault();
-    dispatch({
-        type    : 'WhisperAction/DragStart',
-        event   : _e,
-    })
 }
 
-const onDragEnd = (e: any, dispatch: any): void => {
-    const _e = e as Event;
+const onDragEnd = (e: React.DragEvent, dispatch: Dispatch): void => {
+    const _e = e as React.DragEvent;
     _e.preventDefault();
     
     dispatch({

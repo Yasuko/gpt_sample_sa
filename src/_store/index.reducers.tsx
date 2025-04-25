@@ -13,7 +13,6 @@ import { VectorStoreReducer } from '../_domain/vectorStore/index.reducers'
 import { FileReducer } from '../_domain/file/index.reducers'
 
 import ShowContent from '../_domain/_all/reducers/ShowContent'
-import FileForm from '../_domain/_all/reducers/FileForm'
 import JobStack from '../_domain/_all/reducers/JobStack'
 import Tools from '../_domain/_all/reducers/Tools'
 import ResponseFormat from '../_domain/_all/reducers/ResponseFormat'
@@ -33,7 +32,6 @@ export const reducer = {
     ...VectorStoreReducer,
     ...FileReducer,
     ShowContent,
-    FileForm,
     JobStack,
     Tools,
     ResponseFormat,

@@ -11,11 +11,10 @@ import { useDispatch, useSelector } from 'react-redux'
 // import component
 import StoreForm from './StoreForm'
 import StoreEdit from './StoreEdit'
-
+import FileForm from './FileForm'
+import FileEdit from './FileEdit'
 
 export const VectorStoreScreen = () => {
-
-    const dispatch = useDispatch()
 
     const screen = useSelector((state: VectorStoreScreenPropsInterface): VectorStoreScreenInterface => {
         return state.VectorStoreScreen === undefined ? initialState : state.VectorStoreScreen
@@ -25,7 +24,7 @@ export const VectorStoreScreen = () => {
 
     return (
         <div className="
-        absolute top-[10%] 
+        absolute top-[7%] 
         w-full min-w-[300px] h-full bg-gray-800 bg-opacity-95
         rounded-lg p-20
         gap-4">
@@ -44,6 +43,10 @@ const ComponentSwitch = (content: string) => {
             return <StoreForm />
         case 'store_edit':
             return <StoreEdit />
+        case 'file_form':
+            return <FileForm />
+        case 'file_edit':
+            return <FileEdit />
         default:
             return <></>
     }

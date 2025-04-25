@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { JSX } from 'react'
 
 // import helper
 
@@ -60,8 +60,16 @@ const SystemContent = (ct: string): JSX.Element => {
             </span>
             <div className="grow max-w-[90%] md:max-w-2xl w-full space-y-3">
                 <div className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm">
-                    <pre className='text-sm text-white'>
-                        {ct}
+                    <pre className='text-sm text-white whitespace-pre-wrap'>
+                        {ct.length > 30 
+                            ? ct.split(' ').reduce((acc, word) => {
+                                if ((acc.split('\n').pop() || '').length + word.length > 30) {
+                                  return acc + '\n' + word + ' ';
+                                }
+                                return acc + word + ' ';
+                              }, '').trim()
+                            : ct
+                        }
                     </pre>
                 </div>
             </div>

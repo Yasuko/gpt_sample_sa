@@ -11,124 +11,31 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 
 // import component
+import FileSelect from '../File/FileSelect'
 
-export const BatchForm = () => {
+export const FileForm = () => {
     const dispatch = useDispatch()
-    const store = useSelector(
+    const file = useSelector(
         (state: VectorFileFormPropsInterface): VectorFileFormInterface => 
             state.VectorFileForm === undefined ? initialState : state.VectorFileForm
     )
 
+    console.log(file)
+
     return (
         <div className=''>
             <div className="rounded-md bg-gray-50 p-4 md:p-6">
-                {/* store name */}
+                {/* store FileID */}
                 <div className="mb-4">
                     <label htmlFor="name" className="mb-2 block text-sm font-medium">
-                        Name
+                        FileID
                     </label>
                     <div className="relative mt-2 rounded-md">
                         <div className="relative">
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            defaultValue={store.name}
-                            placeholder="Enter store name"
-                            className="
-                                peer block w-full rounded-md border border-gray-200 py-2 pl-10
-                                text-sm text-gray-700 outline-2 placeholder:text-gray-700"
-                            aria-describedby='amount-error'
-                            onChange={(e) => {
-                                dispatch({
-                                    type: 'VectorStoreForm/update',
-                                    payload: {
-                                        name: e.target.value
-                                    }
-                                })
-                            }}
-                        />
+                            <FileSelect next={'VectorFileForm/update'}  />
                         </div>
                     </div>
                 </div>
-                {/* store metadata */}
-                <div className="mb-4">
-                    <label htmlFor="name" className="mb-2 block text-sm font-medium">
-                        Metadata
-                    </label>
-                    <div className="relative mt-2 rounded-md">
-                        <div className="relative">
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            defaultValue={store.name}
-                            placeholder="Enter store name"
-                            className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                            aria-describedby='amount-error'
-                            onChange={(e) => {
-                                dispatch({
-                                    type: 'VectorStoreForm/update',
-                                    payload: {
-                                        metadata: e.target.value
-                                    }
-                                })
-                            }}
-                        />
-                        </div>
-                    </div>
-                </div>
-                {/* store expire_after */}
-                <div className="mb-4">
-                    <label htmlFor="name" className="mb-2 block text-sm font-medium">
-                        Expire After
-                    </label>
-                    <div className="relative mt-2 rounded-md">
-                        <div className="relative">
-                            <input
-                                id="name"
-                                name="name"
-                                type="text"
-                                defaultValue={store.expires_after?.anchor}
-                                placeholder="Enter store name"
-                                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                                aria-describedby='amount-error'
-                                onChange={(e) => {
-                                    dispatch({
-                                        type: 'VectorStoreForm/update',
-                                        payload: {
-                                            expires_after: {
-                                                ...store.expires_after,
-                                                anchor: e.target.value
-                                            }
-                                        }
-                                    })
-                                }}
-                            />
-                            <input
-                                id="name"
-                                name="name"
-                                type="number"
-                                defaultValue={store.expires_after?.days}
-                                placeholder="Enter store name"
-                                className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                                aria-describedby='amount-error'
-                                onChange={(e) => {
-                                    dispatch({
-                                        type: 'VectorStoreForm/update',
-                                        payload: {
-                                            expires_after: {
-                                                ...store.expires_after,
-                                                days: e.target.value
-                                            }
-                                        }
-                                    })
-                                }}
-                            />
-                        </div>
-                    </div>
-                </div>
-
             </div>
             <div className="mt-6 flex justify-end gap-4">
                 <button
@@ -153,7 +60,7 @@ export const BatchForm = () => {
                         active:bg-blue-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50'
                     onClick={() => {
                         dispatch({
-                            type: 'VectorStoreAction/newStore',
+                            type: 'VectorFileAction/compNew',
                         })
                     }}
                 >
@@ -164,4 +71,4 @@ export const BatchForm = () => {
     )
 }
 
-export default StoreForm
+export default FileForm

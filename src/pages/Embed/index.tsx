@@ -15,9 +15,7 @@ export const EmbedIndex = () => {
     return (
         <Provider store={store}>
             <Header />
-            <div className="container">
-                <Embed />
-            </div>
+            <Embed />
             <LoadingAnimation />
             <ToasterAnimation />
         </Provider>

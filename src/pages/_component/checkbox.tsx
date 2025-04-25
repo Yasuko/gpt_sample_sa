@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { JSX } from 'react'
 import { useDispatch } from 'react-redux'
 
 type CheckBoxState = {

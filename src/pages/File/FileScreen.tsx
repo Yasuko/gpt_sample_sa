@@ -9,8 +9,7 @@ import {
 } from '../../_domain/file/reducers/FileScreen'
 
 // import component
-import FileForm from './FileForm'
-import FileEdit from './FileEdit'
+import FileShow from './FileShow'
 
 
 export const FileScreen = () => {
@@ -38,10 +37,8 @@ export const FileScreen = () => {
 
 const ComponentSwitch = (content: string) => {
     switch (content) {
-        case 'store_form':
-            return <FileForm />
-        case 'store_edit':
-            return <FileEdit />
+        case 'show':
+            return <FileShow />
         default:
             return <></>
     }
