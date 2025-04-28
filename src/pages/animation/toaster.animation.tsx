@@ -2,19 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from '@/_store/configureStore';
 import { toasterAnimationInterface } from './toaster.animation.reducer';
 
-interface ToasterProps {
-  message: string;
-  isOpen?: boolean;
-  onClose?: () => void;
-  mode?: string; // success, info, warn, error
-}
-
-const Toaster = ({
-    message,
-    isOpen = false,
-    onClose,
-    mode = 'info',
-}: ToasterProps): React.JSX.Element => {
+const Toaster = (): React.JSX.Element => {
 
     const dispatch = useAppDispatch();
     const ta = useAppSelector<toasterAnimationInterface>((state) => state.toasterAnimation);
@@ -68,13 +56,16 @@ const Toaster = ({
 
     useEffect(() => {
         if (ta.show) {
-        // 表示後2秒で自動的に閉じる
-        const timer = setTimeout(() => {
-            handleClose();
-        }, 2000);
-        
-        // コンポーネントがアンマウントされたらタイマーをクリア
-        return () => clearTimeout(timer);
+            // 表示後2秒で自動的に閉じる
+            const timer = setTimeout(() => {
+                setIsExiting(false);
+                dispatch({
+                    type: 'toasterAnimation/RESET'
+                });
+            }, 2000);
+            
+            // コンポーネントがアンマウントされたらタイマーをクリア
+            return () => clearTimeout(timer);
         }
     }, []);
 
@@ -85,11 +76,10 @@ const Toaster = ({
                 type: 'toasterAnimation/RESET'
             });
             setIsExiting(false);
-            if (onClose) onClose();
         }, 300); // アニメーションの長さに合わせる
     };
 
-    if (!ta.show) return null;
+    if (!ta.show && !isExiting) return <></>;
 
     const modeStyles = getStylesByMode();
     const modeIcon = getIconByMode();
@@ -107,7 +97,7 @@ const Toaster = ({
                 <div className="flex-shrink-0 mr-3">
                     {modeIcon}
                 </div>
-                <p>{message}</p>
+                <p>{ta.text}</p>
             </div>
             <button
                 onClick={handleClose}
@@ -132,76 +122,4 @@ const Toaster = ({
     );
 };
 
-// Reduxと連携するトースターコンポーネント
-const ToasterContainer = (): React.JSX.Element => {
-    const dispatch = useAppDispatch();
-    const ta = useAppSelector((state: any) => state.toasterAnimation);
-    
-    const handleCloseToaster = () => {
-        dispatch({
-            type: 'toasterAnimation/RESET'
-        });
-    };
-    
-    return (
-        <Toaster
-        message={ta.text}
-        isOpen={ta.show}
-        onClose={handleCloseToaster}
-        mode={ta.mode}
-        />
-    );
-};
-
-// 使用例
-const ToasterExample = (): React.JSX.Element => {
-  const [showToaster, setShowToaster] = useState(false);
-  const [toasterMode, setToasterMode] = useState('info');
-  const dispatch = useAppDispatch();
-
-  const showToasterWithMode = (mode: string) => {
-    setToasterMode(mode);
-    dispatch({
-      type: 'toasterAnimation/setShow',
-      show: true,
-      text: `${mode}モードのトースターメッセージです！`,
-      mode: mode
-    });
-  };
-
-  return (
-    <div className="p-8">
-      <div className="flex space-x-2 mb-4">
-        <button
-          onClick={() => showToasterWithMode('success')}
-          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-        >
-          成功トースター
-        </button>
-        <button
-          onClick={() => showToasterWithMode('info')}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        >
-          情報トースター
-        </button>
-        <button
-          onClick={() => showToasterWithMode('warn')}
-          className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700"
-        >
-          警告トースター
-        </button>
-        <button
-          onClick={() => showToasterWithMode('error')}
-          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-        >
-          エラートースター
-        </button>
-      </div>
-      
-      <ToasterContainer />
-    </div>
-  );
-};
-
-export { Toaster, ToasterContainer, ToasterExample };
-export default ToasterExample;
+export default Toaster
