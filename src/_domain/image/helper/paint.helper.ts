@@ -14,7 +14,7 @@ export const setupPaint = async (
     await PaintService.call()
         .setRatio(2)
         .setPaintTarget(target, {width: size.width, height: size.height})
-        .setLineWidth(60)
+        .setLineWidth(140)
         .setLineColor('rgba(0,250,0,1.0)')
         //.setFillColor('rgba(rgba(0,250,0,1.0))')
         .setEraseMode(false)

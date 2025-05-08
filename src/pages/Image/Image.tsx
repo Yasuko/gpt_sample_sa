@@ -34,7 +34,7 @@ export const Image = (): JSX.Element => {
             grid grid-rows-3 grid-cols-3 gap4
             w-full h-[90vh]
         '>
-            <div className='row-span-3 col-span-1'>
+            <div className='px-4 row-span-3 col-span-1'>
                 <div className="form-row align-items-center">
                     <h1 className="
                     m-2

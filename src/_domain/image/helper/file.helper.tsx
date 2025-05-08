@@ -1,7 +1,8 @@
 // import Library
-import { DragService } from '../../../_lib/drag/drag.service';
-import { FileService } from '../../../_lib/drag/file.service';
-import { ImageHelper } from '../../../_lib/image/helper/image.helper';
+import { DragService } from '@/_lib/drag/drag.service'
+import { FileService } from '@/_lib/drag/file.service'
+import { ImageHelper } from '@/_lib/image/helper/image.helper'
+import { ImageFormatService } from '@/_lib/image/image_format.service'
 export class FileHelper {
     private static instance: FileHelper;
 
@@ -50,5 +51,15 @@ export class FileHelper {
     public async toImageElement(image: string): Promise<HTMLImageElement> {
         await ImageHelper.call().setImage(image);
         return ImageHelper.call().getImageForElement();
+    }
+
+    public async toPng(image: string, extention: 'jpeg' | 'webp' = 'jpeg'): Promise<string> {
+        if (extention === 'jpeg') {
+            return await ImageFormatService.call().jpegToPng(image)
+        }
+        if (extention === 'webp') {
+            return await ImageFormatService.call().jpegToWebp(image)
+        }
+        return image;
     }
 }

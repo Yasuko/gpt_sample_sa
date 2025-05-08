@@ -21,7 +21,8 @@ export const createStore = () => {
                         'FileAction/dragEnd',
                         'WhisperAction/DragEnd',
                         'WhisperForm/setRecorder',
-                        'AudioAction/split'
+                        'AudioAction/split',
+                        'ImageEditAction/DragEnd',
                     ],
                     ignoredActionPaths: [],
                     ignoredPaths: [

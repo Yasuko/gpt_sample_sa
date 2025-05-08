@@ -18,7 +18,7 @@ export const Option = (): JSX.Element => {
     const io = useSelector((state: ImageEditOptionPropsInterface): ImageEditOptionInterface => {
         return state.ImageEditOption === undefined ? initialState : state.ImageEditOption
     })
-console.log(io.mask_base64)
+
     return (
         <div className='grid grid-cols-3 gap-4'>
 
@@ -129,6 +129,7 @@ console.log(io.mask_base64)
                                 model   : e.target.value
                             })
                     }}>
+                        <option value='gpt-image-1'>gpt-image-1</option>
                         <option value='dall-e-2'>dall-e-2</option>
                     </select>
                 </div>
@@ -157,34 +158,8 @@ console.log(io.mask_base64)
                         <option value='256x256'>256x256</option>
                         <option value='512x512'>512x512</option>
                         <option value='1024x1024'>1024x1024</option>
-                        <option value='1024x1792'>1024x1792</option>
-                        <option value='1792x1024'>1792x1024</option>
-                    </select>
-                </div>
-                <div className='leading-10 mt-1'>
-                    response_format :
-                </div>
-                <div className='col-span-2'>
-                    <select
-                        className='
-                            py-3 px-4 pe-9 block w-full
-                            border-gray-200 rounded-lg
-                            text-sm
-                            focus:border-blue-500 focus:ring-blue-500
-                            disabled:opacity-50 disabled:pointer-events-none
-                            dark:bg-neutral-900 dark:border-neutral-700
-                            dark:text-neutral-400 dark:placeholder-neutral-500
-                            dark:focus:ring-neutral-600
-                        '
-                        value={io.response_format}
-                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                            dispatch({
-                                type    : 'ImageEditOption/setResponseFormat',
-                                responseFormat    : e.target.value
-                            })
-                        }}>
-                        <option value='b64_json'>b64_json</option>
-                        <option value='url'>url</option>
+                        <option value='1024x1536'>1024x1536</option>
+                        <option value='1536x1024'>1536x1024</option>
                     </select>
                 </div>
 

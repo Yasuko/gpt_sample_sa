@@ -77,6 +77,7 @@ export const Option = (): JSX.Element => {
                         })
                     }}
                 >
+                    <option value='gpt-image-1'>gpt-image-1</option>
                     <option value='dall-e-3'>dall-e-3</option>
                     <option value='dall-e-2'>dall-e-2</option>
                 </select>
@@ -110,60 +111,7 @@ export const Option = (): JSX.Element => {
                     <option value='1792x1024'>1792x1024</option>
                 </select>
             </div>
-            <div className='ml-2 mt-1 leading-10'>
-                style :
-            </div>
-            <div className=''>
-                <select
-                    className='
-                        py-3 px-4 pe-9 block w-full
-                        border-gray-200 rounded-lg
-                        text-sm
-                        focus:border-blue-500 focus:ring-blue-500
-                        disabled:opacity-50 disabled:pointer-events-none
-                        dark:bg-neutral-900 dark:border-neutral-700
-                        dark:text-neutral-400 dark:placeholder-neutral-500
-                        dark:focus:ring-neutral-600
-                    '
-                    value={io.style}
-                    onChange={(e) => {
-                        dispatch({
-                            type    : 'ImageOption/setStyle',
-                            style    : e.target.value
-                        })
-                    }}
-                >
-                    <option value='vivid'>vivid</option>
-                    <option value='natural'>natural</option>
-                </select>
-            </div>
-            <div className='ml-2 mt-1 leading-10'>
-                response_format :
-            </div>
-            <div className=''>
-                <select
-                    className='
-                        py-3 px-4 pe-9 block w-full
-                        border-gray-200 rounded-lg
-                        text-sm
-                        focus:border-blue-500 focus:ring-blue-500
-                        disabled:opacity-50 disabled:pointer-events-none
-                        dark:bg-neutral-900 dark:border-neutral-700
-                        dark:text-neutral-400 dark:placeholder-neutral-500
-                        dark:focus:ring-neutral-600
-                    '
-                    value={io.response_format}
-                    onChange={(e) => {
-                        dispatch({
-                            type    : 'ImageOption/setResponseFormat',
-                            responseFormat    : e.target.value
-                        })
-                    }}
-                >
-                    <option value='b64_json'>b64_json</option>
-                    <option value='url'>url</option>
-                </select>
-            </div>
+
             <div className='ml-2 mt-1 leading-10'>
                 quality :
             </div>
@@ -186,8 +134,10 @@ export const Option = (): JSX.Element => {
                         })
                     }}
                 >
-                    <option value='standard'>standard</option>
-                    <option value='hq'>hq</option>
+                    <option value='medium'>medium</option>
+                    <option value='low'>low</option>
+                    <option value='high'>high</option>
+                    <option value='auto'>auto</option>
                 </select>
             </div>
             <div className='ml-2 mt-1 leading-10'>

@@ -89,6 +89,7 @@ export const OptionChange = (): JSX.Element => {
                         model   : e.target.value
                     })
                 }}>
+                    <option value='gpt-image-1'>gpt-image-1</option>
                     <option value='dall-e-2'>dall-e-2</option>
                 </select>
             </div>

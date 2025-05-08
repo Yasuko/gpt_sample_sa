@@ -8,6 +8,8 @@ import { ImageModel } from '../_model/image.model'
 
 // import helper 
 import { toMatchImage, getInvertMask } from './helper/paint.helper'
+import { FileHelper } from './helper/file.helper'
+import { setupPaint } from './helper/paint.helper'
 
 // reducer
 import {
@@ -18,9 +20,7 @@ import {
     TokenFormPropsInterface
 } from '../token/reducers/TokenForm'
 
-// import helper
-import { FileHelper } from './helper/file.helper'
-import { setupPaint } from './helper/paint.helper'
+
 
 
 const Token = (state: TokenFormPropsInterface) => state.TokenForm
@@ -46,20 +46,24 @@ function* sendPrompt(val: any): any {
     yield loadingShow('Now 画像再生成中や念。Now')
     let options: any = {}
     options = yield select(imageEditOption)
-
+    console.log('sendPrompt', options)
     const token = yield select(Token)
     const r = yield ImageModel.call(token.token).generate('edit', options)
+    const op: any = {
+        prompt  : (options.prompt) ? options.prompt  : '',
+        image   : 'data:image/png;base64,' + r.data[0].b64_json,
+        revisied_prompt: r.data[0].revised_prompt,
+        job     : val.key,
+    }
+
+    if (options.mask !== '') {
+        op['mask'] = 'data:image/png;base64,' + options.mask
+    }
 
     console.log(r)
     yield put({
         type    : 'ImageList/addImages',
-        images  : {
-            prompt  : (options.prompt) ? options.prompt  : '',
-            image   : 'data:image/png;base64,' + r.data[0].b64_json,
-            revisied_prompt: r.data[0].revised_prompt,
-            mask    : (options.mask) ? 'data:image/png;base64,' + options.mask : '',
-            job     : val.key,
-        }
+        images  : op
     })
 
     yield loadingHide()
@@ -75,6 +79,12 @@ function* sendPrompt(val: any): any {
 function* dragEnd(val: any): any {
     yield FileHelper.call().dragEnd(val.event)
     const f = FileHelper.call().getDataFile()
+    console.log(f)
+
+    if (f.type !== 'png') {
+        f.image = yield FileHelper.call().toPng(f.image, f.type)
+        f.type = 'png'
+    }
 
     if (val.target === 'base') {
         yield put({
