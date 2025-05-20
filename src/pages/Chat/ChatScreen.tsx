@@ -1,12 +1,9 @@
-import { JSX } from 'react'
+import React, { JSX } from 'react'
 
 // import helper
 
 // import reducer
 import { UserMessageType } from '../../_lib/gpt/_helper/chat.helper'
-import { Dispatch } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux'
-
 
 // import component
 
@@ -21,8 +18,6 @@ export const ChatScreen = ({
     if (!screen)
         return <></>
 
-    const dispatch = useDispatch()
-
     return (
         <div className="
         absolute top-[10%] right-[10%]
@@ -32,14 +27,13 @@ export const ChatScreen = ({
             <div className='w-full ms-auto flex justify-center gap-x-2'>
                 <h1>New Chat Message</h1>
             </div>
-            { UserContent(cf.content, dispatch) }
+            { UserContent(cf.content) }
         </div>
     )
 }
 
 const UserContent = (
     ct: UserMessageType['content'],
-    dispatch: Dispatch
 ): JSX.Element => {
     return (
         <div
@@ -48,7 +42,7 @@ const UserContent = (
                 mt-4 sm:gap-x-4
             ">
         <div className="grow text-end space-y-3">
-            { UserContentList(ct, dispatch) }
+            { UserContentList(ct) }
         </div>
         <span className="
             shrink-0 inline-flex items-center justify-center
@@ -64,15 +58,30 @@ const UserContent = (
 
 const UserContentList = (
     ct: UserMessageType['content'],
-    dispatch: Dispatch
 ): JSX.Element => {
     const c = ct.map((val, key) => {
         switch (val.type) {
             case 'text':
                 return (
                     <div key={key} className="
-                        w-full mb-2 inline-block bg-gray-900 rounded-lg p-4 shadow-sm">
-                        <pre className='text-sm text-white'>{val.text}</pre>
+                        w-full h-[250px] mb-2
+                        inline-block
+                        bg-gray-900
+                        rounded-lg p-4 shadow-sm
+                        overflow-scroll
+                        ">
+                        <pre className='text-sm text-white whitespace-pre-wrap'>
+                        {
+                        val.text.length > 30 
+                            ? val.text.split(' ').reduce((acc, word) => {
+                                if ((acc.split('\n').pop() || '').length + word.length > 30) {
+                                    return acc + '\n' + word + ' ';
+                                }
+                                return acc + word + ' ';
+                            }, '').trim()
+                            : val.text
+                        }
+                    </pre>
                     </div>
                 )
             case 'image_url':

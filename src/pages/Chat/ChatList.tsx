@@ -7,6 +7,7 @@ import {
     Chat,
 } from '../../_domain/chat/reducers/__type.chat'
 import { AssistantMessageType, ToolMessageType, UserMessageType } from '../../_lib/gpt/_helper/chat.helper'
+import { copyToClipboard } from './_handler'
 
 
 // import component
@@ -51,9 +52,7 @@ const SystemContent = (ct: string): JSX.Element => {
                 size-[38px] rounded-full bg-purple-600 hover:bg-purple-700 cursor-pointer">
                 <span className="
                     text-sm font-medium text-white leading-none"
-                    onClick={() => {
-                        copyToClipboard(ct)
-                    }}
+                    onClick={() => copyToClipboard(ct)}
                     >
                     Sys
                 </span>
@@ -106,11 +105,19 @@ const UserContentList = (ct: UserMessageType['content']): JSX.Element => {
                     <div
                         key={key}
                         className="inline-block bg-gray-600 rounded-lg p-4 shadow-sm"
-                        onClick={() => {
-                            copyToClipboard(val.text)
-                        }}
+                        onClick={() => copyToClipboard(val.text)}
                         >
-                        <pre className='text-sm text-white'>{val.text}</pre>
+                        <pre className='text-sm text-white whitespace-pre-wrap'>
+                            {val.text.length > 30 
+                                ? val.text.split(' ').reduce((acc, word) => {
+                                    if ((acc.split('\n').pop() || '').length + word.length > 30) {
+                                    return acc + '\n' + word + ' ';
+                                    }
+                                    return acc + word + ' ';
+                                }, '').trim()
+                                : val.text
+                            }
+                        </pre>
                     </div>
                 )
             case 'image_url':
@@ -139,12 +146,5 @@ const UserContentList = (ct: UserMessageType['content']): JSX.Element => {
     )
 }
 
-const copyToClipboard = (text: string): void => {
-    navigator.clipboard.writeText(text).then(() => {
-        console.log("クリップボードにコピーされました。");
-    }).catch(err => {
-        console.error("クリップボードへのコピーに失敗しました: ", err);
-    });
-}
 
 export default ChatList
