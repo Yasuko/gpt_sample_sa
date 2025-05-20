@@ -1,5 +1,5 @@
 import React, { JSX } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useAppDispatch, useAppSelector } from '@/_store/configureStore'
 
 // import reducer
 import {
@@ -10,11 +10,12 @@ import {
 
 // import component
 import GPT_Selector from '../_component/gpt_selector'
+import { ChatFormOptions } from './_handler'
 
 export const Option = (): JSX.Element => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     // コンテンツ表示Reducer呼び出し
-    const cf = useSelector((state: ChatFormPropsInterface): ChatFormInterface => {
+    const cf = useAppSelector((state: ChatFormPropsInterface): ChatFormInterface => {
         return state.ChatForm === undefined ? initialState : state.ChatForm
     })
 
@@ -45,13 +46,7 @@ export const Option = (): JSX.Element => {
                         '
                     type='checkbox'
                     checked={cf.options.store}
-                    onChange={(e) => {
-                        dispatch({
-                            type    : 'ChatForm/setOptions',
-                            key     : 'store',
-                            option  : e.target.value
-                        })
-                    }}
+                    onChange={(e) => ChatFormOptions(e)}
                 />
             </div>
 
