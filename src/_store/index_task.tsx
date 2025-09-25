@@ -12,10 +12,7 @@ import { RootSpeechAction } from '../_domain/speech/speech.action'
 import { RootEmbedAction } from '../_domain/embed/embed.action'
 import { RootTokenAction } from '../_domain/token/token.action'
 import { RootRealtimeAction } from '../_domain/realtime/realtime.action'
-import { RootVectorStoreAction } from '../_domain/vectorStore/vectorStore.action'
-import { RootVectorFileAction } from '../_domain/vectorStore/vectorFile.action'
-import { RootVectorBatchAction } from '../_domain/vectorStore/vectorBatch.action'
-import { RootFileAction } from '../_domain/file/file.action'
+import { RootResponseAction } from '@/_domain/response/response.action'
 
 // Load AnimationAction
 import { AnimationTask } from '../pages/animation/index.task'
@@ -36,10 +33,7 @@ export default function* rootSaga() {
         ...RootEmbedAction,
         ...RootTokenAction,
         ...RootRealtimeAction,
-        ...RootVectorStoreAction,
-        ...RootVectorFileAction,
-        ...RootVectorBatchAction,
-        ...RootFileAction,
+        ...RootResponseAction,
         ...AnimationTask
     ]);
 }

@@ -26,6 +26,7 @@ export const GPT_Selector = (state: GPTSelectorState): JSX.Element => {
                     dark:text-neutral-400 dark:placeholder-neutral-500
                     dark:focus:ring-neutral-600'
                 value={state.model}
+                defaultValue={state.model}
                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                     dispatch({
                         type    : state.next,
@@ -35,11 +36,9 @@ export const GPT_Selector = (state: GPTSelectorState): JSX.Element => {
                         }
                     })
                 }}>
-                    <option value='o4-mini'>o4 mini</option>
-                    <option value='o3-mini'>o3 mini</option>
-                    <option value='o1-mini'>o1 mini</option>
-                    <option value='gpt-4.1'>gpt 4.1</option>
-                    <option value='gpt-4.1-mini'>gpt 4.1 mini</option>
+                    <option value='gpt-5-nano'>gpt 5 nano</option>
+                    <option value='gpt-5-mini'>gpt 5 mini</option>
+                    <option value='gpt-5'>gpt 5</option>
                 </select>
             </div>
         </>

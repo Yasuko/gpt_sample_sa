@@ -22,7 +22,11 @@ export const createStore = () => {
                         'WhisperAction/DragEnd',
                         'WhisperForm/setRecorder',
                         'AudioAction/split',
-                        'ImageEditAction/DragEnd',
+                        'ImageEditAction/dragEnd',
+                        'ResponseAction/dragEnd',
+                        'ResponseAction/dragStart',
+                        'ChatAction/dragEnd',
+                        'ChatAction/dragStart',
                     ],
                     ignoredActionPaths: [],
                     ignoredPaths: [

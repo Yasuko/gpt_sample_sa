@@ -148,7 +148,7 @@ export const Option = (): JSX.Element => {
                             dark:bg-neutral-900 dark:border-neutral-700
                             dark:text-neutral-400 dark:placeholder-neutral-500
                             dark:focus:ring-neutral-600'
-                        value={io.size}
+                        defaultValue={(io.size === null) ? "1024x1024" : io.size}
                         onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                             dispatch({
                                 type    : 'ImageEditOption/setSize',

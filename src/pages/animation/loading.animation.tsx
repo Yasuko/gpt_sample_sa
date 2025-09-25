@@ -32,7 +32,7 @@ const LoadingAnimation = () => {
     if (!loadingAnimation.show) return null
 
     return (
-        <div className={`fixed inset-0 w-screen h-screen flex items-center justify-center z-[9999] ${isDark ? 'bg-[#181a1b]' : 'bg-white'}`}>
+        <div className={`fixed inset-0 w-screen h-screen flex items-center justify-center z-[9999] ${isDark ? 'bg-[#181a1b] opacity-20' : 'bg-white opacity-40'}`}>
             <div className="flex flex-col items-center w-full max-w-full">
                 {/* 点滅するテキスト */}
                 <div

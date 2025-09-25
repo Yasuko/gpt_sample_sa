@@ -1,4 +1,4 @@
-import { JSX } from 'react'
+import React, { JSX } from 'react'
 
 import { Link } from 'react-router-dom'
 
@@ -28,24 +28,7 @@ const Header = (): JSX.Element => {
                             flex justify-center gap-5 relative mt-3 m-auto
 
                             sm:flex-row sm:items-center sm:mt-0">
-                        <Link
-                            to="/File"
-                            className="
-                                font-medium text-gray-600 hover:text-gray-400
-                                focus:outline-none focus:text-gray-400
-                                dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500
-                            ">
-                            File
-                        </Link>
-                        <Link
-                            to="/VectorStore"
-                            className="
-                                font-medium text-gray-600 hover:text-gray-400
-                                focus:outline-none focus:text-gray-400
-                                dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500
-                            ">
-                            VectorStor
-                        </Link>                 
+            
                         <Link
                             to="/Realtime"
                             className="
@@ -82,6 +65,15 @@ const Header = (): JSX.Element => {
                             ">
                             Chat
                         </Link>
+                        <Link
+                            to="/Response"
+                            className="
+                                font-medium text-gray-600 hover:text-gray-400
+                                focus:outline-none focus:text-gray-400
+                                dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500
+                            ">
+                            Response
+                        </Link>
                         {/*
                         <Link
                             to="/ChatAdvance"
@@ -101,15 +93,6 @@ const Header = (): JSX.Element => {
                                 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500
                             ">
                             Embed
-                        </Link>
-                        <Link
-                            to="/Vision"
-                            className="
-                                font-medium text-gray-600 hover:text-gray-400
-                                focus:outline-none focus:text-gray-400
-                                dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500
-                            ">
-                            Vision
                         </Link>
                         <Link
                             to="/Image"

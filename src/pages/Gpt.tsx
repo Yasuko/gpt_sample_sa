@@ -17,14 +17,14 @@ import { createStore } from '../_store/configureStore'
 import WhisperIndex from './Whisper/index'
 import SpeechIndex from './Speech/index'
 import ChatIndex from './Chat/index'
-import ChatAdvance from './ChatAdvance/index'
+import ResponseIndex from './Response/index'
+//import ChatAdvance from './ChatAdvance/index'
 import EmbedIndex from './Embed/index'
 import ImageIndex from './Image/index'
-import VisionIndex from './Vision'
 import TokenIndex from './token/index'
 import RealtimeIndex from './Realtime/index'
-import VectorStoreIndex from './VectorStore/index'
-import FileIndex from './File/index'
+//import VectorStoreIndex from './VectorStore/index'
+//import FileIndex from './File/index'
 
 interface FaceInterface {
     page: string
@@ -44,17 +44,14 @@ const Gpt = (p: FaceInterface): JSX.Element => {
 
 const changer = (p: string): JSX.Element => {
     if (p === '') return <ChatIndex />
+    if (p === 'response') return <ResponseIndex />
     if (p === 'chat') return <ChatIndex />
-    if (p === 'chatadvance') return <ChatAdvance />
     if (p === 'embed') return <EmbedIndex />
     if (p === 'whisper') return <WhisperIndex />
     if (p === 'speech') return <SpeechIndex />
     if (p === 'image') return <ImageIndex />
-    if (p === 'vision') return <VisionIndex />
     if (p === 'token') return <TokenIndex />
     if (p === 'realtime') return <RealtimeIndex />
-    if (p === 'vector_store') return <VectorStoreIndex />
-    if (p === 'file') return <FileIndex />
     return <ChatIndex />
 }
 

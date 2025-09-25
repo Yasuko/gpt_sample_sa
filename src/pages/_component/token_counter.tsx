@@ -18,7 +18,7 @@ export const TokenCounter = (): JSX.Element => {
     return (
         <div
             className='
-                absolute right-0 bottom-0 w-[150px] h-12
+                fixed right-0 bottom-0 w-[150px] h-12
                 bg-gray-500 bg-opacity-95
                 text-sm text-gray-300
                 rounded-lg
