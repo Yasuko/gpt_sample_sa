@@ -102,6 +102,7 @@ export const Chat = (): JSX.Element => {
 
                 <div className='
                     overflow-y-auto overflow-x-hidden
+                    pb-[calc(var(--chat-input-height,0px)+24px)]
                     '>
                     <ChatList />
                 </div>

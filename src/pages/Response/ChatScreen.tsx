@@ -31,6 +31,20 @@ export const ChatScreen = () => {
         return () => ro.disconnect()
     }, [])
 
+    // 入力欄の実高さを CSS 変数に反映して、履歴側で padding-bottom に利用できるようにする
+    React.useEffect(() => {
+        const el = rootRef.current
+        if (!el) return
+        const update = () => {
+            const h = el.getBoundingClientRect().height
+            document.documentElement.style.setProperty('--chat-input-height', `${h}px`)
+        }
+        update()
+        const ro = new ResizeObserver(update)
+        ro.observe(el)
+        return () => ro.disconnect()
+    }, [])
+
     return (
         <div
             ref={rootRef}

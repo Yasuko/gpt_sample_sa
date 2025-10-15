@@ -26,9 +26,6 @@ export const ChatList = () => {
                 if (ref && (specificIndex === undefined || specificIndex === index)) {
                     const rect = ref.getBoundingClientRect()
                     let height = rect.height + 50 // 上下50pxずつ追加
-                    if (index === rh.historys.length - 1) {
-                        height += 450 // 最終段の下に350px追加
-                    }
                     if (specificIndex !== undefined) {
                         newHeights[index] = height
                     } else {
@@ -43,8 +40,9 @@ export const ChatList = () => {
     }, [rh.historys.length])
 
     useLayoutEffect(() => {
+        // 配列の参照が変わらない（ミューテート）場合でも再計算が走るように length を依存にする
         calculateHeights()
-    }, [rh.historys])
+    }, [rh.historys.length, calculateHeights])
 
     if (rh.historys.length === 0)
         return <div className='flex flex-row gap-4 p-4'>
