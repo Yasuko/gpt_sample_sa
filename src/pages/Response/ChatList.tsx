@@ -27,7 +27,7 @@ export const ChatList = () => {
                     const rect = ref.getBoundingClientRect()
                     let height = rect.height + 50 // 上下50pxずつ追加
                     if (index === rh.historys.length - 1) {
-                        height += 350 // 最終段の下に350px追加
+                        height += 450 // 最終段の下に350px追加
                     }
                     if (specificIndex !== undefined) {
                         newHeights[index] = height

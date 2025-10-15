@@ -34,7 +34,7 @@ export const ChatScreen = () => {
     return (
         <div
             ref={rootRef}
-            className="flex flex-col absolute bottom-[5%] py-4 bg-white dark:bg-gray-800  border-gray-200 dark:border-gray-700">
+            className="flex flex-col fixed bottom-[5%] py-4 bg-white dark:bg-gray-800  border-gray-200 dark:border-gray-700">
             {/* 相対コンテナでオーバーレイの基準にする（textarea と上端を合わせる） */}
             <div className="flex-3 m-4 mb-1">
                 {/* オーバーレイのコンテンツ一覧（上端に揃える） */}
