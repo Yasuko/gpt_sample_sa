@@ -1,4 +1,4 @@
-import React, { JSX, useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react'
+import React, { JSX } from 'react'
 
 // import helper
 
@@ -7,42 +7,13 @@ import {
     ResponseHistoryInterface, 
 } from '../../_domain/response/reducers/ResponseHistory'
 import { copyToClipboard } from './_handler'
-import { useAppDispatch, useAppSelector } from '@/_store/configureStore'
+import { useAppSelector } from '@/_store/configureStore'
 
 
 // import component
 
 export const ChatList = () => {
-    const dispatch = useAppDispatch()
     const rh = useAppSelector<ResponseHistoryInterface>(state => state.ResponseHistory)
-
-    const [heights, setHeights] = useState<number[]>([])
-    const refs = useRef<(HTMLDivElement | null)[]>([])
-
-    const calculateHeights = useCallback((specificIndex?: number) => {
-        setHeights(prevHeights => {
-            const newHeights = specificIndex !== undefined ? [...prevHeights] : []
-            refs.current.forEach((ref, index) => {
-                if (ref && (specificIndex === undefined || specificIndex === index)) {
-                    const rect = ref.getBoundingClientRect()
-                    let height = rect.height + 50 // 上下50pxずつ追加
-                    if (specificIndex !== undefined) {
-                        newHeights[index] = height
-                    } else {
-                        newHeights.push(height)
-                    }
-                } else if (specificIndex === undefined) {
-                    newHeights.push(0)
-                }
-            })
-            return newHeights
-        })
-    }, [rh.historys.length])
-
-    useLayoutEffect(() => {
-        // 配列の参照が変わらない（ミューテート）場合でも再計算が走るように length を依存にする
-        calculateHeights()
-    }, [rh.historys.length, calculateHeights])
 
     if (rh.historys.length === 0)
         return <div className='flex flex-row gap-4 p-4'>
@@ -53,43 +24,39 @@ export const ChatList = () => {
         return (
             <div
                 key={key}
-                ref={(el) => { refs.current[key] = el; }}
                 id={`history_${key}`}
                 className="
                     flex flex-row gap-4 p-4
                 "
-                style={{ height: heights[key] ? `${heights[key]}px` : '0' }}
             >
-                { RoleSwitch(val, calculateHeights, key) }
+                { RoleSwitch(val) }
             </div>
         )
     })
     return (
         <div className=''>
             {list}
+            {/* 下詰まりを防ぐためのスペーサー */}
+            <div className="w-full h-[350px]" aria-hidden="true" />
         </div>
     )
 }
 
 const RoleSwitch = (
-    history: ResponseHistoryInterface['historys'][number],
-    calculateHeights: (index?: number) => void,
-    index: number
+    history: ResponseHistoryInterface['historys'][number]
 ): JSX.Element => {
     switch (history.role) {
         case 'user':
-            return UserContent(history, calculateHeights, index)
+            return UserContent(history)
         case 'assistant':
-            return AssistantContent(history, calculateHeights, index)
+            return AssistantContent(history)
         default:
             return <div></div>
     }
 }
 
 const AssistantContent = (
-    ct: ResponseHistoryInterface['historys'][number],
-    calculateHeights: (index?: number) => void,
-    index: number
+    ct: ResponseHistoryInterface['historys'][number]
 ): JSX.Element => {
     console.log('Assistant' ,ct);
     return (
@@ -127,14 +94,14 @@ const AssistantContent = (
                                 width={64}
                                 height={64}
                                 className="object-cover"
-                                onLoad={() => calculateHeights(index)} />
+                                />
                         )}
                         {ct.audio && (
                             <audio
                                 key="audio"
                                 controls
                                 className="w-32 h-16"
-                                onLoadedData={() => calculateHeights(index)}>
+                                >
                                 <source src={ct.audio.data} type="audio/mpeg" />
                                 Your browser does not support the audio element.
                             </audio>
@@ -152,9 +119,7 @@ const AssistantContent = (
 }
 
 const UserContent = (
-    history: ResponseHistoryInterface['historys'][number],
-    calculateHeights: (index?: number) => void,
-    index: number
+    history: ResponseHistoryInterface['historys'][number]
 ): JSX.Element => {
     console.log(history);
     return (
@@ -184,13 +149,13 @@ const UserContent = (
                             width={64}
                             height={64}
                             className="object-cover"
-                            onLoad={() => calculateHeights(index)} />
+                            />
                     )}
                     {history.audio && (
                         <audio
                             controls
                             className="w-32 h-16"
-                            onLoadedData={() => calculateHeights(index)}>
+                            >
                             <source src={history.audio.data} type="audio/mpeg" />
                             Your browser does not support the audio element.
                         </audio>
