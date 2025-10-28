@@ -19,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Route path="/Image" element={ <Gpt page="image" /> }></Route>
         <Route path="/Token" element={ <Gpt page="token" /> }></Route>
         <Route path="/Realtime" element={ <Gpt page="realtime" /> }></Route>
+        <Route path="/Video" element={ <Gpt page="video" /> }></Route>
     </Routes>
   </BrowserRouter>
 )

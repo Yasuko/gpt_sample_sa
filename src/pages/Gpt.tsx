@@ -23,6 +23,7 @@ import EmbedIndex from './Embed/index'
 import ImageIndex from './Image/index'
 import TokenIndex from './token/index'
 import RealtimeIndex from './Realtime/index'
+import VideoIndex from './Video/index'
 //import VectorStoreIndex from './VectorStore/index'
 //import FileIndex from './File/index'
 
@@ -52,6 +53,7 @@ const changer = (p: string): JSX.Element => {
     if (p === 'image') return <ImageIndex />
     if (p === 'token') return <TokenIndex />
     if (p === 'realtime') return <RealtimeIndex />
+    if (p === 'video') return <VideoIndex />
     return <ChatIndex />
 }
 

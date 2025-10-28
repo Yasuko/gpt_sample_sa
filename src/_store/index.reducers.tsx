@@ -10,6 +10,7 @@ import { EmbedReducer } from '../_domain/embed/index.reducers'
 import { TokenReducer } from '../_domain/token/index.reducers'
 import { RealtimeReducer } from '../_domain/realtime/index.reducers'
 import { ResponseReducer } from '../_domain/response/index.reducers'
+import { VideoReducer } from '../_domain/video/index.reducers'
 
 import ShowContent from '../_domain/_all/reducers/ShowContent'
 import JobStack from '../_domain/_all/reducers/JobStack'
@@ -29,6 +30,7 @@ export const reducer = {
     ...TokenReducer,
     ...RealtimeReducer,
     ...ResponseReducer,
+    ...VideoReducer,
     ShowContent,
     JobStack,
     Tools,
